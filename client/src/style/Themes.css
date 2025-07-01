@@ -1,0 +1,120 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Orbit&display=swap");
+
+.orbit {
+  font-family: "Orbit", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  /* font-weight: 400; */
+  font-style: normal;
+}
+
+.jb-mono {
+  font-family: "JetBrains Mono", monospace;
+  font-optical-sizing: auto;
+  /* font-weight: 400; */
+  font-style: normal;
+}
+
+:root[data-theme="light"],
+:root {
+  --primary: rgb(44 99 139);
+  --surface-tint: rgb(44 99 139);
+  --on-primary: rgb(255 255 255);
+  --primary-container: rgb(204 229 255);
+  --on-primary-container: rgb(7 75 114);
+  --secondary: rgb(121 79 129);
+  --on-secondary: rgb(255 255 255);
+  --secondary-container: rgb(253 214 255);
+  --on-secondary-container: rgb(96 55 104);
+  --tertiary: rgb(121 89 12);
+  --on-tertiary: rgb(255 255 255);
+  --tertiary-container: rgb(255 222 164);
+  --on-tertiary-container: rgb(93 66 0);
+  --error: rgb(186 26 26);
+  --on-error: rgb(255 255 255);
+  --error-container: rgb(255 218 214);
+  --on-error-container: rgb(147 0 10);
+  --background: rgb(247 249 255);
+  --on-background: rgb(24 28 32);
+  --surface: rgb(245 250 251);
+  --on-surface: rgb(23 29 30);
+  --surface-variant: rgb(219 228 230);
+  --on-surface-variant: rgb(63 72 74);
+  --outline: rgb(111 121 123);
+  --outline-variant: rgb(191 200 202);
+  --shadow: rgb(0 0 0);
+  --scrim: rgb(0 0 0);
+  --inverse-surface: rgb(43 49 50);
+  --inverse-on-surface: rgb(236 242 243);
+  --inverse-primary: rgb(153 204 250);
+  --primary-fixed: rgb(204 229 255);
+  --on-primary-fixed: rgb(0 29 49);
+  --primary-fixed-dim: rgb(153 204 250);
+  --on-primary-fixed-variant: rgb(7 75 114);
+  --secondary-fixed: rgb(253 214 255);
+  --on-secondary-fixed: rgb(48 10 57);
+  --secondary-fixed-dim: rgb(233 181 239);
+  --on-secondary-fixed-variant: rgb(96 55 104);
+  --tertiary-fixed: rgb(255 222 164);
+  --on-tertiary-fixed: rgb(38 25 0);
+  --tertiary-fixed-dim: rgb(236 192 108);
+  --on-tertiary-fixed-variant: rgb(93 66 0);
+  --surface-dim: rgb(213 219 220);
+  --surface-bright: rgb(245 250 251);
+  --surface-container-lowest: rgb(255 255 255);
+  --surface-container-low: rgb(239 245 246);
+  --surface-container: rgb(233 239 240);
+  --surface-container-high: rgb(227 233 234);
+  --surface-container-highest: rgb(222 227 228);
+}
+
+:root[data-theme="dark"] {
+  --primary: rgb(153 204 250);
+  --surface-tint: rgb(153 204 250);
+  --on-primary: rgb(0 51 81);
+  --primary-container: rgb(7 75 114);
+  --on-primary-container: rgb(204 229 255);
+  --secondary: rgb(233 181 239);
+  --on-secondary: rgb(71 33 80);
+  --secondary-container: rgb(96 55 104);
+  --on-secondary-container: rgb(253 214 255);
+  --tertiary: rgb(236 192 108);
+  --on-tertiary: rgb(65 45 0);
+  --tertiary-container: rgb(93 66 0);
+  --on-tertiary-container: rgb(255 222 164);
+  --error: rgb(255 180 171);
+  --on-error: rgb(105 0 5);
+  --error-container: rgb(147 0 10);
+  --on-error-container: rgb(255 218 214);
+  --background: rgb(16 20 24);
+  --on-background: rgb(224 226 232);
+  --surface: rgb(14 20 21);
+  --on-surface: rgb(222 227 228);
+  --surface-variant: rgb(63 72 74);
+  --on-surface-variant: rgb(191 200 202);
+  --outline: rgb(137 146 148);
+  --outline-variant: rgb(63 72 74);
+  --shadow: rgb(0 0 0);
+  --scrim: rgb(0 0 0);
+  --inverse-surface: rgb(222 227 228);
+  --inverse-on-surface: rgb(43 49 50);
+  --inverse-primary: rgb(44 99 139);
+  --primary-fixed: rgb(204 229 255);
+  --on-primary-fixed: rgb(0 29 49);
+  --primary-fixed-dim: rgb(153 204 250);
+  --on-primary-fixed-variant: rgb(7 75 114);
+  --secondary-fixed: rgb(253 214 255);
+  --on-secondary-fixed: rgb(48 10 57);
+  --secondary-fixed-dim: rgb(233 181 239);
+  --on-secondary-fixed-variant: rgb(96 55 104);
+  --tertiary-fixed: rgb(255 222 164);
+  --on-tertiary-fixed: rgb(38 25 0);
+  --tertiary-fixed-dim: rgb(236 192 108);
+  --on-tertiary-fixed-variant: rgb(93 66 0);
+  --surface-dim: rgb(14 20 21);
+  --surface-bright: rgb(52 58 59);
+  --surface-container-lowest: rgb(9 15 16);
+  --surface-container-low: rgb(23 29 30);
+  --surface-container: rgb(27 33 34);
+  --surface-container-high: rgb(37 43 44);
+  --surface-container-highest: rgb(48 54 55);
+}
