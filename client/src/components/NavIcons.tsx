@@ -1,7 +1,7 @@
-import type { FC } from "react";
+import type { FC, SVGProps } from "react";
 import "./style/NavIcons.css";
 
-interface NavIconProps {
+interface NavIconProps extends SVGProps<SVGSVGElement> {
   // contains the active state
   isActive?: boolean;
 }
@@ -26,8 +26,8 @@ export const Chevron: FC<NavIconProps> = () => (
     className="nav-icon"
   >
     <path
-      d="M40.8021 37.1737L25.7458 22.1174L29.0156 18.8477L47.3417 37.1737L29.0156 55.4997L25.7458 52.2299L40.8021 37.1737Z"
-      fill="white"
+      d="M40.095 37.8808C40.4855 37.4903 40.4855 36.8571 40.095 36.4666L26.453 22.8246C26.0624 22.434 26.0624 21.8009 26.453 21.4103L28.3085 19.5548C28.6991 19.1642 29.3322 19.1642 29.7227 19.5548L46.6346 36.4666C47.0251 36.8571 47.0251 37.4903 46.6346 37.8808L29.7227 54.7926C29.3322 55.1832 28.6991 55.1832 28.3085 54.7926L26.453 52.9371C26.0624 52.5465 26.0624 51.9134 26.453 51.5228L40.095 37.8808Z"
+      fill="#E3E3E3"
       className="chevron"
     />
   </svg>

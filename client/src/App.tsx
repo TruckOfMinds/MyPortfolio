@@ -8,18 +8,12 @@ import CodePage from "./pages/Code";
 import ProjectPage from "./pages/Project";
 import DesignsPage from "./pages/Designs";
 import ContactPage from "./pages/Contact";
+import Navbar from "./components/Navbar";
 
 export default function App() {
   return (
-    <>
-      <nav
-        className="w-fit h-dvh sticky left-0 top-0
-        flex flex-col items-center justify-evenly
-        rounded-r-2xl bg-pri-f"
-      >
-        {/* chevron + 4 icons 
-          —> make icon component to store them */}
-      </nav>
+    <div id="top" className="w-dvw min-h-dvh  flex items-start">
+      <Navbar />
 
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -29,6 +23,6 @@ export default function App() {
         <Route path="/design-projects" element={<DesignsPage />} />
         <Route path="/contact-me" element={<ContactPage />} />
       </Routes>
-    </>
+    </div>
   );
 }
