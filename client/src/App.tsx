@@ -12,7 +12,7 @@ import Navbar from "./components/Navbar";
 
 export default function App() {
   return (
-    <div id="top" className="w-dvw min-h-dvh  flex items-start">
+    <div id="top" className="w-full min-h-full  flex items-start">
       <Navbar />
 
       <Routes>

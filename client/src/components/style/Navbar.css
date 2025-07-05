@@ -1,0 +1,17 @@
+.nav-link {
+  &.active {
+    color: var(--tertiary-container);
+    path {
+      fill: var(--tertiary-container);
+    }
+  }
+}
+
+#themeChanger,
+.nav-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  color: var(--on-primary);
+}

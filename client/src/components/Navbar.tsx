@@ -1,4 +1,4 @@
-import type { JSX } from "react";
+import { useState, type JSX } from "react";
 import "./style/Navbar.css";
 import {
   Chevron,
@@ -9,14 +9,14 @@ import {
   LightIcon,
   DarkIcon,
 } from "./NavIcons";
-import { Link } from "react-router";
+import { Link, useMatch } from "react-router";
+import { getTheme } from "../utils/theming";
 
 export default function Navbar(): JSX.Element {
-  const getTheme = (): string => {
-    const theme: string | null | undefined = document
-      .querySelector(":root")
-      ?.getAttribute("data-theme");
-    return theme || "light";
+  const [expanded, setExpanded] = useState(false);
+
+  const usePath = (path: string): boolean => {
+    return Boolean(useMatch(path));
   };
 
   return (
@@ -25,29 +25,38 @@ export default function Navbar(): JSX.Element {
         flex flex-col items-center justify-evenly
         rounded-r-2xl bg-on-pri-f-var"
     >
-      <Chevron />
+      <Chevron onClick={() => setExpanded(!expanded)} />
 
-      <Link to={"/"}>
+      <Link to={"/"} className={`nav-link ${usePath("/") ? `active` : ``}`}>
         <HomeIcon />
         <p>Home</p>
       </Link>
 
-      <Link to={"/code-projects"}>
+      <Link
+        to={"/code-projects"}
+        className={`nav-link ${usePath("/code-projects") ? `active` : ``}`}
+      >
         <CodeIcon />
         <p>Dev Projects</p>
       </Link>
 
-      <Link to={"/design-projects"}>
+      <Link
+        to={"/design-projects"}
+        className={`nav-link ${usePath("/design-projects") ? `active` : ``}`}
+      >
         <DesignsIcon />
         <p>Design Projects</p>
       </Link>
 
-      <Link to={"/contact-me"}>
+      <Link
+        to={"/contact-me"}
+        className={`nav-link ${usePath("/contact-me") ? `active` : ``}`}
+      >
         <ContactIcon />
         <p>Contact Me</p>
       </Link>
 
-      <div>
+      <div id="themeChanger">
         {getTheme() === "light" ? <DarkIcon /> : <LightIcon />}
         <p>Change Theme</p>
       </div>
