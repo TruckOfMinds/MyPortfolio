@@ -21,44 +21,58 @@ export default function Navbar(): JSX.Element {
 
   return (
     <nav
-      className="w-fit h-dvh sticky left-0 top-0
+      className={`navbar
+        w-[13%] h-dvh sticky left-0 top-0 ${expanded ? `w-[20%]` : ``}
         flex flex-col items-center justify-evenly
-        rounded-r-2xl bg-on-pri-f-var"
+        rounded-r-2xl bg-on-pri-f-var pl-3 pr-3`}
     >
-      <Chevron onClick={() => setExpanded(!expanded)} />
+      <Chevron
+        onClick={() => setExpanded(!expanded)}
+        className={`transition-transform cursor-pointer ${
+          expanded ? `rotate-180` : ``
+        }`}
+      />
 
-      <Link to={"/"} className={`nav-link ${usePath("/") ? `active` : ``}`}>
-        <HomeIcon />
-        <p>Home</p>
-      </Link>
+      <div className="nav-links h-3/5 flex flex-col items-center justify-between gap-1">
+        <Link to={"/"} className={`nav-link ${usePath("/") ? `active` : ``}`}>
+          <HomeIcon />
+          <p className={!expanded ? `hide-text` : `closed`}>Home</p>
+        </Link>
 
-      <Link
-        to={"/code-projects"}
-        className={`nav-link ${usePath("/code-projects") ? `active` : ``}`}
-      >
-        <CodeIcon />
-        <p>Dev Projects</p>
-      </Link>
+        <Link
+          to={"/code-projects"}
+          className={`nav-link ${usePath("/code-projects") ? `active` : ``}`}
+        >
+          <CodeIcon />
+          <p className={!expanded ? `hide-text` : `closed`}>Dev Projects</p>
+        </Link>
 
-      <Link
-        to={"/design-projects"}
-        className={`nav-link ${usePath("/design-projects") ? `active` : ``}`}
-      >
-        <DesignsIcon />
-        <p>Design Projects</p>
-      </Link>
+        <Link
+          to={"/design-projects"}
+          className={`nav-link ${usePath("/design-projects") ? `active` : ``}`}
+        >
+          <DesignsIcon />
+          <p className={!expanded ? `hide-text` : `closed`}>Design Projects</p>
+        </Link>
 
-      <Link
-        to={"/contact-me"}
-        className={`nav-link ${usePath("/contact-me") ? `active` : ``}`}
-      >
-        <ContactIcon />
-        <p>Contact Me</p>
-      </Link>
+        <Link
+          to={"/contact-me"}
+          className={`nav-link ${usePath("/contact-me") ? `active` : ``}`}
+        >
+          <ContactIcon />
+          <p className={!expanded ? `hide-text` : `closed`}>Contact Me</p>
+        </Link>
+      </div>
 
       <div id="themeChanger">
         {getTheme() === "light" ? <DarkIcon /> : <LightIcon />}
-        <p>Change Theme</p>
+        <p
+          className={
+            !expanded ? `hide-text text-xs mt-1` : `text-xs mt-1 closed`
+          }
+        >
+          Change Theme
+        </p>
       </div>
     </nav>
   );
