@@ -22,7 +22,7 @@ export default function Navbar(): JSX.Element {
   return (
     <nav
       className={`navbar
-        w-[13%] h-dvh sticky left-0 top-0 ${expanded ? `w-[20%]` : ``}
+        w-[6rem] h-dvh sticky left-0 top-0 ${expanded ? `w-[10rem]` : ``}
         flex flex-col items-center justify-evenly
         rounded-r-2xl bg-on-pri-f-var pl-3 pr-3`}
     >
