@@ -28,7 +28,7 @@ export default function Navbar(): JSX.Element {
     >
       <Chevron
         onClick={() => setExpanded(!expanded)}
-        className={`transition-transform cursor-pointer ${
+        className={`nav-toggle transition-transform cursor-pointer ${
           expanded ? `rotate-180` : ``
         }`}
       />
