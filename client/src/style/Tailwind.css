@@ -51,4 +51,9 @@
   --color-surf-cont: var(--surface-container);
   --color-surf-cont-h: var(--surface-container-high);
   --color-surf-cont-hh: var(--surface-container-highest);
+  --shadow-i: var(--shadow-one);
+  --shadow-ii: var(--shadow-two);
+  --shadow-iii: var(--shadow-three);
+  --shadow-iv: var(--shadow-four);
+  --shadow-v: var(--shadow-five);
 }
