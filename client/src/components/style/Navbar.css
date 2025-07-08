@@ -32,13 +32,13 @@
   color: var(--on-primary);
 
   p {
-    transition: all 100ms ease-in-out;
+    transition: all 50ms ease-in-out;
     text-align: center;
     max-height: 0.75rem;
     user-select: none;
 
     &.closed {
-      transition: all 150ms ease-in-out 100ms;
+      transition: all 150ms ease-in-out 200ms;
     }
 
     &.hide-text {
