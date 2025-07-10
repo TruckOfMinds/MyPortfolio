@@ -13,7 +13,7 @@ import Navbar from "./components/Navbar";
 
 export default function App(): JSX.Element {
   return (
-    <div id="top" className="w-full min-h-full  flex items-start">
+    <div id="top" className="w-full min-h-full">
       <Navbar />
 
       <main>
