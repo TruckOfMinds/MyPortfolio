@@ -4,12 +4,12 @@ import { Route, Routes } from "react-router";
 import "./style/Tailwind.css";
 import "./style/App.css";
 
-import HomePage from "./pages/Home";
-import CodePage from "./pages/Code";
-import ProjectPage from "./pages/Project";
-import DesignsPage from "./pages/Designs";
-import ContactPage from "./pages/Contact";
-import Navbar from "./components/Navbar";
+import HomePage from "../pages/Home";
+import CodePage from "../pages/Code";
+import ProjectPage from "../pages/Project";
+import DesignsPage from "../pages/Designs";
+import ContactPage from "../pages/Contact";
+import Navbar from "../components/Navbar";
 
 export default function App(): JSX.Element {
   return (
