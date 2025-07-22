@@ -9,5 +9,5 @@
     "skipLibCheck": true,
     "outDir": "dist"
   },
-  "include": ["server.ts", "db.ts"]
+  "include": ["server.ts", "db.ts", "types.ts"]
 }
