@@ -6,13 +6,11 @@ import {
   repoProps,
   skillsProps,
   topProps,
-} from "./types";
+} from "./types.ts";
 
-const db = new Pool({
+export const db = new Pool({
   connectionString: process.env.DB_URL,
 });
-
-export const updateDb = async () => {};
 
 export const getDesignCardData = async (): designCardProps => {
   try {
