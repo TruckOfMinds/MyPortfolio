@@ -7,8 +7,8 @@ import {
   getRepoData,
   getSkillsData,
   getTopRepoData,
-  updateDb,
-} from "./db";
+} from "./db.ts";
+import { updateDb } from "./handleGit.ts";
 
 const app = express();
 app.use(express.json());
@@ -21,12 +21,10 @@ app.get("/", (_: Request, res: Response) =>
 );
 
 app.get("/api/get-designs", async (_: Request, res: Response) => {
-  await updateDb();
   return res.json(await getDesignCardData());
 });
 
 app.get("/api/get-skills", async (_: Request, res: Response) => {
-  await updateDb();
   return res.json(await getSkillsData());
 });
 
@@ -47,6 +45,5 @@ app.get("/api/get-repo/top", async (_: Request, res: Response) => {
 });
 
 app.get("/api/get-links", async (_: Request, res: Response) => {
-  await updateDb();
   return res.json(await getContactData());
 });

@@ -8,7 +8,7 @@ create table if not exists rdmp_images (
 create table if not exists rdmp_technical_skills (
   id        bigint primary key generated always as identity,
   name      text not null,
-  bg     text not null,
+  bg        text not null,
   logo_name text not null,
   unique(logo_name)
 );
