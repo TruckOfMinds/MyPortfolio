@@ -1,3 +1,5 @@
+import type { Endpoints } from "@octokit/types";
+
 export type designCardProps = Promise<
   {
     id: bigint;
@@ -57,3 +59,8 @@ export type linkProps = Promise<
     logo_name: string;
   }[]
 >;
+
+export type Repo =
+  Endpoints["GET /users/{username}/repos"]["response"]["data"][number];
+
+export type dbRepoName = { repo_name: string };

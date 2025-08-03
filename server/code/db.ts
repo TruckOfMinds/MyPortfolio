@@ -3,6 +3,7 @@ import {
   codeCardProps,
   designCardProps,
   linkProps,
+  Repo,
   repoProps,
   skillsProps,
   topProps,
@@ -109,3 +110,7 @@ export const getContactData = async (): linkProps => {
     throw new Error("DB Error:" + err);
   }
 };
+
+export const insertRepoToDb = (repo: Repo) => {};
+
+export const updateDb = (repo: Repo) => {};
