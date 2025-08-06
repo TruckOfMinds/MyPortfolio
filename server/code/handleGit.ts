@@ -1,6 +1,6 @@
 import { db, insertRepoToDb, updateDb } from "./db.ts";
 import { Octokit } from "@octokit/rest";
-import { Repo, dbRepoName } from "./types.ts";
+import { gitRepo, dbRepoName } from "./types.ts";
 
 const octokit = new Octokit({
   auth: process.env.PERSONAL_TOKEN,
@@ -12,7 +12,7 @@ const octokit = new Octokit({
 export const addNewRepos = async () => {
   const protectedRepos: string[] = ["MyPortfolio"];
 
-  const { data: allRepos }: { data: Repo[] } = await octokit.request(
+  const { data: allRepos }: { data: gitRepo[] } = await octokit.request(
     "GET /users/{username}/repos",
     {
       username: "TruckOfMinds",
@@ -22,18 +22,31 @@ export const addNewRepos = async () => {
       },
     }
   );
+  // allRepos.forEach((r) =>
+  //   protectedRepos.includes(r.name) ? console.log(r) : null
+  // );
 
+  let dbData: dbRepoName[] = [];
   // ! ERROR W CONNECTION
-  const { rows: dbData }: { rows: dbRepoName[] } = await db.query(
-    `SELECT repo_name FROM rdmp_repos`
-  );
-  console.log(dbData);
+  try {
+    const { rows }: { rows: dbRepoName[] } = await db.query(
+      `SELECT repo_name FROM rdmp_repos`
+    );
+    dbData = rows;
+  } catch (err) {
+    throw new Error("DB Error:" + err);
+  }
 
-  const filteredRepos: Repo[] = allRepos.filter(
-    (r) => !protectedRepos.includes(r.name)
-  );
+  if (dbData.length > 0) {
+    const filteredRepos: gitRepo[] = allRepos.filter(
+      (r) => !protectedRepos.includes(r.name)
+    );
 
-  filteredRepos.forEach((r) =>
-    dbData.find((d) => d.repo_name === r.name) ? updateDb(r) : insertRepoToDb(r)
-  );
+    // Object —> Set
+    const dbRepos = new Set(dbData.map((d) => d.repo_name));
+
+    filteredRepos.forEach(async (r) =>
+      dbRepos.has(r.name) ? await updateDb(r) : insertRepoToDb(r)
+    );
+  }
 };

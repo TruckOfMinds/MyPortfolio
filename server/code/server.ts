@@ -16,7 +16,7 @@ app.use(cors<Request>());
 
 app.listen(4060, () => console.log("hey all, port 4060 here"));
 
-app.get("/", (_: Request, res: Response) => res.json(addNewRepos()));
+app.get("/", (_: Request, res: Response) => res.json());
 
 app.get("/api/get-designs", async (_: Request, res: Response) => {
   return res.json(await getDesignCardData());
