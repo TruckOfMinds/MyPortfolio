@@ -7,8 +7,8 @@ import {
   getRepoData,
   getSkillsData,
   getTopRepoData,
-} from "./db.ts";
-import { addNewRepos } from "./handleGit.ts";
+} from "./db.js";
+import { addNewRepos } from "./handleGit.js";
 
 const app = express();
 app.use(express.json());
