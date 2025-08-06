@@ -3,6 +3,7 @@ import {
   codeCardProps,
   designCardProps,
   linkProps,
+  gitRepo,
   repoProps,
   skillsProps,
   topProps,
@@ -105,6 +106,34 @@ export const getContactData = async (): linkProps => {
       `
     );
     return rows;
+  } catch (err) {
+    throw new Error("DB Error:" + err);
+  }
+};
+
+export const insertRepoToDb = (repo: gitRepo) => {
+  try {
+    db.query(
+      `
+      INSERT INTO rdmp_repos (repo_name, date, links)
+      VALUES ($1, $2, $4)
+      `,
+      [repo.name, repo.updated_at, [repo.homepage, repo.html_url]]
+    );
+  } catch (err) {
+    throw new Error("DB Error:" + err);
+  }
+};
+
+export const updateDb = async (repo: gitRepo) => {
+  try {
+    const update = await db.query(
+      `
+      UPDATE rdmp_repos
+      SET date = $1, links = $2
+      `,
+      [repo.updated_at, [repo.homepage, repo.html_url]]
+    );
   } catch (err) {
     throw new Error("DB Error:" + err);
   }

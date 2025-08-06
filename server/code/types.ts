@@ -1,3 +1,6 @@
+import type { Endpoints } from "@octokit/types";
+
+// — DB Route Queries ————————————————————————
 export type designCardProps = Promise<
   {
     id: bigint;
@@ -57,3 +60,9 @@ export type linkProps = Promise<
     logo_name: string;
   }[]
 >;
+
+// — GitHub Handling ————————————————————————
+export type dbRepoName = { repo_name: string };
+
+export type gitRepo =
+  Endpoints["GET /users/{username}/repos"]["response"]["data"][number];
