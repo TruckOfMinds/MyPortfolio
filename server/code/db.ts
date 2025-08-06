@@ -7,7 +7,7 @@ import {
   repoProps,
   skillsProps,
   topProps,
-} from "./types.ts";
+} from "./types.js";
 
 export const db = new Pool({
   connectionString: process.env.DB_URL,

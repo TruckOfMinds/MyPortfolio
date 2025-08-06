@@ -1,6 +1,6 @@
-import { db, insertRepoToDb, updateDb } from "./db.ts";
+import { db, insertRepoToDb, updateDb } from "./db.js";
 import { Octokit } from "@octokit/rest";
-import { gitRepo, dbRepoName } from "./types.ts";
+import { gitRepo, dbRepoName } from "./types.js";
 
 const octokit = new Octokit({
   auth: process.env.PERSONAL_TOKEN,
