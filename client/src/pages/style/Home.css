@@ -1,0 +1,27 @@
+.grid {
+  width: 100dvw;
+  height: 100dvh;
+
+  display: grid;
+  grid-template-areas:
+    ". a b"
+    ". c d";
+  gap: 1rem;
+  grid-template-columns: 10rem repeat(2, calc(50% - 5.5rem));
+  grid-template-rows: repeat(2, 1fr);
+
+  justify-items: center;
+  align-items: center;
+}
+
+.gradient {
+  text-align: center;
+  color: var(--on-primary);
+
+  background: linear-gradient(
+    116deg,
+    var(--primary) 35%,
+    var(--secondary) 69%,
+    var(--on-secondary-fixed-variant)
+  );
+}

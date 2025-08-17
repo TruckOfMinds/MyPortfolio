@@ -10,22 +10,23 @@ import ProjectPage from "../pages/Project";
 import DesignsPage from "../pages/Designs";
 import ContactPage from "../pages/Contact";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 export default function App(): JSX.Element {
   return (
-    <div id="top" className="w-full min-h-full">
+    <div id="top" className="w-dvw min-h-dvh jb-mono">
       <Navbar />
 
-      <main>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/code-projects" element={<CodePage />}>
-            <Route path="/code-projects/:project" element={<ProjectPage />} />
-          </Route>
-          <Route path="/design-projects" element={<DesignsPage />} />
-          <Route path="/contact-me" element={<ContactPage />} />
-        </Routes>
-      </main>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/code-projects" element={<CodePage />}>
+          <Route path="/code-projects/:project" element={<ProjectPage />} />
+        </Route>
+        <Route path="/design-projects" element={<DesignsPage />} />
+        <Route path="/contact-me" element={<ContactPage />} />
+      </Routes>
+
+      <Footer />
     </div>
   );
 }
