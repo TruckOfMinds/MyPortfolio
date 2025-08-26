@@ -9,5 +9,5 @@
 
   overflow-x: hidden;
   scroll-behavior: smooth;
-  scrollbar-color: var(--background) hsl(from var(--on-background) h s l / 50%);
+  scrollbar-color: var(--tertiary-container) var(--primary);
 }
