@@ -22,6 +22,12 @@
     grid-template-columns: 10rem repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
   }
+
+  &.row {
+    height: 50dvh;
+    grid-template-areas: ". a b c";
+    grid-template-columns: 10rem 1fr;
+  }
 }
 
 .gradient {

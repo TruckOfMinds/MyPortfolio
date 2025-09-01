@@ -1,12 +1,12 @@
-import { Suspense, useState, type JSX } from "react";
-
-import "./style/Home.css";
+import { useState, type JSX } from "react";
+import { bgTexts } from "@/lib/data";
 
 import Card from "@/components/Card";
 import Grid from "@/components/Grid";
 import TopProjects from "@/components/TopProjects";
 import Skills from "@/components/Skills";
-import { bgTexts } from "@/lib/data";
+
+import "./style/Home.css";
 
 export default function HomePage(): JSX.Element {
   return (
@@ -52,46 +52,34 @@ const Hero = (): JSX.Element => (
   </Grid>
 );
 
-const About = (): JSX.Element => (
-  <Grid layout="three-two" id="about" className="bg-sec">
-    <TitleBlock text="Who Am I?" src="#" alt="#" className="[grid-area:a]" />
+const About = (): JSX.Element => {
+  return (
+    <Grid layout="three-two" id="about" className="bg-sec">
+      <TitleBlock
+        text="Who Am I?"
+        src="#"
+        alt="#"
+        className="in-grid [grid-area:a]"
+      />
 
-    <Card
-      className="[grid-area:b/b-start/b-end/c-end]"
-      variant="in-grid"
-      colour="pink"
-    >
-      foo bar
-    </Card>
+      <Card className="in-grid [grid-area:b/b-start/b-end/c-end]" colour="pink">
+        foo bar
+      </Card>
 
-    <Card className="[grid-area:d]" colour="purple" variant="in-grid">
-      <h2>Skills</h2>
-      <Suspense fallback={""}>
-        <Skills
-          skills={[
-            { id: BigInt(1), bg: "green", name: "one", logo_name: "logo" },
-            { id: BigInt(2), bg: "blue", name: "two", logo_name: "logo" },
-          ]}
-        />
-      </Suspense>
-    </Card>
+      <Card className="in-grid [grid-area:d]" colour="purple">
+        <h2>Skills</h2>
+        <Skills />
+      </Card>
 
-    <Card
-      className="[grid-area:e/e-start/e-end/f-end] flex justify-center"
-      variant="in-grid"
-      colour="purple"
-    >
-      <Suspense fallback={""}>
-        <TopProjects
-          data={[
-            { id: BigInt(1), image: "react.svg", repo_name: "a" },
-            { id: BigInt(2), image: "vite.svg", repo_name: "b" },
-          ]}
-        />
-      </Suspense>
-    </Card>
-  </Grid>
-);
+      <Card
+        className="in-grid [grid-area:e/e-start/e-end/f-end] flex justify-center"
+        colour="purple"
+      >
+        <TopProjects />
+      </Card>
+    </Grid>
+  );
+};
 
 const Background = (): JSX.Element => {
   const [bgText, setBgText] = useState("Click a card to hear more about me!");
@@ -102,36 +90,33 @@ const Background = (): JSX.Element => {
         text="My Background"
         src="#"
         alt="#"
-        className="[grid-area:a]"
+        className="in-grid [grid-area:a]"
       />
 
       <Card
-        variant="in-grid long"
+        variant="long"
         colour="sky"
-        className="[grid-area:b/b-start/b-end/c-end]"
+        className="in-grid [grid-area:b/b-start/b-end/c-end]"
       >
         {bgText}
       </Card>
 
       <Card
-        variant="in-grid"
-        className="bg-on-pri [grid-area:d]"
+        className="in-grid bg-on-pri [grid-area:d]"
         onClick={() => setBgText(bgTexts.one)}
       >
         one
       </Card>
 
       <Card
-        variant="in-grid"
-        className="bg-on-pri [grid-area:e]"
+        className="in-grid bg-on-pri [grid-area:e]"
         onClick={() => setBgText(bgTexts.two)}
       >
         two
       </Card>
 
       <Card
-        variant="in-grid"
-        className="bg-on-pri [grid-area:f]"
+        className="in-grid bg-on-pri [grid-area:f]"
         onClick={() => setBgText(bgTexts.three)}
       >
         three
@@ -151,9 +136,7 @@ const TitleBlock = ({
   alt: string;
   className?: string;
 }): JSX.Element => (
-  <header
-    className={`flex flex-col items-center gap-4 w-[80%] h-[80%] ${className}`}
-  >
+  <header className={`flex flex-col items-center gap-4 ${className}`}>
     <div className="title h-[calc(50%-0.5rem)] min-w-[7rem] w-full bg-ter-cont shadow-iii rounded-2xl">
       <h1 className="orbit text-ter">{text}</h1>
     </div>

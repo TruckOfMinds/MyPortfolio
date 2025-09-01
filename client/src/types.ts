@@ -1,18 +1,38 @@
-import type { JSX } from "react";
+import type { ReactNode } from "react";
 
 export type gridProps = {
-  layout: string;
+  layout?: string;
   className?: string;
   id: string;
-  children: Array<JSX.Element | string>;
+  children: ReactNode;
+};
+
+export type codeCardProps = {
+  id: bigint;
+  repo_name: string;
+  image: string;
+  tags: string[];
+  date: string;
+};
+
+export type designCardProps = {
+  id: bigint;
+  name: string;
+  date: string;
+  bio: string;
+  expp: string;
+  expn: string;
+  image: string;
 };
 
 export type cardProps = {
   variant?: string;
   colour?: "sky" | "pink" | "yellow" | "blue" | "purple" | "gold";
-  children: Array<JSX.Element | string> | JSX.Element | string;
+  children?: ReactNode;
   className?: string;
   onClick?: () => void;
+  codeData?: codeCardProps;
+  designData?: designCardProps;
 };
 
 export type skillProps = {
@@ -26,4 +46,4 @@ export type topProps = {
   id: bigint;
   image: string;
   repo_name: string;
-}[];
+};

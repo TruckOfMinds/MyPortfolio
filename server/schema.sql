@@ -40,13 +40,13 @@ create table if not exists rdmp_repo_con_tags (
 );
 
 create table if not exists rdmp_designs (
-  id       bigint primary key generated always as identity,
-  image_id bigint references rdmp_images(id) not null,
-  name     text not null,
-  date     date not null, -- yyyy-mm-dd
-  bio      text not null,
-  expp     text not null,
-  expn     text not null,
+  id           bigint primary key generated always as identity,
+  image_id     bigint references rdmp_images(id) not null,
+  name         text not null,
+  date         date not null, -- yyyy-mm-dd
+  bio          text not null,
+  exp_positive text not null,
+  exp_negative text not null,
   unique(image_id)
 );
 

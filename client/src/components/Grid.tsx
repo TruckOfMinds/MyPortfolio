@@ -10,7 +10,7 @@ export default function Grid({
   children,
 }: gridProps): JSX.Element {
   return (
-    <section className={`${layout} grid ${className}`} id={id}>
+    <section className={`${layout} grid ${className ? className : ""}`} id={id}>
       {children}
     </section>
   );

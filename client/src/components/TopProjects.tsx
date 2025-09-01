@@ -1,5 +1,4 @@
 import { useEffect, useState, type JSX } from "react";
-import type { topProps } from "@/types";
 import { type CarouselApi } from "@/components/ui/carousel";
 import {
   Carousel,
@@ -10,16 +9,21 @@ import {
 } from "@/components/ui/carousel";
 import { Link } from "react-router";
 import { Button } from "./ui/button";
+import { useQuery } from "@tanstack/react-query";
+import { fetchTopProjects } from "@/utils/serverPortal";
 
-export default function TopProjects({ data }: { data: topProps }): JSX.Element {
+export default function TopProjects(): JSX.Element {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [name, setName] = useState("project_name");
 
+  const { isPending, isError, error, data /* refetch */ } = useQuery({
+    queryKey: ["top"],
+    queryFn: fetchTopProjects,
+  });
+
   useEffect(() => {
-    if (!api) {
-      return;
-    }
+    if (!api) return;
 
     const handleSelect = () => {
       const currentIndex = api.selectedScrollSnap();
@@ -34,10 +38,16 @@ export default function TopProjects({ data }: { data: topProps }): JSX.Element {
     handleSelect();
 
     api.on("select", handleSelect);
+
     return () => {
       api.off("select", handleSelect); // cleanup
     };
   }, [api]);
+
+  // temporary
+  if (isPending) return <>Loading...</>;
+
+  if (isError) return <>{error}</>;
 
   return (
     <article className="flex flex-col items-center justify-center w-3/4 gap-4 py-2">
@@ -52,7 +62,7 @@ export default function TopProjects({ data }: { data: topProps }): JSX.Element {
               <CarouselItem key={d.id}>
                 <img
                   src={d.image}
-                  alt={`Showcase of ${d.repo_name || "project"}`}
+                  alt={`Showcase of ${d.repo_name || "my project"}`}
                   data-name={d.repo_name || null}
                 />
               </CarouselItem>
