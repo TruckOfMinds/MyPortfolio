@@ -36,7 +36,7 @@ export default function Navbar(): JSX.Element {
       <div className="nav-links h-3/5 flex flex-col items-center justify-between gap-1">
         <Link to={"/"} className={`nav-link ${usePath("/") ? `active` : ``}`}>
           <HomeIcon />
-          <p className={!expanded ? `hide-text` : `closed`}>Home</p>
+          <p className={expanded ? `open` : `closed`}>Home</p>
         </Link>
 
         <Link
@@ -44,7 +44,7 @@ export default function Navbar(): JSX.Element {
           className={`nav-link ${usePath("/code-projects") ? `active` : ``}`}
         >
           <CodeIcon />
-          <p className={!expanded ? `hide-text` : `closed`}>Dev Projects</p>
+          <p className={expanded ? `open` : `closed`}>Dev Projects</p>
         </Link>
 
         <Link
@@ -52,7 +52,7 @@ export default function Navbar(): JSX.Element {
           className={`nav-link ${usePath("/design-projects") ? `active` : ``}`}
         >
           <DesignsIcon />
-          <p className={!expanded ? `hide-text` : `closed`}>Design Projects</p>
+          <p className={expanded ? `open` : `closed`}>Design Projects</p>
         </Link>
 
         <Link
@@ -60,17 +60,14 @@ export default function Navbar(): JSX.Element {
           className={`nav-link ${usePath("/contact-me") ? `active` : ``}`}
         >
           <ContactIcon />
-          <p className={!expanded ? `hide-text` : `closed`}>Contact Me</p>
+          <p className={expanded ? `open` : `closed`}>Contact Me</p>
         </Link>
       </div>
 
       <div id="themeChanger">
         {getTheme() === "light" ? <DarkIcon /> : <LightIcon />}
-        <p
-          className={
-            !expanded ? `hide-text text-xs mt-1` : `text-xs mt-1 closed`
-          }
-        >
+
+        <p className={` text-xs mt-1 ${expanded ? `open` : `closed`}`}>
           Change Theme
         </p>
       </div>

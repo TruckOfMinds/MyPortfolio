@@ -17,7 +17,8 @@ export const getDesignCardData = async (): designCardProps => {
   try {
     const { rows } = await db.query(
       `
-      SELECT rdmp_designs.id, rdmp_designs.name, TO_CHAR(rdmp_designs.date, 'DD/MM/YYYY') as "date", rdmp_designs.bio, rdmp_designs.expp, rdmp_designs.expn, rdmp_images.images[1] as "image"
+      SELECT rdmp_designs.id, rdmp_designs.name, TO_CHAR(rdmp_designs.date, 'DD/MM/YYYY') as "date", rdmp_designs.bio, 
+        rdmp_designs.exp_positive, rdmp_designs.exp_negative, rdmp_images.images[1] as "image"
       FROM rdmp_designs
       JOIN rdmp_images ON rdmp_images.id = rdmp_designs.image_id
       ORDER BY rdmp_designs.date DESC
@@ -48,7 +49,8 @@ export const getCodeCardData = async (): codeCardProps => {
   try {
     const { rows } = await db.query(
       `
-      SELECT rdmp_repos.id, rdmp_repos.repo_name, rdmp_images.images[1] as "image", ARRAY_AGG(ARRAY[rdmp_tags.name, rdmp_tags.type]) AS "tags", TO_CHAR(date, 'DD/MM/YYYY') AS "date"
+      SELECT rdmp_repos.id, rdmp_repos.repo_name, rdmp_images.images[1] as "image", ARRAY_AGG(ARRAY[rdmp_tags.name, rdmp_tags.type]) AS "tags", 
+        TO_CHAR(date, 'DD/MM/YYYY') AS "date"
       FROM rdmp_repos
       JOIN rdmp_images ON rdmp_images.id = rdmp_repos.image_id
       JOIN rdmp_repo_con_tags on rdmp_repo_con_tags.repo_id = rdmp_repos.id

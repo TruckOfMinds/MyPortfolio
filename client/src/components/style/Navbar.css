@@ -19,7 +19,7 @@
   }
 }
 
-/* ^ +theme-changer */
+/* all icons */
 #themeChanger,
 .nav-link {
   min-height: fit-content;
@@ -37,11 +37,11 @@
     max-height: 0.75rem;
     user-select: none;
 
-    &.closed {
+    &.open {
       transition: all 150ms ease-in-out 200ms;
     }
 
-    &.hide-text {
+    &.closed {
       pointer-events: none;
       color: transparent;
       /* display: none; */
@@ -49,7 +49,7 @@
   }
 }
 
-/* ^ +chevron */
+/* all items */
 .nav-link,
 #themeChanger,
 .nav-toggle {

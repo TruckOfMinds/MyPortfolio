@@ -27,7 +27,7 @@ export type codeCardProps = Promise<
     id: bigint;
     repo_name: string;
     image: string;
-    tags: string;
+    tags: string[];
     date: string;
   }[]
 >;
