@@ -13,10 +13,7 @@ export default function Footer() {
         variant="in-grid full"
         className="px-8 flex items-center justify-evenly shadow-v [grid-area:a/a-start/a-end/c-end]"
       >
-        <Logo
-          className="w-1/4"
-          onClick={() => (window.location.href = "/#top")}
-        />
+        <Logo className="w-1/4" onClick={() => scroll({ top: 0 })} />
         <div className="flex flex-col w-1/4 min-w-fit gap-4 justify-center">
           <FooterCTA to="mailto:reubdub07@gmail.com">
             <div className="flex flex-col items-center gap-1">

@@ -2,6 +2,7 @@ import type { cardProps, codeCardProps, designCardProps } from "@/types";
 import type { JSX } from "react";
 
 import "./style/Card.css";
+import { Link } from "react-router";
 
 export default function Card({
   variant,
@@ -34,7 +35,7 @@ export default function Card({
 }
 
 const CodeContent = (props: codeCardProps): JSX.Element => (
-  <div className="card-grid code">
+  <Link to={props.repo_name} className="card-grid code">
     <img src={props.image} alt="Project image" className="[grid-area:image]" />
     <p className="[grid-area:name]">{props.repo_name}</p>
     <section className="flex items-center overflow-x-clip hide-scrollbar justify-self-start [grid-area:tag]">
@@ -42,13 +43,13 @@ const CodeContent = (props: codeCardProps): JSX.Element => (
         <p className="tag px-2 py-2 rounded-full">{t}</p>
       ))}
     </section>
-  </div>
+  </Link>
 );
 
 const DesignContent = (props: designCardProps): JSX.Element => (
-  <div className="card-grid design">
+  <Link to={props.name} className="card-grid design">
     <img src={props.image} alt="Project image" className="[grid-area:image]" />
     <p className="[grid-area:name]">{props.name}</p>
     <p className="[grid-area:bio]"></p>
-  </div>
+  </Link>
 );
