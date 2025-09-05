@@ -17,7 +17,6 @@ export type skillsProps = Promise<
   {
     id: bigint;
     name: string;
-    bg: string;
     logo_name: string;
   }[]
 >;
@@ -64,5 +63,4 @@ export type linkProps = Promise<
 // — GitHub Handling ————————————————————————
 export type dbRepoName = { repo_name: string };
 
-export type gitRepo =
-  Endpoints["GET /users/{username}/repos"]["response"]["data"][number];
+export type gitRepo = Endpoints["GET /user/repos"]["response"]["data"][number];

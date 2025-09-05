@@ -18,13 +18,13 @@ app.listen(4060, () => console.log("hey all, port 4060 here"));
 
 app.get("/", (_: Request, res: Response) => res.json());
 
-app.get("/get-designs", async (_: Request, res: Response) => {
-  return res.json(await getDesignCardData());
-});
+app.get("/get-designs", async (_: Request, res: Response) =>
+  res.json(await getDesignCardData())
+);
 
-app.get("/get-skills", async (_: Request, res: Response) => {
-  return res.json(await getSkillsData());
-});
+app.get("/get-skills", async (_: Request, res: Response) =>
+  res.json(await getSkillsData())
+);
 
 app.get("/get-repo/solo/:name", async (req: Request, res: Response) => {
   const { name } = await req.params;
@@ -42,6 +42,6 @@ app.get("/get-repo/top", async (_: Request, res: Response) => {
   return res.json(await getTopRepoData());
 });
 
-app.get("/get-links", async (_: Request, res: Response) => {
-  return res.json(await getContactData());
-});
+app.get("/get-links", async (_: Request, res: Response) =>
+  res.json(await getContactData())
+);

@@ -1,52 +1,33 @@
-import { db, insertRepoToDb, updateDb } from "./db.js";
+import { db, handleRepo } from "./db.js";
 import { Octokit } from "@octokit/rest";
 import { gitRepo, dbRepoName } from "./types.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const octokit = new Octokit({
   auth: process.env.PERSONAL_TOKEN,
   userAgent: "MyPortfolioServer",
   timeZone: "Europe/Belfast",
-  baseUrl: "https://api.github.com",
 });
 
 export const addNewRepos = async () => {
-  const protectedRepos: string[] = ["MyPortfolio"];
+  // repos that I can't/don't want to make private
+  // that I don't want to be shown.
+  const protectedRepos: string[] = ["MyPortfolio", "Opinia"];
 
-  const { data: allRepos }: { data: gitRepo[] } = await octokit.request(
-    "GET /users/{username}/repos",
-    {
-      username: "TruckOfMinds",
-      sort: "updated",
-      headers: {
-        "X-GitHub-Api-Version": "2022-11-28",
-      },
-    }
+  const { data: allRepos } = await octokit.request("GET /user/repos", {
+    visibility: "public",
+    affiliation: "owner,collaborator", // my repos plus ones i've worked on
+    sort: "updated",
+    headers: {
+      "X-GitHub-Api-Version": "2022-11-28",
+    },
+  });
+
+  const filteredRepos: gitRepo[] = allRepos.filter(
+    (r) => !protectedRepos.includes(r.name)
   );
-  // allRepos.forEach((r) =>
-  //   protectedRepos.includes(r.name) ? console.log(r) : null
-  // );
 
-  let dbData: dbRepoName[] = [];
-  // ! ERROR W CONNECTION
-  try {
-    const { rows }: { rows: dbRepoName[] } = await db.query(
-      `SELECT repo_name FROM rdmp_repos`
-    );
-    dbData = rows;
-  } catch (err) {
-    throw new Error("DB Error:" + err);
-  }
-
-  if (dbData.length > 0) {
-    const filteredRepos: gitRepo[] = allRepos.filter(
-      (r) => !protectedRepos.includes(r.name)
-    );
-
-    // Object —> Set
-    const dbRepos = new Set(dbData.map((d) => d.repo_name));
-
-    filteredRepos.forEach(async (r) =>
-      dbRepos.has(r.name) ? await updateDb(r) : insertRepoToDb(r)
-    );
-  }
+  filteredRepos.forEach((f) => handleRepo(f));
 };

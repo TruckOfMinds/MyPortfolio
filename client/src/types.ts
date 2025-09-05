@@ -38,7 +38,6 @@ export type cardProps = {
 export type skillProps = {
   id: bigint;
   name: string;
-  bg: string;
   logo_name: string;
 };
 

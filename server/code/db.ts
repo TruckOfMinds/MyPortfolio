@@ -8,6 +8,9 @@ import {
   skillsProps,
   topProps,
 } from "./types.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const db = new Pool({
   connectionString: process.env.DB_URL,
@@ -36,7 +39,7 @@ export const getSkillsData = async (): skillsProps => {
       `
       SELECT * 
       FROM rdmp_technical_skills 
-      ORDER BY id DESC
+      ORDER BY id ASC
       `
     );
     return rows;
@@ -113,28 +116,16 @@ export const getContactData = async (): linkProps => {
   }
 };
 
-export const insertRepoToDb = (repo: gitRepo) => {
+export const handleRepo = (repo: gitRepo) => {
   try {
     db.query(
       `
       INSERT INTO rdmp_repos (repo_name, date, links)
-      VALUES ($1, $2, $4)
+      VALUES ($1, $2, $3)
+      ON CONFLICT (repo_name) DO UPDATE
+      SET (repo_name, date, links) = ($1, $2, $3)
       `,
       [repo.name, repo.updated_at, [repo.homepage, repo.html_url]]
-    );
-  } catch (err) {
-    throw new Error("DB Error:" + err);
-  }
-};
-
-export const updateDb = async (repo: gitRepo) => {
-  try {
-    const update = await db.query(
-      `
-      UPDATE rdmp_repos
-      SET date = $1, links = $2
-      `,
-      [repo.updated_at, [repo.homepage, repo.html_url]]
     );
   } catch (err) {
     throw new Error("DB Error:" + err);

@@ -90,3 +90,7 @@
     grid-template-rows: 2fr 1fr 1fr;
   }
 }
+
+.logo-name {
+  translate: -50% -50%;
+}
