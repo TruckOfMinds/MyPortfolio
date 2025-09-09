@@ -7,8 +7,8 @@ export type designCardProps = Promise<
     name: string;
     date: string;
     bio: string;
-    expp: string;
-    expn: string;
+    pros: string;
+    cons: string;
     image: string;
   }[]
 >;
@@ -46,7 +46,7 @@ export type repoProps = Promise<
 export type topProps = Promise<
   {
     id: bigint;
-    repo_name: string;
+    name: string;
     image: string;
   }[]
 >;

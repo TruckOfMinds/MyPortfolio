@@ -20,8 +20,8 @@ export type designCardProps = {
   name: string;
   date: string;
   bio: string;
-  expp: string;
-  expn: string;
+  pros: string;
+  cons: string;
   image: string;
 };
 

@@ -56,13 +56,16 @@
 .in-grid {
   width: 80%;
   height: 80%;
+  max-width: 80%;
 
   &.long {
     width: 90.1%;
+    max-width: 90.1%;
   }
 
   &.full {
     width: 93%;
+    max-width: 93%;
   }
 }
 

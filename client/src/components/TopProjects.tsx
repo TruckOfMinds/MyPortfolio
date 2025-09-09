@@ -47,7 +47,7 @@ export default function TopProjects(): JSX.Element {
   // temporary
   if (isPending) return <>Loading...</>;
 
-  if (isError) return <>{error}</>;
+  if (isError) return <>{error.message}</>;
 
   return (
     <article className="flex flex-col items-center justify-center w-3/4 gap-4 py-2">

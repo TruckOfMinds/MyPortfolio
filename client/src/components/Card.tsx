@@ -16,7 +16,7 @@ export default function Card({
   return (
     <article
       className={[
-        "card rounded-2xl shadow-iii px-4 py-2 max-h-[50dvh] min-w-fit min-h-fit",
+        "rounded-2xl shadow-iii px-4 py-2 max-h-[50dvh] min-h-fit",
         variant,
         colour,
         className,

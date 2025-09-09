@@ -52,11 +52,12 @@ export const getCodeCardData = async (): codeCardProps => {
   try {
     const { rows } = await db.query(
       `
-      SELECT rdmp_repos.id, rdmp_repos.repo_name, rdmp_images.images[1] as "image", ARRAY_AGG(ARRAY[rdmp_tags.name, rdmp_tags.type]) AS "tags", 
+      SELECT rdmp_repos.id, rdmp_repos.repo_name, rdmp_images.images[1] AS "image", 
+        ARRAY_AGG(ARRAY[rdmp_tags.name, rdmp_tags.type]) AS "tags", 
         TO_CHAR(date, 'DD/MM/YYYY') AS "date"
       FROM rdmp_repos
       JOIN rdmp_images ON rdmp_images.id = rdmp_repos.image_id
-      JOIN rdmp_repo_con_tags on rdmp_repo_con_tags.repo_id = rdmp_repos.id
+      JOIN rdmp_repo_con_tags ON rdmp_repo_con_tags.repo_id = rdmp_repos.id
       JOIN rdmp_tags ON rdmp_tags.id = rdmp_repo_con_tags.tag_id
       GROUP BY rdmp_repos.id
       ORDER BY rdmp_repos.date DESC
@@ -72,7 +73,8 @@ export const getRepoData = async (repo: string): repoProps => {
   try {
     const { rows } = await db.query(
       `
-      SELECT rdmp_repos.id, repo_name, TO_CHAR(date, 'DD/MM/YYYY') as "date", ARRAY(brand_colour, text_colour) as "style", bio, links, rdmp_images.images
+      SELECT rdmp_repos.id, repo_name, TO_CHAR(date, 'DD/MM/YYYY') as "date", 
+        ARRAY(brand_colour, text_colour) as "style", bio, links, rdmp_images.images
       FROM rdmp_repos
       JOIN rdmp_images ON rdmp_images.id = rdmp_repos.image_id
       WHERE repo_name = $1
@@ -89,10 +91,19 @@ export const getTopRepoData = async (): topProps => {
   try {
     const { rows } = await db.query(
       `
-      SELECT rdmp_repos.id, rdmp_repos.repo_name, rdmp_images.images[1] as "image"
-      FROM rdmp_repos
-      JOIN rdmp_images ON rdmp_images.id = rdmp_repos.image_id
-      ORDER BY rdmp_repos.date DESC
+      SELECT rdmp_repos.id, rdmp_repos.repo_name AS "name", rdmp_images.images[1] AS "image"
+      FROM rdmp_repos 
+      JOIN rdmp_images i ON i.id = rdmp_repos.image_id
+      WHERE rdmp_repos.top = true
+
+      UNION ALL
+
+      SELECT rdmp_designs.id, rdmp_designs.name, rdmp_images.images[1] AS "image"
+      FROM rdmp_designs d
+      JOIN rdmp_images i ON i.id = rdmp_designs.image_id
+      WHERE rdmp_designs.top = true
+
+      ORDER BY date DESC;
       `
     );
     return rows;

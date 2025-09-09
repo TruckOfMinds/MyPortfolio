@@ -67,7 +67,7 @@ const About = (): JSX.Element => {
       </Card>
 
       <Card className="in-grid [grid-area:d]" colour="purple">
-        <h2>Skills</h2>
+        <h2 className="w-fit">Skills</h2>
         <Skills />
       </Card>
 
@@ -102,21 +102,27 @@ const Background = (): JSX.Element => {
       </Card>
 
       <Card
-        className="in-grid bg-on-pri [grid-area:d]"
+        className={`in-grid bg-on-pri transition-all cursor-pointer [grid-area:d] ${
+          bgText === bgTexts.one ? "scale-110" : ""
+        }`}
         onClick={() => setBgText(bgTexts.one)}
       >
         one
       </Card>
 
       <Card
-        className="in-grid bg-on-pri [grid-area:e]"
+        className={`in-grid bg-on-pri transition-all cursor-pointer [grid-area:e] ${
+          bgText === bgTexts.two ? "scale-110" : ""
+        }`}
         onClick={() => setBgText(bgTexts.two)}
       >
         two
       </Card>
 
       <Card
-        className="in-grid bg-on-pri [grid-area:f]"
+        className={`in-grid bg-on-pri transition-all cursor-pointer [grid-area:f] ${
+          bgText === bgTexts.three ? "scale-110" : ""
+        }`}
         onClick={() => setBgText(bgTexts.three)}
       >
         three
@@ -137,11 +143,11 @@ const TitleBlock = ({
   className?: string;
 }): JSX.Element => (
   <header className={`flex flex-col items-center gap-4 ${className}`}>
-    <div className="title h-[calc(50%-0.5rem)] min-w-[7rem] w-full bg-ter-cont shadow-iii rounded-2xl">
-      <h1 className="orbit text-ter">{text}</h1>
+    <div className="title h-[calc(50%-0.5rem)] min-w-[7rem] w-full bg-ter-cont shadow-iii rounded-2xl flex items-center justify-center">
+      <h1 className="orbit text-ter text-[2.5rem]">{text}</h1>
     </div>
 
-    <div className="bg-ter h-[calc(50%-0.5rem)] min-w-[7rem] w-full rounded-2xl text-ter-cont [line-height:5rem] shadow-iii">
+    <div className="bg-ter h-[calc(50%-0.5rem)] min-w-[7rem] w-full rounded-2xl text-ter-cont shadow-iii flex items-center justify-center">
       <img src={src} alt={alt} className="object-cover" />
     </div>
   </header>

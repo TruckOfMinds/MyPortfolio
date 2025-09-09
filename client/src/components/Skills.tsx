@@ -9,16 +9,17 @@ export default function Skills(): JSX.Element {
   const { isPending, isError, error, data } = useQuery({
     queryKey: ["skills"],
     queryFn: fetchSkills,
+    staleTime: 1000 * 60 * 5, // 5 minutes
   });
 
   if (isPending) return <>Loading...</>;
 
-  if (isError) return <>{error}</>;
+  if (isError) return <>{error.message}</>;
 
   return (
     <section className="w-full flex flex-wrap items-center content-center justify-evenly">
       {data.map((d) => (
-        <SkillCard key={d.id} d={d} />
+        <SkillCard key={d.name} d={d} />
       ))}
     </section>
   );
