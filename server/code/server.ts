@@ -16,7 +16,7 @@ app.use(cors<Request>());
 
 app.listen(4060, () => console.log("hey all, port 4060 here"));
 
-app.get("/", (_: Request, res: Response) => res.json());
+app.get("/", (_: Request, res: Response) => res.json({ message: "heyyyy" }));
 
 app.get("/get-designs", async (_: Request, res: Response) =>
   res.json(await getDesignCardData())
@@ -37,10 +37,9 @@ app.get("/get-repo/card", async (_: Request, res: Response) => {
   return res.json(await getCodeCardData());
 });
 
-app.get("/get-repo/top", async (_: Request, res: Response) => {
-  await addNewRepos();
-  return res.json(await getTopRepoData());
-});
+app.get("/get-repo/top", async (_: Request, res: Response) =>
+  res.json(await getTopRepoData())
+);
 
 app.get("/get-links", async (_: Request, res: Response) =>
   res.json(await getContactData())

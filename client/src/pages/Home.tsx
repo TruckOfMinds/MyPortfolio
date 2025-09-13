@@ -66,8 +66,10 @@ const About = (): JSX.Element => {
         foo bar
       </Card>
 
-      <Card className="in-grid [grid-area:d]" colour="purple">
-        <h2 className="w-fit">Skills</h2>
+      <Card className="in-grid [grid-area:d] scroller" colour="purple">
+        <h2 className="w-fit orbit [letter-spacing:.1rem] pb-4">
+          Technical Skills
+        </h2>
         <Skills />
       </Card>
 
@@ -144,7 +146,9 @@ const TitleBlock = ({
 }): JSX.Element => (
   <header className={`flex flex-col items-center gap-4 ${className}`}>
     <div className="title h-[calc(50%-0.5rem)] min-w-[7rem] w-full bg-ter-cont shadow-iii rounded-2xl flex items-center justify-center">
-      <h1 className="orbit text-ter text-[2.5rem]">{text}</h1>
+      <h1 className="orbit text-ter text-center [line-height:1] text-[2.5rem]">
+        {text}
+      </h1>
     </div>
 
     <div className="bg-ter h-[calc(50%-0.5rem)] min-w-[7rem] w-full rounded-2xl text-ter-cont shadow-iii flex items-center justify-center">

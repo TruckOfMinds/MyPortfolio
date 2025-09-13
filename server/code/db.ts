@@ -16,15 +16,15 @@ export const db = new Pool({
   connectionString: process.env.DB_URL,
 });
 
+// * needs to be split into card and page data
 export const getDesignCardData = async (): designCardProps => {
   try {
     const { rows } = await db.query(
       `
-      SELECT rdmp_designs.id, rdmp_designs.name, TO_CHAR(rdmp_designs.date, 'DD/MM/YYYY') as "date", rdmp_designs.bio, 
-        rdmp_designs.exp_positive, rdmp_designs.exp_negative, rdmp_images.images[1] as "image"
+      SELECT id, name, TO_CHAR(date, 'DD/MM/YYYY') as "date", bio, 
+        pros, cons, logo
       FROM rdmp_designs
-      JOIN rdmp_images ON rdmp_images.id = rdmp_designs.image_id
-      ORDER BY rdmp_designs.date DESC
+      ORDER BY date, name DESC
       `
     );
     return rows;
@@ -42,6 +42,7 @@ export const getSkillsData = async (): skillsProps => {
       ORDER BY id ASC
       `
     );
+
     return rows;
   } catch (err) {
     throw new Error("DB Error:" + err);
@@ -52,11 +53,10 @@ export const getCodeCardData = async (): codeCardProps => {
   try {
     const { rows } = await db.query(
       `
-      SELECT rdmp_repos.id, rdmp_repos.repo_name, rdmp_images.images[1] AS "image", 
+      SELECT rdmp_repos.id, rdmp_repos.repo_name, rdmp_repos.logo, 
         ARRAY_AGG(ARRAY[rdmp_tags.name, rdmp_tags.type]) AS "tags", 
         TO_CHAR(date, 'DD/MM/YYYY') AS "date"
       FROM rdmp_repos
-      JOIN rdmp_images ON rdmp_images.id = rdmp_repos.image_id
       JOIN rdmp_repo_con_tags ON rdmp_repo_con_tags.repo_id = rdmp_repos.id
       JOIN rdmp_tags ON rdmp_tags.id = rdmp_repo_con_tags.tag_id
       GROUP BY rdmp_repos.id
@@ -91,16 +91,16 @@ export const getTopRepoData = async (): topProps => {
   try {
     const { rows } = await db.query(
       `
-      SELECT rdmp_repos.id, rdmp_repos.repo_name AS "name", rdmp_images.images[1] AS "image"
+      SELECT rdmp_repos.id, rdmp_repos.repo_name AS "name", rdmp_images.images[2] AS "image", rdmp_repos.date
       FROM rdmp_repos 
-      JOIN rdmp_images i ON i.id = rdmp_repos.image_id
+      JOIN rdmp_images ON rdmp_images.id = rdmp_repos.image_id
       WHERE rdmp_repos.top = true
 
       UNION ALL
 
-      SELECT rdmp_designs.id, rdmp_designs.name, rdmp_images.images[1] AS "image"
-      FROM rdmp_designs d
-      JOIN rdmp_images i ON i.id = rdmp_designs.image_id
+      SELECT rdmp_designs.id, rdmp_designs.name, rdmp_images.images[2] AS "image", rdmp_designs.date
+      FROM rdmp_designs
+      JOIN rdmp_images ON rdmp_images.id = rdmp_designs.image_id
       WHERE rdmp_designs.top = true
 
       ORDER BY date DESC;
@@ -134,7 +134,7 @@ export const handleRepo = (repo: gitRepo) => {
       INSERT INTO rdmp_repos (repo_name, date, links)
       VALUES ($1, $2, $3)
       ON CONFLICT (repo_name) DO UPDATE
-      SET (repo_name, date, links) = ($1, $2, $3)
+      SET (repo_name, date, links) = (EXCLUDED.repo_name, EXCLUDED.date, EXCLUDED.links)
       `,
       [repo.name, repo.updated_at, [repo.homepage, repo.html_url]]
     );

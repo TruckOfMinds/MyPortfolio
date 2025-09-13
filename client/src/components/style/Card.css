@@ -83,6 +83,16 @@
     gap: 0.5rem;
     align-items: center;
     justify-items: center;
+
+    .in-development {
+      background-color: #eba92f;
+      color: #815002;
+    }
+
+    .deployed {
+      background-color: #268624;
+      color: #60bb5f;
+    }
   }
 
   &.design {
@@ -96,4 +106,28 @@
 
 .logo-name {
   translate: -50% -50%;
+}
+
+.scroller {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  &.background {
+    scrollbar-color: var(--background) transparent;
+  }
+
+  &.purple {
+    scrollbar-color: var(--secondary-container) transparent;
+  }
+  &.sky {
+    scrollbar-color: var(--primary) transparent;
+  }
+  &.yellow {
+    scrollbar-color: var(--tertiary) transparent;
+  }
+  &.blue {
+    scrollbar-color: var(--primary-container) transparent;
+  }
+  &.gold {
+    scrollbar-color: var(--tertiary-container) transparent;
+  }
 }

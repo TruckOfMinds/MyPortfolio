@@ -7,10 +7,10 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Link } from "react-router";
 import { Button } from "./ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { fetchTopProjects } from "@/utils/serverPortal";
+import { Link } from "react-router";
 
 export default function TopProjects(): JSX.Element {
   const [api, setApi] = useState<CarouselApi>();
@@ -71,11 +71,21 @@ export default function TopProjects(): JSX.Element {
 
           <section className="flex flex-col items-center justify-between gap-2">
             <h1 className="w-fit text-xl">{name}</h1>
-            <Link to={`/code-projects/${name}`}>
-              <Button className="bg-on-sec-f text-sec-cont">
+
+            {name !== "project_name" ? (
+              <Link to={`code-projects/${name}`}>
+                <Button className="bg-on-sec-f text-sec-cont transition-all hover:bg-on-sec-f hover:brightness-75">
+                  <i>View Project</i>
+                </Button>
+              </Link>
+            ) : (
+              <Button
+                className="cursor-not-allowed opacity-50 bg-on-sec-f text-sec-cont transition-all hover:bg-on-sec-f"
+                aria-disabled={true}
+              >
                 <i>View Project</i>
               </Button>
-            </Link>
+            )}
           </section>
         </span>
 

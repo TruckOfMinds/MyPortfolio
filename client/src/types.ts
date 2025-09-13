@@ -10,7 +10,7 @@ export type gridProps = {
 export type codeCardProps = {
   id: bigint;
   repo_name: string;
-  image: string;
+  logo: string;
   tags: string[];
   date: string;
 };
@@ -22,7 +22,7 @@ export type designCardProps = {
   bio: string;
   pros: string;
   cons: string;
-  image: string;
+  logo: string;
 };
 
 export type cardProps = {
