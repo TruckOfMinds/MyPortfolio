@@ -66,10 +66,7 @@ const About = (): JSX.Element => {
         foo bar
       </Card>
 
-      <Card className="in-grid [grid-area:d] scroller" colour="purple">
-        <h2 className="w-fit orbit [letter-spacing:.1rem] pb-4">
-          Technical Skills
-        </h2>
+      <Card className="in-grid [grid-area:d]" colour="purple">
         <Skills />
       </Card>
 

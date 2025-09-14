@@ -63,7 +63,7 @@ export default function TopProjects(): JSX.Element {
                 <img
                   src={d.image}
                   alt={`Showcase of ${d.repo_name || "my project"}`}
-                  data-name={d.repo_name || null}
+                  data-name={d.repo_name}
                 />
               </CarouselItem>
             ))}

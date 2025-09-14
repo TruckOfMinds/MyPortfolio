@@ -6,6 +6,8 @@ import { useEffect, useState, type JSX } from "react";
 
 import Card from "./Card";
 
+import "./style/Skills.css";
+
 export default function Skills(): JSX.Element {
   const { isPending, isError, error, data } = useQuery({
     queryKey: ["skills"],
@@ -18,37 +20,66 @@ export default function Skills(): JSX.Element {
   if (isError) return <>{error.message}</>;
 
   return (
-    <section className="w-full h-3/4 flex flex-wrap items-center content-evenly justify-evenly gap-4 [scrollbar-width:thin]">
-      {data.map((d) => (
-        <SkillCard key={d.name} d={d} />
-      ))}
-    </section>
+    <>
+      <h2 className="w-fit orbit [letter-spacing:.1rem] text-xl mt-1">
+        Technical Skills
+      </h2>
+      <section className="w-full h-[86%] pb-2 pt-4 flex flex-wrap items-center content-evenly justify-center gap-x-4 gap-y-2 scroller background">
+        {data.map((d) => (
+          <SkillCard key={d.name} d={d} />
+        ))}
+      </section>
+    </>
   );
 }
+
+// todo: make all .skill-name elements disappear when a .skill is clicked
 
 const SkillCard = ({ d }: { d: skillProps }): JSX.Element => {
   const [show, setShow] = useState(false);
 
-  useEffect(() => {
-    // if (show) setTimeout(() => setShow(false), 1000);
-  }, [show]);
+  // useEffect(() => {
+  //   if (!show) return;
+
+  //   const removeListeners = () =>
+  //     document.querySelector("body")?.removeEventListener("click", handleClick);
+
+  //   const handleClick = () => {
+  //     console.log("clicked");
+
+  //     // removeListeners();
+  //     setShow(false);
+  //   };
+
+  //   const addListeners = () =>
+  //     document.querySelector("body")?.addEventListener("click", handleClick);
+
+  //   addListeners();
+  // }, [show]);
+
+  useEffect(() => {}, []);
 
   return (
     <section className="relative">
       <Card
         onClick={() => setShow(!show)}
-        className="skill rounded-lg flex items-center justify-center h-20 w-20"
+        className="skill rounded-lg flex items-center justify-center h-16 w-16 transition-all hover:brightness-110 hover:scale-110 active:brightness-90 active:scale-95"
+        colour="purple"
+        data-skill={d.name}
       >
         <img
-          src={[import.meta.env.VITE_BUCKET_URL, d.logo_name].join("/skills/")}
+          src={
+            [import.meta.env.VITE_BUCKET_URL, d.logo_name].join("/skills/") ||
+            "/noSkill.svg"
+          }
           alt="logo"
           className="h-9/10"
         />
       </Card>
 
       {show ? (
-        <Card className="skill-name absolute left-[50%] top-0 logo-name rounded-2xl">
-          {d.name}
+        <Card className="skill-name absolute left-[50%] top-[-10%] logo-name rounded-md z-10 shadow-v bg-bg text-on-sec-cont">
+          {d.name || "n/a"}
         </Card>
       ) : (
         <></>

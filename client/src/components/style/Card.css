@@ -104,17 +104,13 @@
   }
 }
 
-.logo-name {
-  translate: -50% -50%;
-}
-
 .scroller {
   overflow-y: auto;
-  scrollbar-width: thin;
+
+  /* Colors */
   &.background {
     scrollbar-color: var(--background) transparent;
   }
-
   &.purple {
     scrollbar-color: var(--secondary-container) transparent;
   }
