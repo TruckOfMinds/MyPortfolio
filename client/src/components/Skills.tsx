@@ -2,7 +2,7 @@ import type { skillProps } from "@/types";
 
 import { fetchSkills } from "@/utils/serverPortal";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState, type JSX } from "react";
+import { useEffect, useRef, useState, type JSX } from "react";
 
 import Card from "./Card";
 
@@ -33,31 +33,20 @@ export default function Skills(): JSX.Element {
   );
 }
 
-// todo: make all .skill-name elements disappear when a .skill is clicked
-
 const SkillCard = ({ d }: { d: skillProps }): JSX.Element => {
   const [show, setShow] = useState(false);
+  const ref = useRef<HTMLElement | null>(null);
 
-  // useEffect(() => {
-  //   if (!show) return;
+  useEffect(() => {
+    const handleClick = (e: Event) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setShow(false);
+      }
+    };
 
-  //   const removeListeners = () =>
-  //     document.querySelector("body")?.removeEventListener("click", handleClick);
-
-  //   const handleClick = () => {
-  //     console.log("clicked");
-
-  //     // removeListeners();
-  //     setShow(false);
-  //   };
-
-  //   const addListeners = () =>
-  //     document.querySelector("body")?.addEventListener("click", handleClick);
-
-  //   addListeners();
-  // }, [show]);
-
-  useEffect(() => {}, []);
+    if (show) document.addEventListener("click", handleClick);
+    return () => document.removeEventListener("click", handleClick);
+  }, [show, ref]);
 
   return (
     <section className="relative">
@@ -66,6 +55,7 @@ const SkillCard = ({ d }: { d: skillProps }): JSX.Element => {
         className="skill rounded-lg flex items-center justify-center h-16 w-16 transition-all hover:brightness-110 hover:scale-110 active:brightness-90 active:scale-95"
         colour="purple"
         data-skill={d.name}
+        ref={ref}
       >
         <img
           src={
@@ -78,7 +68,7 @@ const SkillCard = ({ d }: { d: skillProps }): JSX.Element => {
       </Card>
 
       {show ? (
-        <Card className="skill-name absolute left-[50%] top-[-10%] logo-name rounded-md z-10 shadow-v bg-bg text-on-sec-cont">
+        <Card className="skill-name absolute left-[50%] top-0 logo-name rounded-md z-10 shadow-v bg-bg text-on-sec-cont">
           {d.name || "n/a"}
         </Card>
       ) : (

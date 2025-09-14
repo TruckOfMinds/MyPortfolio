@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ReactNode, Ref } from "react";
 
 export type gridProps = {
   layout?: string;
@@ -33,6 +33,7 @@ export type cardProps = {
   onClick?: () => void;
   codeData?: codeCardProps;
   designData?: designCardProps;
+  ref?: Ref<HTMLElement>;
 };
 
 export type skillProps = {

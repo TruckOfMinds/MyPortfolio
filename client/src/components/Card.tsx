@@ -13,6 +13,7 @@ export default function Card({
   onClick,
   codeData,
   designData,
+  ref,
 }: cardProps) {
   return (
     <article
@@ -23,6 +24,7 @@ export default function Card({
         className,
       ].join(" ")}
       onClick={onClick}
+      ref={ref}
     >
       {variant === "code" && codeData ? (
         <CodeContent {...codeData} />
