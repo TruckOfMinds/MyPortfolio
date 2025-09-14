@@ -33,19 +33,31 @@ export default function Skills(): JSX.Element {
   );
 }
 
+// * name cards should not be cropped at smaller rezs
 const SkillCard = ({ d }: { d: skillProps }): JSX.Element => {
   const [show, setShow] = useState(false);
   const ref = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    const handleClick = (e: Event) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
+    const handleEvent = (e: Event) => {
+      if (ref.current && !ref.current.contains(e.target as Node))
         setShow(false);
-      }
+    };
+    const checkKey = (e: KeyboardEvent) => {
+      if (e.key === "Enter") handleEvent(e);
     };
 
-    if (show) document.addEventListener("click", handleClick);
-    return () => document.removeEventListener("click", handleClick);
+    const addListeners = () => {
+      document.addEventListener("click", handleEvent);
+      document.addEventListener("keyup", checkKey);
+    };
+    const removeListeners = () => {
+      document.removeEventListener("click", handleEvent);
+      document.removeEventListener("keyup", checkKey);
+    };
+
+    if (show) addListeners();
+    return () => removeListeners();
   }, [show, ref]);
 
   return (
@@ -56,6 +68,8 @@ const SkillCard = ({ d }: { d: skillProps }): JSX.Element => {
         colour="purple"
         data-skill={d.name}
         ref={ref}
+        tabIndex={0}
+        onEnter={(e) => (e.key === "Enter" ? setShow(!show) : null)}
       >
         <img
           src={

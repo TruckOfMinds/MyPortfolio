@@ -31,9 +31,11 @@ export type cardProps = {
   children?: ReactNode;
   className?: string;
   onClick?: () => void;
+  onEnter?: (e: React.KeyboardEvent<HTMLElement>) => void;
   codeData?: codeCardProps;
   designData?: designCardProps;
   ref?: Ref<HTMLElement>;
+  tabIndex?: number;
 };
 
 export type skillProps = {

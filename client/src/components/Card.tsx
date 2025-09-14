@@ -11,9 +11,11 @@ export default function Card({
   children,
   className,
   onClick,
+  onEnter,
   codeData,
   designData,
   ref,
+  tabIndex,
 }: cardProps) {
   return (
     <article
@@ -25,6 +27,8 @@ export default function Card({
       ].join(" ")}
       onClick={onClick}
       ref={ref}
+      tabIndex={tabIndex}
+      onKeyUp={onEnter}
     >
       {variant === "code" && codeData ? (
         <CodeContent {...codeData} />
