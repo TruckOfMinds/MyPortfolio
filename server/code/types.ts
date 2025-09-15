@@ -7,9 +7,9 @@ export type designCardProps = Promise<
     name: string;
     date: string;
     bio: string;
-    expp: string;
-    expn: string;
-    image: string;
+    pros: string;
+    cons: string;
+    logo: string;
   }[]
 >;
 
@@ -17,7 +17,6 @@ export type skillsProps = Promise<
   {
     id: bigint;
     name: string;
-    bg: string;
     logo_name: string;
   }[]
 >;
@@ -26,7 +25,7 @@ export type codeCardProps = Promise<
   {
     id: bigint;
     repo_name: string;
-    image: string;
+    logo: string;
     tags: string[];
     date: string;
   }[]
@@ -47,7 +46,7 @@ export type repoProps = Promise<
 export type topProps = Promise<
   {
     id: bigint;
-    repo_name: string;
+    name: string;
     image: string;
   }[]
 >;
@@ -64,5 +63,4 @@ export type linkProps = Promise<
 // — GitHub Handling ————————————————————————
 export type dbRepoName = { repo_name: string };
 
-export type gitRepo =
-  Endpoints["GET /users/{username}/repos"]["response"]["data"][number];
+export type gitRepo = Endpoints["GET /user/repos"]["response"]["data"][number];

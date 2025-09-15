@@ -4,6 +4,7 @@ import Grid from "./Grid";
 import Card from "./Card";
 import { Link } from "react-router";
 import { Button } from "./ui/button";
+import "./style/Footer.css";
 
 export default function Footer() {
   return (
@@ -11,9 +12,12 @@ export default function Footer() {
       <Card
         colour="blue"
         variant="in-grid full"
-        className="px-8 flex items-center justify-evenly shadow-v [grid-area:a/a-start/a-end/c-end]"
+        className="px-8 flex items-center justify-evenly gap-x-[calc(25%/3)] shadow-v [grid-area:a/a-start/a-end/c-end]"
       >
-        <Logo className="w-1/4" onClick={() => scroll({ top: 0 })} />
+        <Logo
+          className="w-1/4 cursor-pointer "
+          onClick={() => scroll({ top: 0 })}
+        />
         <div className="flex flex-col w-1/4 min-w-fit gap-4 justify-center">
           <FooterCTA to="mailto:reubdub07@gmail.com">
             <div className="flex flex-col items-center gap-1">
@@ -41,9 +45,11 @@ const FooterCTA = ({
 }): JSX.Element => (
   <Button
     asChild
-    className="min-w-fit w-full min-h-fit px-2 py-2 shadow-v border-2 border-ter-cont text-ter-cont text-center rounded-lg hover:bg-pri"
+    className="min-w-fit w-full min-h-fit px-2 py-2 shadow-v border-2 border-ter-cont text-ter-cont text-center rounded-lg transition-colors bg-transparent hover:bg-pri active:brightness-150"
   >
-    <Link to={to}>{children}</Link>
+    <Link to={to} target="_blank">
+      {children}
+    </Link>
   </Button>
 );
 
@@ -60,7 +66,7 @@ const Logo = ({
     viewBox="0 0 436 176"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className={`transition-all hover:brightness-80 ${className}`}
+    className={`logo ${className}`}
     onClick={onClick}
   >
     <path

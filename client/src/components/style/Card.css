@@ -56,13 +56,16 @@
 .in-grid {
   width: 80%;
   height: 80%;
+  max-width: 80%;
 
   &.long {
     width: 90.1%;
+    max-width: 90.1%;
   }
 
   &.full {
     width: 93%;
+    max-width: 93%;
   }
 }
 
@@ -80,6 +83,16 @@
     gap: 0.5rem;
     align-items: center;
     justify-items: center;
+
+    .in-development {
+      background-color: #eba92f;
+      color: #815002;
+    }
+
+    .deployed {
+      background-color: #268624;
+      color: #60bb5f;
+    }
   }
 
   &.design {
@@ -88,5 +101,29 @@
       "name name name"
       "bio bio bio";
     grid-template-rows: 2fr 1fr 1fr;
+  }
+}
+
+.scroller {
+  overflow-y: auto;
+
+  /* Colors */
+  &.background {
+    scrollbar-color: var(--background) transparent;
+  }
+  &.purple {
+    scrollbar-color: var(--secondary-container) transparent;
+  }
+  &.sky {
+    scrollbar-color: var(--primary) transparent;
+  }
+  &.yellow {
+    scrollbar-color: var(--tertiary) transparent;
+  }
+  &.blue {
+    scrollbar-color: var(--primary-container) transparent;
+  }
+  &.gold {
+    scrollbar-color: var(--tertiary-container) transparent;
   }
 }

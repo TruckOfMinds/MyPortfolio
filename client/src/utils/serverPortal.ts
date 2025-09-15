@@ -1,6 +1,6 @@
 import type { codeCardProps, skillProps, topProps } from "@/types";
 
-const server: string = import.meta.env.SERVER_URL;
+const server: string = import.meta.env.VITE_SERVER_URL;
 
 // Home.tsx
 export const fetchSkills = async (): Promise<skillProps[]> =>
