@@ -1,93 +1,130 @@
-import type { skillProps } from "@/types";
+import type { Elem, ElemRef, skillProps } from "@/types";
 
 import { fetchSkills } from "@/utils/serverPortal";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useRef, useState, type JSX } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type JSX } from "react";
 
 import Card from "./Card";
 
 import "./style/Skills.css";
+import { createPortal } from "react-dom";
 
-export default function Skills(): JSX.Element {
-  const { isPending, isError, error, data } = useQuery({
-    queryKey: ["skills"],
-    queryFn: fetchSkills,
-    staleTime: 1000 * 60 * 5, // 5 minutes
-  });
+export default function Skills({ portalRef }: { portalRef: ElemRef }): JSX.Element {
+	const { isPending, isError, error, data } = useQuery({
+		queryKey: ["skills"],
+		queryFn: fetchSkills,
+		staleTime: 1000 * 60 * 5, // 5 minutes
+	});
 
-  if (isPending) return <>Loading...</>;
+	if (isPending) return <>Loading...</>;
 
-  if (isError) return <>{error.message}</>;
+	if (isError) return <>{error.message}</>;
 
-  return (
-    <>
-      <h2 className="w-fit orbit [letter-spacing:.1rem] text-xl mt-1">
-        Technical Skills
-      </h2>
-      <section className="w-full h-[86%] pb-2 pt-4 flex flex-wrap items-center content-evenly justify-center gap-x-4 gap-y-2 scroller background">
-        {data.map((d) => (
-          <SkillCard key={d.name} d={d} />
-        ))}
-      </section>
-    </>
-  );
+	return (
+		<>
+			<h2 className="w-fit orbit [letter-spacing:.1rem] text-xl mt-1">Technical Skills</h2>
+			<section
+				id="skillContainer"
+				className="w-full h-[86%] pb-2 pt-4 flex flex-wrap items-center content-evenly justify-center gap-x-4 gap-y-2 scroller background">
+				{data.map(d => (
+					<SkillCard key={d.name} d={d} portalRef={portalRef} />
+				))}
+			</section>
+		</>
+	);
 }
 
-// * name cards should not be cropped at smaller rezs
-const SkillCard = ({ d }: { d: skillProps }): JSX.Element => {
-  const [show, setShow] = useState(false);
-  const ref = useRef<HTMLElement | null>(null);
+const SkillCard = ({ d, portalRef }: { d: skillProps; portalRef: ElemRef }): JSX.Element => {
+	//
+	const [show, setShow] = useState(false);
+	const [coords, setCoords] = useState<{ top: number; left: number | string }>({
+		top: 0,
+		left: "50%",
+	});
+	const ref = useRef<Elem>(null);
+	const skillNameRef = useRef<Elem>(null);
 
-  useEffect(() => {
-    const handleEvent = (e: Event) => {
-      if (ref.current && !ref.current.contains(e.target as Node))
-        setShow(false);
-    };
-    const checkKey = (e: KeyboardEvent) => {
-      if (e.key === "Enter") handleEvent(e);
-    };
+	// —— EVENTS ——————————————————————————————————————————————————————————————————————————
 
-    const addListeners = () => {
-      document.addEventListener("click", handleEvent);
-      document.addEventListener("keyup", checkKey);
-    };
-    const removeListeners = () => {
-      document.removeEventListener("click", handleEvent);
-      document.removeEventListener("keyup", checkKey);
-    };
+	//* Handle Position
+	useLayoutEffect(() => {
+		if (!show) return;
+		if (!ref.current || !portalRef.current || !skillNameRef.current) {
+			setCoords({
+				top: 0,
+				left: "50%",
+			});
+			return;
+		}
 
-    if (show) addListeners();
-    return () => removeListeners();
-  }, [show, ref]);
+		const cardRect = ref.current.getBoundingClientRect();
+		const targetRect = portalRef.current.getBoundingClientRect();
+		const popupRect = skillNameRef.current.getBoundingClientRect();
 
-  return (
-    <section className="relative">
-      <Card
-        onClick={() => setShow(!show)}
-        className="skill rounded-lg flex items-center justify-center h-16 w-16 transition-all hover:brightness-110 hover:scale-110 active:brightness-90 active:scale-95"
-        colour="purple"
-        data-skill={d.name}
-        ref={ref}
-        tabIndex={0}
-        onEnter={(e) => (e.key === "Enter" ? setShow(!show) : null)}
-      >
-        <img
-          src={
-            [import.meta.env.VITE_BUCKET_URL, d.logo_name].join("/skills/") ||
-            "/noSkill.svg"
-          }
-          alt="logo"
-          className="h-9/10"
-        />
-      </Card>
+		setCoords({
+			top: cardRect.top - targetRect.top,
+			left: cardRect.left - targetRect.left + (cardRect.width - popupRect.width) / 2,
+		});
+	}, [show, portalRef]);
 
-      {show ? (
-        <Card className="skill-name absolute left-[50%] top-0 logo-name rounded-md z-10 shadow-v bg-bg text-on-sec-cont">
-          {d.name || "n/a"}
-        </Card>
-      ) : (
-        <></>
-      )}
-    </section>
-  );
+	//* Handle State
+	useEffect(() => {
+		// if not on its corresponding skill
+		const handleEvent = (e: Event) => {
+			if (ref.current && !ref.current.contains(e.target as Node)) setShow(false);
+		};
+
+		const checkKey = (e: KeyboardEvent) => {
+			if (e.key === "Enter") handleEvent(e);
+		};
+
+		// manages both mouse and keyboard events
+		const addListeners = () => {
+			document.addEventListener("click", handleEvent);
+			document.addEventListener("keyup", checkKey);
+			document.getElementById("skillContainer")?.addEventListener("scroll", () => setShow(false));
+		};
+		const removeListeners = () => {
+			document.removeEventListener("click", handleEvent);
+			document.removeEventListener("keyup", checkKey);
+			document
+				.getElementById("skillContainer")
+				?.removeEventListener("scroll", () => setShow(false));
+		};
+
+		if (show) addListeners();
+		return () => removeListeners();
+	}, [show, ref]);
+
+	// —————————————————————————————————————————————————————————————————————————————————————
+
+	return (
+		<section className="relative overflow-x-visible">
+			<Card
+				onClick={() => setShow(!show)}
+				className="skill rounded-lg flex items-center justify-center h-16 w-16 transition-all hover:brightness-110 hover:scale-110 active:brightness-90 active:scale-95"
+				colour="purple"
+				ref={ref}
+				tabIndex={0}
+				onEnter={e => (e.key === "Enter" ? setShow(!show) : null)}>
+				<img
+					src={[import.meta.env.VITE_BUCKET_URL, d.logo_name].join("/skills/") || "/noSkill.svg"}
+					alt="logo"
+					className="h-9/10"
+				/>
+			</Card>
+
+			{show &&
+				portalRef.current &&
+				createPortal(
+					<Card
+						ref={skillNameRef}
+						style={coords}
+						className="skill-name absolute logo-name rounded-md z-10 shadow-v bg-bg text-on-sec-cont">
+						{d.name || "n/a"}
+					</Card>,
+					portalRef.current
+				)}
+		</section>
+	);
 };
