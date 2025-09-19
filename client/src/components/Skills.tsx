@@ -22,10 +22,10 @@ export default function Skills({ portalRef }: { portalRef: ElemRef }): JSX.Eleme
 
 	return (
 		<>
-			<h2 className="w-fit orbit [letter-spacing:.1rem] text-xl mt-1">Technical Skills</h2>
+			<h2 className="w-fit orbit [letter-spacing:.1rem] text-xl mt-1 pb-2">Technical Stack</h2>
 			<section
 				id="skillContainer"
-				className="w-full h-[86%] pb-2 pt-4 flex flex-wrap items-center content-evenly justify-center gap-x-4 gap-y-2 scroller background">
+				className="w-full h-[86%] pb-2 pt-3 flex flex-wrap items-center content-evenly justify-center gap-x-4 gap-y-2 scroller background">
 				{data.map(d => (
 					<SkillCard key={d.name} d={d} portalRef={portalRef} />
 				))}
@@ -35,7 +35,6 @@ export default function Skills({ portalRef }: { portalRef: ElemRef }): JSX.Eleme
 }
 
 const SkillCard = ({ d, portalRef }: { d: skillProps; portalRef: ElemRef }): JSX.Element => {
-	//
 	const [show, setShow] = useState(false);
 	const [coords, setCoords] = useState<{ top: number; left: number | string }>({
 		top: 0,
@@ -102,7 +101,7 @@ const SkillCard = ({ d, portalRef }: { d: skillProps; portalRef: ElemRef }): JSX
 		<section className="relative overflow-x-visible">
 			<Card
 				onClick={() => setShow(!show)}
-				className="skill rounded-lg flex items-center justify-center h-16 w-16 transition-all hover:brightness-110 hover:scale-110 active:brightness-90 active:scale-95"
+				className="skill rounded-lg h-16 w-16 brightness-105 flex items-center justify-center transition-all hover:brightness-115 hover:scale-110 active:brightness-90 active:scale-95"
 				colour="purple"
 				ref={ref}
 				tabIndex={0}
@@ -110,7 +109,7 @@ const SkillCard = ({ d, portalRef }: { d: skillProps; portalRef: ElemRef }): JSX
 				<img
 					src={[import.meta.env.VITE_BUCKET_URL, d.logo_name].join("/skills/") || "/noSkill.svg"}
 					alt="logo"
-					className="h-9/10"
+					className="h-9/10 [user-select:none]"
 				/>
 			</Card>
 
@@ -120,7 +119,7 @@ const SkillCard = ({ d, portalRef }: { d: skillProps; portalRef: ElemRef }): JSX
 					<Card
 						ref={skillNameRef}
 						style={coords}
-						className="skill-name absolute logo-name rounded-md z-10 shadow-v bg-bg text-on-sec-cont">
+						className="skill-name absolute rounded-md z-10 shadow-v bg-bg text-on-sec-cont">
 						{d.name || "n/a"}
 					</Card>,
 					portalRef.current

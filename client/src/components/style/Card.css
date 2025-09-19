@@ -1,129 +1,129 @@
 /* Colours */
 .sky {
-  background-color: var(--primary-container);
-  color: var(--primary);
-  &.tag {
-    background-color: var(--primary-fixed-dim);
-    color: var(--on-primary-fixed);
-  }
+	background-color: var(--primary-container);
+	color: var(--primary);
+	&.tag {
+		background-color: var(--primary-fixed-dim);
+		color: var(--on-primary-fixed);
+	}
 }
 
 .pink {
-  background-color: var(--secondary-container);
-  color: var(--on-secondary-container);
-  &.tag {
-    background-color: var(--secondary-fixed-dim);
-    color: var(--on-secondary-fixed);
-  }
+	background-color: var(--secondary-container);
+	color: var(--on-secondary-container);
+	&.tag {
+		background-color: var(--secondary-fixed-dim);
+		color: var(--on-secondary-fixed);
+	}
 }
 
 .yellow {
-  background-color: var(--tertiary-container);
-  color: var(--tertiary);
-  &.tag {
-    background-color: var(--tertiary-fixed-dim);
-    color: var(--on-tertiary-fixed);
-  }
+	background-color: var(--tertiary-container);
+	color: var(--tertiary);
+	&.tag {
+		background-color: var(--tertiary-fixed-dim);
+		color: var(--on-tertiary-fixed);
+	}
 }
 
 .purple {
-  background-color: var(--on-secondary-container);
-  color: var(--secondary-container);
-  &.tag {
-    background-color: var(--secondary-fixed-dim);
-    color: var(--on-secondary-fixed);
-  }
+	background-color: var(--on-secondary-container);
+	color: var(--secondary-container);
+	&.tag {
+		background-color: var(--secondary-fixed-dim);
+		color: var(--on-secondary-fixed);
+	}
 }
 
 .blue {
-  background-color: var(--on-primary-container);
-  color: var(--primary-container);
-  &.tag {
-    background-color: var(--primary-fixed-dim);
-    color: var(--on-primary-fixed);
-  }
+	background-color: var(--on-primary-container);
+	color: var(--primary-container);
+	&.tag {
+		background-color: var(--primary-fixed-dim);
+		color: var(--on-primary-fixed);
+	}
 }
 
 .gold {
-  background-color: var(--on-tertiary-container);
-  color: var(--tertiary-container);
-  &.tag {
-    background-color: var(--tertiary-fixed-dim);
-    color: var(--on-tertiarys-fixed);
-  }
+	background-color: var(--on-tertiary-container);
+	color: var(--tertiary-container);
+	&.tag {
+		background-color: var(--tertiary-fixed-dim);
+		color: var(--on-tertiarys-fixed);
+	}
 }
 
 .in-grid {
-  width: 80%;
-  height: 80%;
-  max-width: 80%;
+	width: 80%;
+	height: 80%;
+	max-width: 80%;
 
-  &.long {
-    width: 90.1%;
-    max-width: 90.1%;
-  }
+	&.long {
+		width: 90.1%;
+		max-width: 90.1%;
+	}
 
-  &.full {
-    width: 93%;
-    max-width: 93%;
-  }
+	&.full {
+		width: 93%;
+		max-width: 93%;
+	}
 }
 
 .card-grid {
-  width: 100%;
-  height: 100%;
+	width: 100%;
+	height: 100%;
 
-  display: grid;
+	display: grid;
 
-  &.code {
-    grid-template-areas:
-      "image name name"
-      "tag tag tag";
-    grid-template-rows: 2fr 1fr;
-    gap: 0.5rem;
-    align-items: center;
-    justify-items: center;
+	&.code {
+		grid-template-areas:
+			"image name name"
+			"tag tag tag";
+		grid-template-rows: 2fr 1fr;
+		gap: 0.5rem;
+		align-items: center;
+		justify-items: center;
 
-    .in-development {
-      background-color: #eba92f;
-      color: #815002;
-    }
+		.in-development {
+			background-color: #eba92f;
+			color: #815002;
+		}
 
-    .deployed {
-      background-color: #268624;
-      color: #60bb5f;
-    }
-  }
+		.deployed {
+			background-color: #268624;
+			color: #60bb5f;
+		}
+	}
 
-  &.design {
-    grid-template-areas:
-      "image image image"
-      "name name name"
-      "bio bio bio";
-    grid-template-rows: 2fr 1fr 1fr;
-  }
+	&.design {
+		grid-template-areas:
+			"image image image"
+			"name name name"
+			"bio bio bio";
+		grid-template-rows: 2fr 1fr 1fr;
+	}
 }
 
 .scroller {
-  overflow-y: auto;
+	overflow: visible auto;
 
-  /* Colors */
-  &.background {
-    scrollbar-color: var(--background) transparent;
-  }
-  &.purple {
-    scrollbar-color: var(--secondary-container) transparent;
-  }
-  &.sky {
-    scrollbar-color: var(--primary) transparent;
-  }
-  &.yellow {
-    scrollbar-color: var(--tertiary) transparent;
-  }
-  &.blue {
-    scrollbar-color: var(--primary-container) transparent;
-  }
-  &.gold {
-    scrollbar-color: var(--tertiary-container) transparent;
-  }
+	/* Colors */
+	&.background {
+		scrollbar-color: var(--background) transparent;
+	}
+	&.purple {
+		scrollbar-color: var(--secondary-container) transparent;
+	}
+	&.sky {
+		scrollbar-color: var(--primary) transparent;
+	}
+	&.yellow {
+		scrollbar-color: var(--tertiary) transparent;
+	}
+	&.blue {
+		scrollbar-color: var(--primary-container) transparent;
+	}
+	&.gold {
+		scrollbar-color: var(--tertiary-container) transparent;
+	}
 }

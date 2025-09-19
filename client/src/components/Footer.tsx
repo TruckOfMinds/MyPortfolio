@@ -58,8 +58,8 @@ const Logo = ({
 	onClick?: () => void;
 }): JSX.Element => (
 	<svg
-		width="436"
-		height="176"
+		width="327"
+		height="132"
 		viewBox="0 0 436 176"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"

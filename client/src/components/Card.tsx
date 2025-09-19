@@ -2,50 +2,45 @@ import type { cardProps, codeCardProps, designCardProps } from "@/types";
 
 import "./style/Card.css";
 import { Link } from "react-router";
-import type { JSX } from "react";
+import type { JSX, ReactNode } from "react";
 import Grid from "./Grid";
 
-export default function Card({
-	variant, // Physical alterations e.g. long — or it's purpose i.e. code or design
-	colour,
-	children,
-	className,
-	style,
-	onClick,
-	onEnter, // Intended for pressing the 'Enter' key but can be any keyup
-	codeData, // Data needed if it's the code variant
-	designData, // Data needed if it's the design variant
-	ref,
-	tabIndex,
-}: cardProps) {
+export default function Card(props: cardProps): JSX.Element {
+	const content = (): ReactNode => {
+		let content;
+		if (props.variant === "code" && props.codeData) {
+			content = <CodeContent {...props.codeData} />;
+		} else if (props.variant === "design" && props.designData) {
+			content = <DesignContent {...props.designData} />;
+		} else {
+			content = props.children;
+		}
+		return content;
+	};
+
 	return (
 		<article
-			style={style}
+			style={props.style}
+			onClick={props.onClick}
+			ref={props.ref}
+			tabIndex={props.tabIndex}
+			onKeyUp={props.onEnter}
 			className={[
-				"rounded-2xl shadow-iii px-4 py-2 max-h-[50dvh] min-h-fit",
-				variant,
-				colour,
-				className,
-			].join(" ")}
-			onClick={onClick}
-			ref={ref}
-			tabIndex={tabIndex}
-			onKeyUp={onEnter}>
+				"rounded-2xl shadow-iii max-h-[50dvh]",
+				content() === props.children ? "px-4 py-3" : "",
+				props.variant,
+				props.colour,
+				props.className,
+			].join(" ")}>
 			{/* render specific content for certain card types,
           otherwise user child elements */}
-			{variant === "code" && codeData ? (
-				<CodeContent {...codeData} />
-			) : variant === "design" && designData ? (
-				<DesignContent {...designData} />
-			) : (
-				children
-			)}
+			{content()}
 		</article>
 	);
 }
 
 const CodeContent = (props: codeCardProps): JSX.Element => (
-	<Link to={props.repo_name} className="card-grid code relative">
+	<Link to={props.repo_name} className="card-grid code relative px-4 py-2">
 		<img src={props.logo} alt="Project image" className="[grid-area:image]" />
 		<p className="[grid-area:name]">{props.repo_name}</p>
 
@@ -66,7 +61,7 @@ const CodeContent = (props: codeCardProps): JSX.Element => (
 );
 
 const DesignContent = (props: designCardProps): JSX.Element => (
-	<Link to={props.name} className="card-grid design">
+	<Link to={props.name} className="card-grid design px-4 py-2">
 		<img src={props.logo} alt="Project image" className="[grid-area:image]" />
 		<p className="[grid-area:name]">{props.name}</p>
 		<p className="[grid-area:bio]">{props.bio}</p>

@@ -11,14 +11,11 @@ import type { Elem } from "@/types";
 
 export default function HomePage(): JSX.Element {
 	return (
-		<>
-			<title>RD Portfolio</title>
-			<main>
-				<Hero />
-				<About />
-				<Background />
-			</main>
-		</>
+		<main>
+			<Hero />
+			<About />
+			<Background />
+		</main>
 	);
 }
 
@@ -31,7 +28,7 @@ const Hero = (): JSX.Element => (
 		</h1>
 
 		<img
-			src="#"
+			src="fallback.svg"
 			alt="Image of my code!"
 			className="image rotate-[8.5deg] [grid-area:b] w-sm min-h-54 bg-ter rounded-4xl text-ter-cont [line-height:13.5rem] shadow-iii"
 		/>
@@ -58,7 +55,7 @@ const About = (): JSX.Element => {
 
 	return (
 		<Grid layout="three-two" id="about" className="bg-sec">
-			<TitleBlock text="Who Am I?" src="#" alt="#" className="in-grid [grid-area:a]" />
+			<TitleBlock text="Who Am I?" alt="#" className="in-grid [grid-area:a]" />
 
 			<Card variant="long" className="in-grid [grid-area:b/b-start/b-end/c-end]" colour="pink">
 				foo bar
@@ -69,8 +66,13 @@ const About = (): JSX.Element => {
 			</Card>
 
 			<Card
-				className="in-grid [grid-area:e/e-start/e-end/f-end] flex justify-center"
+				className="in-grid [grid-area:e/e-start/e-end/f-end] flex flex-col items-center justify-between"
+				variant="long"
 				colour="purple">
+				<h2 className="text-start w-full orbit [letter-spacing:.1rem] text-xl mt-1">
+					Top Projects
+				</h2>
+
 				<TopProjects />
 			</Card>
 		</Grid>
@@ -82,7 +84,7 @@ const Background = (): JSX.Element => {
 
 	return (
 		<Grid layout="three-two" id="background" className="bg-pri">
-			<TitleBlock text="My Background" src="#" alt="#" className="in-grid [grid-area:a]" />
+			<TitleBlock text="My Background" alt="#" className="in-grid [grid-area:a]" />
 
 			<Card variant="long" colour="sky" className="in-grid [grid-area:b/b-start/b-end/c-end]">
 				{bgText}
@@ -122,7 +124,7 @@ const TitleBlock = ({
 	className,
 }: {
 	text: string;
-	src: string;
+	src?: string;
 	alt: string;
 	className?: string;
 }): JSX.Element => (
@@ -131,8 +133,10 @@ const TitleBlock = ({
 			<h1 className="orbit text-ter text-center [line-height:1] text-[2.5rem]">{text}</h1>
 		</div>
 
-		<div className="bg-ter h-[calc(50%-0.5rem)] min-w-[7rem] w-full rounded-2xl text-ter-cont shadow-iii flex items-center justify-center">
-			<img src={src} alt={alt} className="object-cover" />
-		</div>
+		<img
+			src={src || "fallback.svg"}
+			alt={alt}
+			className="bg-ter h-[calc(50%-0.5rem)] min-w-[7rem] w-full rounded-2xl text-ter-cont shadow-iii flex items-center justify-center object-contain"
+		/>
 	</header>
 );

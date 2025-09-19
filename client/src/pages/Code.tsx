@@ -10,35 +10,35 @@ import Card from "@/components/Card";
 import "./style/Code.css";
 
 export default function CodePage() {
-  return (
-    <>
-      <title>RD Portfolio</title>
-      <main>
-        <Grid id="top" className="max-h-fit">
-          <Header variant="Dev" />
-          <Projects />
-        </Grid>
-      </main>
-    </>
-  );
+	return (
+		<>
+			<title>Code Projects | RD Portfolio</title>
+			<main>
+				<Grid id="top" className="max-h-fit">
+					<Header variant="Dev" />
+					<Projects />
+				</Grid>
+			</main>
+		</>
+	);
 }
 
 const Projects = (): JSX.Element => {
-  // ? handle query strings
+	// ? handle query strings
 
-  const { isPending, isError, error, data } = useQuery({
-    queryKey: ["code"],
-    queryFn: fetchCodeCards,
-  });
+	const { isPending, isError, error, data } = useQuery({
+		queryKey: ["code"],
+		queryFn: fetchCodeCards,
+	});
 
-  if (isPending) return <></>;
-  if (isError) return <>{error}</>;
+	if (isPending) return <></>;
+	if (isError) return <>{error}</>;
 
-  return (
-    <section className="in-grid full max-h-fit">
-      {data.map((d) => (
-        <Card variant="code" codeData={d} colour={randomColour()} />
-      ))}
-    </section>
-  );
+	return (
+		<section className="in-grid full max-h-fit">
+			{data.map(d => (
+				<Card variant="code" codeData={d} colour={randomColour()} />
+			))}
+		</section>
+	);
 };
