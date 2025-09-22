@@ -53,6 +53,14 @@ export type topProps = {
 	id: bigint;
 	image: string;
 	name: string;
+	is_code: boolean;
+};
+
+export type topCarouselProps = {
+	src?: string;
+	alt?: string;
+	dataName?: string;
+	isCode?: boolean;
 };
 
 export type Elem = HTMLElement | null;

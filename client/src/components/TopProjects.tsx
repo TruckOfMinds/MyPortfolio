@@ -11,12 +11,13 @@ import { Button } from "./ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { fetchTopProjects } from "@/utils/serverPortal";
 import { Link } from "react-router";
-import type { topProps } from "@/types";
+import type { topCarouselProps, topProps } from "@/types";
 
 export default function TopProjects(): JSX.Element {
 	const [api, setApi] = useState<CarouselApi>();
 	const [current, setCurrent] = useState(0);
 	const [name, setName] = useState("project_name");
+	const [isCode, setIsCode] = useState(false);
 
 	const { isPending, isError, error, data } = useQuery({
 		queryKey: ["top"],
@@ -30,14 +31,21 @@ export default function TopProjects(): JSX.Element {
 
 		const handleSelect = () => {
 			const currentIndex = api.selectedScrollSnap();
+
 			const projectName =
 				api
 					.slideNodes()
 					// eslint-disable-next-line no-unexpected-multiline
 					[currentIndex]?.firstElementChild?.getAttribute("data-name") || "project_name";
 
+			const projectType = api
+				.slideNodes()
+				// eslint-disable-next-line no-unexpected-multiline
+				[currentIndex]?.firstElementChild?.getAttribute("data-is-code");
+
 			setCurrent(currentIndex);
 			setName(projectName);
+			setIsCode(Boolean(projectType));
 		};
 		handleSelect();
 
@@ -56,13 +64,11 @@ export default function TopProjects(): JSX.Element {
 	if (isError) return <>{error.message}</>;
 
 	return (
-		// <article className="flex flex-col items-center w-3/4 gap-2 py-2">
 		<>
 			<Carousel
 				setApi={setApi}
 				opts={{ loop: true }}
 				className="flex items-center justify-evenly h-3/4 w-[80%]">
-				{/* <span className="flex items-center justify-around w-full"> */}
 				<CarouselContent className="flex items-center w-fit h-full justify-center">
 					<Items data={data} />
 				</CarouselContent>
@@ -70,9 +76,8 @@ export default function TopProjects(): JSX.Element {
 				<section className="flex flex-col items-center justify-between gap-4">
 					<h1 className="w-fit text-xl">{name}</h1>
 
-					<ViewProject name={name} />
+					<ViewProject name={name} isCode={isCode} />
 				</section>
-				{/* </span> */}
 
 				{/* absolute */}
 				<CarouselPrevious className="pink transition-opacity hover:opacity-75 active:opacity-50" />
@@ -104,9 +109,10 @@ export default function TopProjects(): JSX.Element {
 				)}
 			</div>
 		</>
-		// </article>
 	);
 }
+
+//* —————————————————————————————————————————————————————————————————————————————————————
 
 const Items = ({ data }: { data: topProps[] }): JSX.Element => {
 	if (!data) return <></>;
@@ -122,30 +128,41 @@ const Items = ({ data }: { data: topProps[] }): JSX.Element => {
 	return (
 		<>
 			{data.map(d => (
-				<CarouselItem key={d.id}>
-					<CarouselImage src={d.image} alt={d.name} dataName={d.name} />
+				<CarouselItem
+					key={d.id}
+					className="flex items-center px-4 py-2 min-w-fit h-full justify-center">
+					<CarouselImage
+						src={import.meta.env.VITE_BUCKET_URL + d.image}
+						alt={d.name}
+						dataName={d.name}
+						isCode={d.is_code}
+					/>
 				</CarouselItem>
 			))}
 		</>
 	);
 };
 
+//* —————————————————————————————————————————————————————————————————————————————————————
+
 const CarouselImage = ({
 	src = "fallback.svg",
 	alt = "my project",
 	dataName = "project_name",
-}: {
-	[k: string]: string;
-}): JSX.Element => (
+	isCode,
+}: topCarouselProps): JSX.Element => (
 	<img
 		src={src}
 		alt={"Showcase of " + alt}
 		data-name={dataName}
+		data-is-code={isCode}
 		className="carousel-image rounded-2xl min-w-48 h-full"
 	/>
 );
 
-const ViewProject = ({ name }: { name: string }): JSX.Element => {
+//* —————————————————————————————————————————————————————————————————————————————————————
+
+const ViewProject = ({ name, isCode }: { name: string; isCode: boolean }): JSX.Element => {
 	if (name === "project_name" || !name)
 		return (
 			<Button
@@ -157,13 +174,15 @@ const ViewProject = ({ name }: { name: string }): JSX.Element => {
 		);
 
 	return (
-		<Link to={`code-projects/${name}`}>
+		<Link to={`${isCode ? "code-projects" : "design-projects"}/${name}`}>
 			<Button className="bg-on-sec-f text-sec-cont transition-all hover:bg-on-sec-f hover:brightness-75">
 				<i>View Project</i>
 			</Button>
 		</Link>
 	);
 };
+
+//* —————————————————————————————————————————————————————————————————————————————————————
 
 const ScrollMarker = ({
 	current,

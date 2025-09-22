@@ -1,5 +1,5 @@
-import { Suspense, type JSX } from "react";
-import { Route, Routes } from "react-router";
+import { Suspense, useEffect, type JSX } from "react";
+import { Route, Routes, useLocation } from "react-router";
 
 import "./style/Tailwind.css";
 import "./style/App.css";
@@ -15,33 +15,31 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export default function App(): JSX.Element {
-  return (
-    <>
-      <Navbar />
+	const { pathname } = useLocation();
 
-      <Suspense>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
+	useEffect(() => window.scrollTo({ top: scrollY * -1, behavior: "instant" }), [pathname]);
 
-          <Route path="/code-projects" element={<CodePage />}>
-            <Route
-              path="/code-projects/:project"
-              element={<CodeProjectPage />}
-            />
-          </Route>
+	return (
+		<>
+			<Navbar />
 
-          <Route path="/design-projects" element={<DesignsPage />}>
-            <Route
-              path="/design-projects/:project"
-              element={<DesignProjectPage />}
-            />
-          </Route>
+			<Suspense>
+				<Routes>
+					<Route path="/" element={<HomePage />} />
 
-          <Route path="/contact-me" element={<ContactPage />} />
-        </Routes>
-      </Suspense>
+					<Route path="/code-projects" element={<CodePage />}>
+						<Route path="/code-projects/:project" element={<CodeProjectPage />} />
+					</Route>
 
-      <Footer />
-    </>
-  );
+					<Route path="/design-projects" element={<DesignsPage />}>
+						<Route path="/design-projects/:project" element={<DesignProjectPage />} />
+					</Route>
+
+					<Route path="/contact-me" element={<ContactPage />} />
+				</Routes>
+			</Suspense>
+
+			<Footer />
+		</>
+	);
 }

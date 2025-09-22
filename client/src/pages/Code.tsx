@@ -14,8 +14,8 @@ export default function CodePage() {
 		<>
 			<title>Code Projects | RD Portfolio</title>
 			<main>
-				<Grid id="top" className="max-h-fit">
-					<Header variant="Dev" />
+				<Grid id="top" layout="two-two" className="max-h-fit">
+					<Header Dev className="w-full row-start-1 row-end-1 col-start-2 col-end-3" />
 					<Projects />
 				</Grid>
 			</main>
@@ -23,7 +23,7 @@ export default function CodePage() {
 	);
 }
 
-const Projects = (): JSX.Element => {
+const Projects = ({ className }: { className?: string }): JSX.Element => {
 	// ? handle query strings
 
 	const { isPending, isError, error, data } = useQuery({
@@ -31,14 +31,17 @@ const Projects = (): JSX.Element => {
 		queryFn: fetchCodeCards,
 	});
 
-	if (isPending) return <></>;
+	if (isPending) return <>loading...</>;
 	if (isError) return <>{error}</>;
 
 	return (
-		<section className="in-grid full max-h-fit">
+		<Grid
+			id="projects"
+			layout="two-n"
+			className={`in-grid full max-h-fit code-projects ${className}`}>
 			{data.map(d => (
-				<Card variant="code" codeData={d} colour={randomColour()} />
+				<Card key={d.id} variant="code" codeData={d} colour={randomColour()} className="in-grid" />
 			))}
-		</section>
+		</Grid>
 	);
 };
