@@ -1,28 +1,14 @@
-import type { cardProps, codeCardProps, designCardProps } from "@/types";
+import type { cardProps, codeCardProps } from "@/types";
 
 import "./style/Card.css";
 import { Link } from "react-router";
-import { useRef, type JSX, type ReactNode } from "react";
-import { createPortal } from "react-dom";
+import { type JSX } from "react";
 
 export default function Card(props: cardProps): JSX.Element {
-	const content = (): ReactNode => {
-		let content;
-		if (props.variant === "code" && props.codeData) {
-			content = <CodeContent {...props.codeData} />;
-		} else if (props.variant === "design" && props.designData) {
-			content = <DesignContent {...props.designData} />;
-		} else {
-			content = props.children;
-		}
-		return content;
-	};
-
 	return (
 		<article
 			className={[
-				"rounded-2xl shadow-iii max-h-[50dvh]",
-				content() === props.children ? "px-4 py-3" : "",
+				"card rounded-2xl shadow-iii max-h-[50dvh] px-4 py-3",
 				props.variant,
 				props.colour,
 				props.className,
@@ -32,50 +18,51 @@ export default function Card(props: cardProps): JSX.Element {
 			ref={props.ref}
 			tabIndex={props.tabIndex}
 			onKeyUp={props.onEnter}>
-			{/**/}
-			{content()}
+			{props.children}
 		</article>
 	);
 }
 
-const CodeContent = (props: codeCardProps): JSX.Element => {
-	const ref = useRef<HTMLAnchorElement | null>(null);
+export const CodeCard = (props: codeCardProps & cardProps): JSX.Element => {
+	const StatusTag = ({ status }: { status: string }): JSX.Element => (
+		<svg
+			width="8"
+			height="8"
+			viewBox="0 0 8 8"
+			fill="none"
+			xmlns="http://www.w3.org/2000/svg"
+			className="absolute top-2 right-2 trans status-tag">
+			<circle cx="4.19946" cy="4.04224" r="3.2981" fill="rgb(253 214 255)" className={status} />
+		</svg>
+	);
+
 	return (
-		<Link to={props.repo_name} className="card-grid code relative px-4 py-2" ref={ref}>
-			<img src={props.logo} alt="Project image" className="[grid-area:image]" />
-			<p className="[grid-area:name]">{props.repo_name}</p>
+		<Link to={props.repo_name} className={`relative ${props.className}`}>
+			<Card variant={props.variant} className="card-grid code" colour={props.colour}>
+				<div className="[grid-area:image] code-card-image-container rounded-2xl flex items-center justify-center">
+					<img
+						src={`${import.meta.env.VITE_BUCKET_URL + props.logo}`}
+						alt="Project image"
+						className="code-card-image"
+					/>
+				</div>
 
-			<section>
-				{props.tags.map(t => {
-					if (t[1] === "status" && ref.current) {
-						return createPortal(
-							<svg
-								key={t[0]}
-								viewBox="0 0 20 20"
-								width="18"
-								height="18"
-								className="absolute top-2 right-2">
-								<circle cx="50" cy="50" r="9" fill="red" />
-							</svg>,
-							ref.current
+				<p className="[grid-area:name] text-xl">{props.repo_name}</p>
+
+				<section className="[grid-area:tags] tags">
+					{props.tags.map(t => {
+						if (t[1] === "status") {
+							return <StatusTag key={t[0]} status={t[0]} />;
+						}
+
+						return (
+							<p key={t[0]} className="tag text-sm px-3 py-1 rounded-full">
+								{t[0]}
+							</p>
 						);
-					}
-
-					return (
-						<p key={t[0]} className="text-sm">
-							{t[0]}
-						</p>
-					);
-				})}
-			</section>
+					})}
+				</section>
+			</Card>
 		</Link>
 	);
 };
-
-const DesignContent = (props: designCardProps): JSX.Element => (
-	<Link to={props.name} className="card-grid design px-4 py-2">
-		<img src={props.logo} alt="Project image" className="[grid-area:image]" />
-		<p className="[grid-area:name]">{props.name}</p>
-		<p className="[grid-area:bio]">{props.bio}</p>
-	</Link>
-);

@@ -13,6 +13,10 @@
 			". c d";
 		grid-template-columns: 10rem repeat(2, 1fr);
 		grid-template-rows: repeat(2, 1fr);
+
+		&.with-header {
+			grid-template-rows: 8rem 1fr;
+		}
 	}
 
 	&.three-two {
@@ -30,7 +34,7 @@
 	}
 
 	&.two-n {
-		grid-template-rows: 10rem repeat(auto-fill, 25dvh);
+		grid-template-rows: repeat(auto-fill, 20dvh);
 		grid-template-columns: repeat(2, 1fr);
 	}
 

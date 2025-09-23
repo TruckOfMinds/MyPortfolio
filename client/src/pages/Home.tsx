@@ -28,7 +28,7 @@ const Hero = (): JSX.Element => (
 		</h1>
 
 		<img
-			src="fallback.svg"
+			src="fallback-ter.svg"
 			alt="Image of my code!"
 			className="image rotate-[8.5deg] [grid-area:b] w-sm min-h-54 bg-ter rounded-4xl text-ter-cont [line-height:13.5rem] shadow-iii"
 		/>
@@ -91,7 +91,8 @@ const Background = (): JSX.Element => {
 			</Card>
 
 			<Card
-				className={`in-grid bg-on-pri transition-all cursor-pointer [grid-area:d] ${
+				colour="mono"
+				className={`in-grid transition-all cursor-pointer [grid-area:d] ${
 					bgText === bgTexts.one ? "scale-110" : ""
 				}`}
 				onClick={() => setBgText(bgTexts.one)}>
@@ -99,7 +100,8 @@ const Background = (): JSX.Element => {
 			</Card>
 
 			<Card
-				className={`in-grid bg-on-pri transition-all cursor-pointer [grid-area:e] ${
+				colour="mono"
+				className={`in-grid transition-all cursor-pointer [grid-area:e] ${
 					bgText === bgTexts.two ? "scale-110" : ""
 				}`}
 				onClick={() => setBgText(bgTexts.two)}>
@@ -107,6 +109,7 @@ const Background = (): JSX.Element => {
 			</Card>
 
 			<Card
+				colour="mono"
 				className={`in-grid bg-on-pri transition-all cursor-pointer [grid-area:f] ${
 					bgText === bgTexts.three ? "scale-110" : ""
 				}`}
@@ -119,7 +122,7 @@ const Background = (): JSX.Element => {
 
 const TitleBlock = ({
 	text,
-	src,
+	src = "fallback-ter.svg",
 	alt,
 	className,
 }: {
@@ -134,7 +137,7 @@ const TitleBlock = ({
 		</div>
 
 		<img
-			src={src || "fallback.svg"}
+			src={src}
 			alt={alt}
 			className="bg-ter h-[calc(50%-0.5rem)] min-w-[7rem] w-full rounded-2xl text-ter-cont shadow-iii flex items-center justify-center object-contain"
 		/>

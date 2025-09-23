@@ -28,7 +28,7 @@ export type designCardProps = {
 export type cardProps = {
 	// Physical alterations e.g. long — or it's purpose i.e. code or design
 	variant?: string;
-	colour?: "sky" | "pink" | "yellow" | "blue" | "purple" | "gold";
+	colour?: "sky" | "pink" | "yellow" | "blue" | "purple" | "gold" | "mono";
 	children?: ReactNode;
 	className?: string;
 	style?: CSSProperties;

@@ -1,13 +1,22 @@
 :root {
-  min-height: 100dvh;
-  width: 100dvw;
+	min-height: 100dvh;
+	width: 100dvw;
 
-  font-size: 16px;
+	font-size: 16px;
 
-  background-color: var(--background);
-  color: var(--on-background);
+	background-color: var(--background);
+	color: var(--on-background);
 
-  overflow-x: hidden;
-  scroll-behavior: smooth;
-  scrollbar-color: var(--tertiary-container) var(--primary);
+	overflow-x: hidden;
+	scroll-behavior: smooth;
+	scrollbar-color: var(--tertiary-container) var(--primary);
+}
+
+.trans {
+	translate: -50% -50%;
+}
+
+.hide-scrollbar {
+	scrollbar-color: transparent transparent;
+	scrollbar-width: thin;
 }

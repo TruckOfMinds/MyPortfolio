@@ -5,7 +5,7 @@ import { randomColour } from "@/lib/data";
 
 import Header from "@/components/Header";
 import Grid from "@/components/Grid";
-import Card from "@/components/Card";
+import { CodeCard } from "@/components/Card";
 
 import "./style/Code.css";
 
@@ -14,7 +14,7 @@ export default function CodePage() {
 		<>
 			<title>Code Projects | RD Portfolio</title>
 			<main>
-				<Grid id="top" layout="two-two" className="max-h-fit">
+				<Grid id="top" className="with-header w-full">
 					<Header Dev className="w-full row-start-1 row-end-1 col-start-2 col-end-3" />
 					<Projects />
 				</Grid>
@@ -35,13 +35,10 @@ const Projects = ({ className }: { className?: string }): JSX.Element => {
 	if (isError) return <>{error}</>;
 
 	return (
-		<Grid
-			id="projects"
-			layout="two-n"
-			className={`in-grid full max-h-fit code-projects ${className}`}>
+		<article className={`code-card-container code-projects ${className}`}>
 			{data.map(d => (
-				<Card key={d.id} variant="code" codeData={d} colour={randomColour()} className="in-grid" />
+				<CodeCard key={d.id} colour={randomColour()} className="h-48 card-width" {...d} />
 			))}
-		</Grid>
+		</article>
 	);
 };
