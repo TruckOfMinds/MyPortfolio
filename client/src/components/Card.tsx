@@ -37,9 +37,9 @@ export const CodeCard = (props: codeCardProps & cardProps): JSX.Element => {
 	);
 
 	return (
-		<Link to={props.repo_name} className={`relative ${props.className}`}>
+		<Link to={props.name} className={`relative ${props.className}`}>
 			<Card variant={props.variant} className="card-grid code" colour={props.colour}>
-				<div className="[grid-area:image] code-card-image-container rounded-2xl flex items-center justify-center">
+				<div className="[grid-area:image] code-card-image-container rounded-md flex items-center justify-center">
 					<img
 						src={`${import.meta.env.VITE_BUCKET_URL + props.logo}`}
 						alt="Project image"
@@ -47,7 +47,9 @@ export const CodeCard = (props: codeCardProps & cardProps): JSX.Element => {
 					/>
 				</div>
 
-				<p className="[grid-area:name] text-xl">{props.repo_name}</p>
+				<p className="[grid-area:name] text-xl w-full overflow-auto flex items-baseline justify-between">
+					{props.name} <span className="text-[.8rem]  mr-4">{props.date}</span>
+				</p>
 
 				<section className="[grid-area:tags] tags">
 					{props.tags.map(t => {

@@ -4,56 +4,54 @@ import {
 	Command,
 	CommandEmpty,
 	CommandGroup,
-	CommandInput,
+	// CommandInput,
 	CommandItem,
 	CommandList,
 } from "@/components/ui/command";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useState } from "react";
-
-type Status = {
-	value: string;
-	label: string;
-};
+import type { setUserInputProps, Status, userInputProps } from "@/types";
 
 const statuses: Status[] = [
 	{
-		value: "backlog",
-		label: "Backlog",
+		value: "date",
+		label: "Date",
 	},
 	{
-		value: "todo",
-		label: "Todo",
-	},
-	{
-		value: "in progress",
-		label: "In Progress",
-	},
-	{
-		value: "done",
-		label: "Done",
-	},
-	{
-		value: "canceled",
-		label: "Canceled",
+		value: "name",
+		label: "Name",
 	},
 ];
 
-export default function ComboBoxResponsive() {
+export default function ComboBoxResponsive({
+	userInput,
+	setUserInput,
+}: {
+	userInput: userInputProps;
+	setUserInput: setUserInputProps;
+}) {
 	const [open, setOpen] = useState(false);
 	const isDesktop = useMediaQuery("(min-width: 768px)");
-	const [selectedStatus, setSelectedStatus] = useState<Status | null>(null);
+	const [selectedStatus, setSelectedStatus] = useState<Status | null>({
+		label: "Date",
+		value: "date",
+	});
 	if (isDesktop) {
 		return (
 			<Popover open={open} onOpenChange={setOpen}>
 				<PopoverTrigger asChild>
 					<Button variant="outline" className="w-[150px] justify-start">
-						{selectedStatus ? <>{selectedStatus.label}</> : <>+ Set status</>}
+						{selectedStatus ? <>{selectedStatus.label}</> : <>Sort by</>}
 					</Button>
 				</PopoverTrigger>
 				<PopoverContent className="w-[200px] p-0" align="start">
-					<StatusList setOpen={setOpen} setSelectedStatus={setSelectedStatus} />
+					<StatusList
+						userInput={userInput}
+						setUserInput={setUserInput}
+						setOpen={setOpen}
+						setSelectedStatus={setSelectedStatus}
+					/>
 				</PopoverContent>
 			</Popover>
 		);
@@ -62,12 +60,17 @@ export default function ComboBoxResponsive() {
 		<Drawer open={open} onOpenChange={setOpen}>
 			<DrawerTrigger asChild>
 				<Button variant="outline" className="w-[150px] justify-start">
-					{selectedStatus ? <>{selectedStatus.label}</> : <>+ Set status</>}
+					{selectedStatus ? <>{selectedStatus.label}</> : <>Sort by</>}
 				</Button>
 			</DrawerTrigger>
 			<DrawerContent>
 				<div className="mt-4 border-t">
-					<StatusList setOpen={setOpen} setSelectedStatus={setSelectedStatus} />
+					<StatusList
+						userInput={userInput}
+						setUserInput={setUserInput}
+						setOpen={setOpen}
+						setSelectedStatus={setSelectedStatus}
+					/>
 				</div>
 			</DrawerContent>
 		</Drawer>
@@ -77,13 +80,17 @@ export default function ComboBoxResponsive() {
 function StatusList({
 	setOpen,
 	setSelectedStatus,
+	userInput,
+	setUserInput,
 }: {
 	setOpen: (open: boolean) => void;
 	setSelectedStatus: (status: Status | null) => void;
+	userInput: userInputProps;
+	setUserInput: setUserInputProps;
 }) {
 	return (
 		<Command>
-			<CommandInput placeholder="Filter status..." />
+			{/* <CommandInput placeholder="Filter status..." /> */}
 			<CommandList>
 				<CommandEmpty>No results found.</CommandEmpty>
 				<CommandGroup>
@@ -93,6 +100,7 @@ function StatusList({
 							value={status.value}
 							onSelect={value => {
 								setSelectedStatus(statuses.find(priority => priority.value === value) || null);
+								setUserInput({ ...userInput, sort: status.value });
 								setOpen(false);
 							}}>
 							{status.label}
