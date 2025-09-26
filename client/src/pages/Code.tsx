@@ -25,7 +25,7 @@ export default function CodePage() {
 					<Header
 						text="My Projects"
 						Dev
-						className="w-full row-start-1 row-end-1 col-start-2 col-end-3"
+						className="w-full row-start-1 row-end-1 col-start-2 col-end-4"
 						userInput={userInput}
 						setUserInput={setUserInput}
 					/>
@@ -59,7 +59,7 @@ const Projects = ({
 			return true;
 
 		for (const i of d.tags)
-			if (i.toLocaleLowerCase().includes(userInput.search.toLocaleLowerCase())) return true;
+			if (i[0].toLocaleLowerCase().includes(userInput.search.toLocaleLowerCase())) return true;
 
 		return false;
 	};

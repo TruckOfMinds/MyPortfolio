@@ -11,7 +11,7 @@ export type codeCardProps = {
 	id: bigint;
 	name: string;
 	logo: string;
-	tags: string[];
+	tags: string[][];
 	date: string;
 };
 

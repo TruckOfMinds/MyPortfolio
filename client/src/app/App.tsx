@@ -1,5 +1,6 @@
 import { Suspense, useEffect, type JSX } from "react";
 import { Route, Routes, useLocation } from "react-router";
+import { ErrorBoundary } from "react-error-boundary";
 
 import "./style/Tailwind.css";
 import "./style/App.css";
@@ -13,6 +14,7 @@ import ContactPage from "@/pages/Contact";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Fallback, { NotFound } from "@/components/Errors";
 
 export default function App(): JSX.Element {
 	const { pathname } = useLocation();
@@ -23,21 +25,25 @@ export default function App(): JSX.Element {
 		<>
 			<Navbar />
 
-			<Suspense>
-				<Routes>
-					<Route path="/" element={<HomePage />} />
+			<ErrorBoundary FallbackComponent={Fallback}>
+				<Suspense>
+					<Routes>
+						<Route path="/" element={<HomePage />} />
 
-					<Route path="/code-projects" element={<CodePage />}>
-						<Route path="/code-projects/:project" element={<CodeProjectPage />} />
-					</Route>
+						<Route path="/code-projects" element={<CodePage />}>
+							<Route path="/code-projects/:project" element={<CodeProjectPage />} />
+						</Route>
 
-					<Route path="/design-projects" element={<DesignsPage />}>
-						<Route path="/design-projects/:project" element={<DesignProjectPage />} />
-					</Route>
+						<Route path="/design-projects" element={<DesignsPage />}>
+							<Route path="/design-projects/:project" element={<DesignProjectPage />} />
+						</Route>
 
-					<Route path="/contact-me" element={<ContactPage />} />
-				</Routes>
-			</Suspense>
+						<Route path="/contact-me" element={<ContactPage />} />
+
+						<Route path="*" element={<NotFound />} />
+					</Routes>
+				</Suspense>
+			</ErrorBoundary>
 
 			<Footer />
 		</>

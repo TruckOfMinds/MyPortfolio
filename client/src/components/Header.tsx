@@ -46,7 +46,7 @@ const TitleSection = ({
 	);
 
 	return (
-		<section className="project-title flex items-center gap-4">
+		<section className="project-title flex items-baseline gap-4">
 			<Title text={text} />
 
 			{Dev ? (
@@ -68,31 +68,28 @@ const SearchAndSort = ({
 	isDev?: boolean;
 	userInput: userInputProps;
 	setUserInput: setUserInputProps;
-}): JSX.Element => {
-	const updateState = (e: ChangeEvent<HTMLInputElement>) =>
-		setUserInput({ ...userInput, search: e.target.value });
+}): JSX.Element => (
+	<form className={`project-filter flex items-center gap-4 ${isDev ? "dev" : "design"}`}>
+		<fieldset>
+			<Label htmlFor="search">Search for projects, tags, and statuses!</Label>
+			<Input
+				type="text"
+				placeholder="e.g. JavaScript"
+				name="search"
+				id="search"
+				value={userInput.search}
+				onChange={(e: ChangeEvent<HTMLInputElement>) =>
+					setUserInput({ ...userInput, search: e.target.value })
+				}
+			/>
+		</fieldset>
 
-	return (
-		<form className={`project-filter ${isDev ? "dev" : "design"}`}>
-			<fieldset>
-				<Label htmlFor="search">Search for projects, tags, and statuses!</Label>
-				<Input
-					type="text"
-					placeholder="e.g. JavaScript"
-					name="search"
-					id="search"
-					value={userInput.search}
-					onChange={updateState}
-				/>
-			</fieldset>
-
-			<fieldset>
-				<Label htmlFor="sort">Sort by</Label>
-				<Sort userInput={userInput} setUserInput={setUserInput} />
-				<Toggle onClick={() => setUserInput({ ...userInput, desc: !userInput.desc })}>
-					{userInput.desc ? "Descending" : "Ascending"}
-				</Toggle>
-			</fieldset>
-		</form>
-	);
-};
+		<fieldset className="flex items-end gap-2">
+			<Label htmlFor="sort">Sort by</Label>
+			<Sort userInput={userInput} setUserInput={setUserInput} />
+			<Toggle onClick={() => setUserInput({ ...userInput, desc: !userInput.desc })}>
+				{userInput.desc ? "Descending" : "Ascending"}
+			</Toggle>
+		</fieldset>
+	</form>
+);
