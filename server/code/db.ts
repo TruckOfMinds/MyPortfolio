@@ -53,7 +53,7 @@ export const getCodeCardData = async (): codeCardProps => {
 	try {
 		const { rows } = await db.query(
 			`
-      SELECT rdmp_repos.id, rdmp_repos.repo_name, rdmp_repos.logo, 
+      SELECT rdmp_repos.id, rdmp_repos.repo_name AS "name", rdmp_repos.logo, 
         ARRAY_AGG(ARRAY[rdmp_tags.name, rdmp_tags.type]) AS "tags", 
         TO_CHAR(date, 'DD/MM/YYYY') AS "date"
       FROM rdmp_repos

@@ -1,81 +1,72 @@
-import type { cardProps, codeCardProps, designCardProps } from "@/types";
+import type { cardProps, codeCardProps } from "@/types";
 
 import "./style/Card.css";
 import { Link } from "react-router";
-import { useRef, type JSX, type ReactNode } from "react";
-import { createPortal } from "react-dom";
+import { memo, useState, type JSX } from "react";
 
 export default function Card(props: cardProps): JSX.Element {
-	const content = (): ReactNode => {
-		let content;
-		if (props.variant === "code" && props.codeData) {
-			content = <CodeContent {...props.codeData} />;
-		} else if (props.variant === "design" && props.designData) {
-			content = <DesignContent {...props.designData} />;
-		} else {
-			content = props.children;
-		}
-		return content;
-	};
-
 	return (
 		<article
 			className={[
-				"rounded-2xl shadow-iii max-h-[50dvh]",
-				content() === props.children ? "px-4 py-3" : "",
+				"card rounded-2xl shadow-iii max-h-[50dvh] px-4 py-3",
 				props.variant,
 				props.colour,
 				props.className,
 			].join(" ")}
-			style={props.style}
-			onClick={props.onClick}
-			ref={props.ref}
-			tabIndex={props.tabIndex}
-			onKeyUp={props.onEnter}>
-			{/**/}
-			{content()}
+			// avoids writing endless props,
+			// all props still listed in cardProps
+			{...{ props }}>
+			{props.children}
 		</article>
 	);
 }
 
-const CodeContent = (props: codeCardProps): JSX.Element => {
-	const ref = useRef<HTMLAnchorElement | null>(null);
+export const CodeCard = memo((props: codeCardProps & cardProps): JSX.Element => {
+	const StatusTag = ({ status }: { status: string }) => {
+		const [show, setShow] = useState(false);
+		return (
+			<div
+				className={`status ${status.toLowerCase()} absolute top-2 right-2 text-sm text-right rounded-full inner-shadow-i h-5 w-fit min-w-5 py-2 ${
+					show ? "px-3" : null
+				}`}
+				tabIndex={0}
+				onMouseOver={() => setShow(true)}
+				onMouseOut={() => setShow(false)}
+				onKeyUp={e => (e.key === "Enter" ? setShow(!show) : null)}>
+				{show ? status : null}
+			</div>
+		);
+	};
+
 	return (
-		<Link to={props.repo_name} className="card-grid code relative px-4 py-2" ref={ref}>
-			<img src={props.logo} alt="Project image" className="[grid-area:image]" />
-			<p className="[grid-area:name]">{props.repo_name}</p>
+		<Link to={props.name} className={`relative ${props.className}`}>
+			<Card variant={props.variant} className="card-grid code pr-8" colour={props.colour}>
+				<div className="[grid-area:image] code-card-image-container rounded-md flex items-center justify-center">
+					<img
+						src={`${import.meta.env.VITE_BUCKET_URL + props.logo}`}
+						alt="Project image"
+						className="code-card-image"
+					/>
+				</div>
 
-			<section>
-				{props.tags.map(t => {
-					if (t[1] === "status" && ref.current) {
-						return createPortal(
-							<svg
-								key={t[0]}
-								viewBox="0 0 20 20"
-								width="18"
-								height="18"
-								className="absolute top-2 right-2">
-								<circle cx="50" cy="50" r="9" fill="red" />
-							</svg>,
-							ref.current
+				<p className="[grid-area:name] text-xl w-full overflow-auto flex items-baseline justify-between">
+					{props.name} <span className="text-[.8rem]">{props.date}</span>
+				</p>
+
+				<section className="[grid-area:tags] tags">
+					{props.tags.map(t => {
+						if (t[1] === "status") {
+							return <StatusTag key={t[0]} status={t[0]} />;
+						}
+
+						return (
+							<p key={t[0]} className="tag text-sm px-3 py-1 rounded-full">
+								{t[0]}
+							</p>
 						);
-					}
-
-					return (
-						<p key={t[0]} className="text-sm">
-							{t[0]}
-						</p>
-					);
-				})}
-			</section>
+					})}
+				</section>
+			</Card>
 		</Link>
 	);
-};
-
-const DesignContent = (props: designCardProps): JSX.Element => (
-	<Link to={props.name} className="card-grid design px-4 py-2">
-		<img src={props.logo} alt="Project image" className="[grid-area:image]" />
-		<p className="[grid-area:name]">{props.name}</p>
-		<p className="[grid-area:bio]">{props.bio}</p>
-	</Link>
-);
+});

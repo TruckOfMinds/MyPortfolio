@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode, RefObject } from "react";
+import type { CSSProperties, Dispatch, ReactNode, RefObject, SetStateAction } from "react";
 
 export type gridProps = {
 	layout?: string;
@@ -9,9 +9,9 @@ export type gridProps = {
 
 export type codeCardProps = {
 	id: bigint;
-	repo_name: string;
+	name: string;
 	logo: string;
-	tags: string[];
+	tags: string[][];
 	date: string;
 };
 
@@ -25,20 +25,18 @@ export type designCardProps = {
 	logo: string;
 };
 
+export type projectCardColours = "sky" | "pink" | "yellow";
+
 export type cardProps = {
 	// Physical alterations e.g. long — or it's purpose i.e. code or design
 	variant?: string;
-	colour?: "sky" | "pink" | "yellow" | "blue" | "purple" | "gold";
+	colour?: projectCardColours | "blue" | "purple" | "gold" | "mono";
 	children?: ReactNode;
 	className?: string;
 	style?: CSSProperties;
 	onClick?: () => void;
 	// Intended for pressing the 'Enter' key but can be any keyup
-	onEnter?: (e: React.KeyboardEvent<HTMLElement>) => void;
-	// Data needed if it's the code variant
-	codeData?: codeCardProps;
-	// Data needed if it's the design variant
-	designData?: designCardProps;
+	onKeyUp?: (e: React.KeyboardEvent<HTMLElement>) => void;
 	ref?: RefObject<HTMLElement | null>;
 	tabIndex?: number;
 };
@@ -65,3 +63,11 @@ export type topCarouselProps = {
 
 export type Elem = HTMLElement | null;
 export type ElemRef = RefObject<Elem>;
+
+export type userInputProps = { search: string; sort: "date" | "name"; desc: boolean };
+export type setUserInputProps = Dispatch<SetStateAction<userInputProps>>;
+
+export type Status = {
+	value: "date" | "name";
+	label: "Date" | "Name";
+};

@@ -80,8 +80,8 @@ export default function TopProjects(): JSX.Element {
 				</section>
 
 				{/* absolute */}
-				<CarouselPrevious className="pink transition-opacity hover:opacity-75 active:opacity-50" />
-				<CarouselNext className="pink transition-opacity hover:opacity-75 active:opacity-50" />
+				<CarouselPrevious className="text-sec bg-sec-cont transition-opacity hover:opacity-75 active:opacity-50" />
+				<CarouselNext className="text-sec bg-sec-cont transition-opacity hover:opacity-75 active:opacity-50" />
 			</Carousel>
 			<div className="flex items-center gap-1 min-h-2 translate-y-[-0.25rem]">
 				{api?.scrollProgress() && api?.scrollProgress() > 1 ? (

@@ -1,55 +1,79 @@
-/* Colours */
-.sky {
-	background-color: var(--primary-container);
-	color: var(--primary);
-	&.tag {
-		background-color: var(--primary-fixed-dim);
-		color: var(--on-primary-fixed);
-	}
-}
+.card {
+	--background-color: inherit;
+	--text-color: inherit;
+	--tag-background: inherit;
+	--tag-text: inherit;
+	--image-color: inherit;
+	--image-text: inherit;
 
-.pink {
-	background-color: var(--secondary-container);
-	color: var(--on-secondary-container);
-	&.tag {
-		background-color: var(--secondary-fixed-dim);
-		color: var(--on-secondary-fixed);
+	background-color: var(--background-color);
+	color: var(--text-color);
+	scrollbar-color: hsl(from var(--image-color) h s l / 0.75) transparent;
+	.tag {
+		background-color: var(--tag-background);
+		color: var(--tag-text);
 	}
-}
-
-.yellow {
-	background-color: var(--tertiary-container);
-	color: var(--tertiary);
-	&.tag {
-		background-color: var(--tertiary-fixed-dim);
-		color: var(--on-tertiary-fixed);
+	.code-card-image-container {
+		background-color: var(--image-color);
+		color: var(--background-color);
 	}
-}
 
-.purple {
-	background-color: var(--on-secondary-container);
-	color: var(--secondary-container);
-	&.tag {
-		background-color: var(--secondary-fixed-dim);
-		color: var(--on-secondary-fixed);
+	/* Colours */
+	&.sky {
+		--background-color: var(--primary-container);
+		--text-color: var(--on-primary-container);
+		--tag-background: var(--primary-fixed-dim);
+		--tag-text: var(--on-primary-fixed);
+		--image-color: var(--primary);
+		--image-text: var(--primary-container);
 	}
-}
-
-.blue {
-	background-color: var(--on-primary-container);
-	color: var(--primary-container);
-	&.tag {
-		background-color: var(--primary-fixed-dim);
-		color: var(--on-primary-fixed);
+	&.pink {
+		--background-color: var(--secondary-container);
+		--text-color: var(--on-secondary-container);
+		--tag-background: var(--secondary-fixed-dim);
+		--tag-text: var(--on-secondary-fixed);
+		--image-color: var(--secondary);
+		--image-text: var(--secondary-container);
 	}
-}
-
-.gold {
-	background-color: var(--on-tertiary-container);
-	color: var(--tertiary-container);
-	&.tag {
-		background-color: var(--tertiary-fixed-dim);
-		color: var(--on-tertiarys-fixed);
+	&.yellow {
+		--background-color: var(--tertiary-container);
+		--text-color: var(--on-tertiary-container);
+		--tag-background: var(--tertiary-fixed-dim);
+		--tag-text: var(--on-tertiary-fixed);
+		--image-color: var(--tertiary);
+		--image-text: var(--tertiary-container);
+	}
+	&.blue {
+		--background-color: var(--on-primary-container);
+		--text-color: var(--primary-container);
+		--tag-background: var(--primary-fixed-dim);
+		--tag-text: var(--on-primary-fixed);
+		--image-color: var(--primary-container);
+		--image-text: var(--primary);
+		--scrollbar: var(--image-color) transparent transparent;
+	}
+	&.purple {
+		--background-color: var(--on-secondary-container);
+		--text-color: var(--secondary-container);
+		--tag-background: var(--secondary-fixed-dim);
+		--tag-text: var(--on-secondary-fixed);
+		--image-color: var(--secondary-container);
+		--image-text: var(--secondary);
+		--scrollbar: var(--image-color) transparent transparent;
+	}
+	&.gold {
+		--background-color: var(--on-tertiary-container);
+		--text-color: var(--tertiary-container);
+		--tag-background: var(--tertiary-fixed-dim);
+		--tag-text: var(--on-tertiary-fixed);
+		--image-color: var(--tertiary-container);
+		--image-text: var(--tertiary);
+		--scrollbar: var(--image-color) transparent transparent;
+	}
+	&.mono {
+		--background-color: var(--on-primary);
+		--text-color: var(--on-background);
+		--scrollbar: var(--image-color) transparent transparent;
 	}
 }
 
@@ -77,22 +101,13 @@
 
 	&.code {
 		grid-template-areas:
-			"image name name"
-			"tag tag tag";
-		grid-template-rows: 2fr 1fr;
-		gap: 0.5rem;
+			"image name"
+			"image tags";
+		grid-template-rows: repeat(2, 1fr);
+		grid-template-columns: 10rem calc(100% - 10rem);
+		gap: 0.5rem 1rem;
 		align-items: center;
-		justify-items: center;
-
-		.in-development {
-			background-color: #eba92f;
-			color: #815002;
-		}
-
-		.deployed {
-			background-color: #268624;
-			color: #60bb5f;
-		}
+		justify-items: start;
 	}
 
 	&.design {
@@ -100,7 +115,7 @@
 			"image image image"
 			"name name name"
 			"bio bio bio";
-		grid-template-rows: 2fr 1fr 1fr;
+		grid-template-rows: 3fr 1fr 1fr;
 	}
 }
 
@@ -110,20 +125,5 @@
 	/* Colors */
 	&.background {
 		scrollbar-color: var(--background) transparent;
-	}
-	&.purple {
-		scrollbar-color: var(--secondary-container) transparent;
-	}
-	&.sky {
-		scrollbar-color: var(--primary) transparent;
-	}
-	&.yellow {
-		scrollbar-color: var(--tertiary) transparent;
-	}
-	&.blue {
-		scrollbar-color: var(--primary-container) transparent;
-	}
-	&.gold {
-		scrollbar-color: var(--tertiary-container) transparent;
 	}
 }

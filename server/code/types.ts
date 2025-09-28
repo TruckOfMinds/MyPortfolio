@@ -24,7 +24,7 @@ export type skillsProps = Promise<
 export type codeCardProps = Promise<
 	{
 		id: bigint;
-		repo_name: string;
+		name: string;
 		logo: string;
 		tags: string[];
 		date: string;
