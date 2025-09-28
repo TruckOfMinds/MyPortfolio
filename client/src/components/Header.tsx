@@ -1,9 +1,14 @@
 import type { ChangeEvent, JSX } from "react";
+import type { setUserInputProps, userInputProps } from "@/types";
+
+import "./style/Header.css";
+
+import Sort from "./Sort";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
-import Sort from "./Sort";
-import type { setUserInputProps, userInputProps } from "@/types";
-import { Toggle } from "./ui/toggle";
+import { SortOrderIcon } from "./icons";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { shadcnToggle } from "@/lib/data";
 
 export default function Header({
 	className,
@@ -46,7 +51,7 @@ const TitleSection = ({
 	);
 
 	return (
-		<section className="project-title flex items-baseline gap-4">
+		<section className="project-title flex items-center gap-4">
 			<Title text={text} />
 
 			{Dev ? (
@@ -69,10 +74,13 @@ const SearchAndSort = ({
 	userInput: userInputProps;
 	setUserInput: setUserInputProps;
 }): JSX.Element => (
-	<form className={`project-filter flex items-center gap-4 ${isDev ? "dev" : "design"}`}>
-		<fieldset>
-			<Label htmlFor="search">Search for projects, tags, and statuses!</Label>
+	<form
+		onSubmit={e => e.preventDefault()}
+		className={`project-filter flex items-center gap-4 mr-12 ${isDev ? "dev" : "design"}`}>
+		<Label htmlFor="search" className="flex flex-col items-start">
+			Search
 			<Input
+				className="search-y-sort "
 				type="text"
 				placeholder="e.g. JavaScript"
 				name="search"
@@ -82,14 +90,28 @@ const SearchAndSort = ({
 					setUserInput({ ...userInput, search: e.target.value })
 				}
 			/>
-		</fieldset>
+		</Label>
 
 		<fieldset className="flex items-end gap-2">
-			<Label htmlFor="sort">Sort by</Label>
-			<Sort userInput={userInput} setUserInput={setUserInput} />
-			<Toggle onClick={() => setUserInput({ ...userInput, desc: !userInput.desc })}>
-				{userInput.desc ? "Descending" : "Ascending"}
-			</Toggle>
+			<Label htmlFor="sort" className="flex flex-col items-start">
+				Sort by
+				<Sort userInput={userInput} setUserInput={setUserInput} />
+			</Label>
+
+			<Tooltip delayDuration={500}>
+				<TooltipTrigger type="button">
+					<article
+						className={"search-y-sort " + shadcnToggle}
+						onClick={() => setUserInput({ ...userInput, desc: !userInput.desc })}>
+						<SortOrderIcon
+							className={`sort-icon transition-transform ${userInput.desc ? "rotate-90" : ""}`}
+						/>
+					</article>
+				</TooltipTrigger>
+				<TooltipContent>
+					<p>{userInput.desc ? "Descending" : "Ascending"}</p>
+				</TooltipContent>
+			</Tooltip>
 		</fieldset>
 	</form>
 );

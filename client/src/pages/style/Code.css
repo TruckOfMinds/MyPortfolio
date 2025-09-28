@@ -3,11 +3,11 @@
 }
 
 .card-width {
-	width: max(42%, 12rem);
+	width: clamp(38rem, 30%, 48%);
 }
 
 .code-card-container {
-	width: 100%;
+	width: 95%;
 	min-height: calc(100dvh - 8rem);
 	margin-top: 1rem;
 
@@ -15,9 +15,11 @@
 	flex-wrap: wrap;
 	align-items: center;
 	align-content: flex-start;
-	justify-content: space-evenly;
-	gap: 3rem;
-	column-gap: 1rem;
+	justify-content: flex-start;
+	gap: 1.5rem;
+
+	justify-self: center;
+	align-self: self-start;
 }
 
 .code-card-image-container {
@@ -50,4 +52,20 @@
 
 	scrollbar-width: thin;
 	overflow-x: auto;
+}
+
+.status {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+
+	transition: all 150ms ease-in-out;
+}
+.deployed {
+	background-color: lightgreen;
+	color: darkgreen;
+}
+.pending {
+	background-color: orange;
+	color: darkgoldenrod;
 }

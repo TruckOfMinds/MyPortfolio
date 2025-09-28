@@ -105,7 +105,7 @@ const SkillCard = ({ d, portalRef }: { d: skillProps; portalRef: ElemRef }): JSX
 				colour="purple"
 				ref={ref}
 				tabIndex={0}
-				onEnter={e => (e.key === "Enter" ? setShow(!show) : null)}>
+				onKeyUp={e => (e.key === "Enter" ? setShow(!show) : null)}>
 				<img
 					src={[import.meta.env.VITE_BUCKET_URL, d.logo_name].join("/skills/") || "/noSkill.svg"}
 					alt="logo"

@@ -2,7 +2,7 @@ import type { cardProps, codeCardProps } from "@/types";
 
 import "./style/Card.css";
 import { Link } from "react-router";
-import { type JSX } from "react";
+import { memo, useState, type JSX } from "react";
 
 export default function Card(props: cardProps): JSX.Element {
 	return (
@@ -13,32 +13,34 @@ export default function Card(props: cardProps): JSX.Element {
 				props.colour,
 				props.className,
 			].join(" ")}
-			style={props.style}
-			onClick={props.onClick}
-			ref={props.ref}
-			tabIndex={props.tabIndex}
-			onKeyUp={props.onEnter}>
+			// avoids writing endless props,
+			// all props still listed in cardProps
+			{...{ props }}>
 			{props.children}
 		</article>
 	);
 }
 
-export const CodeCard = (props: codeCardProps & cardProps): JSX.Element => {
-	const StatusTag = ({ status }: { status: string }): JSX.Element => (
-		<svg
-			width="8"
-			height="8"
-			viewBox="0 0 8 8"
-			fill="none"
-			xmlns="http://www.w3.org/2000/svg"
-			className="absolute top-2 right-2 trans status-tag">
-			<circle cx="4.19946" cy="4.04224" r="3.2981" fill="rgb(253 214 255)" className={status} />
-		</svg>
-	);
+export const CodeCard = memo((props: codeCardProps & cardProps): JSX.Element => {
+	const StatusTag = ({ status }: { status: string }) => {
+		const [show, setShow] = useState(false);
+		return (
+			<div
+				className={`status ${status.toLowerCase()} absolute top-2 right-2 text-sm text-right rounded-full inner-shadow-i h-5 w-fit min-w-5 py-2 ${
+					show ? "px-3" : null
+				}`}
+				tabIndex={0}
+				onMouseOver={() => setShow(true)}
+				onMouseOut={() => setShow(false)}
+				onKeyUp={e => (e.key === "Enter" ? setShow(!show) : null)}>
+				{show ? status : null}
+			</div>
+		);
+	};
 
 	return (
 		<Link to={props.name} className={`relative ${props.className}`}>
-			<Card variant={props.variant} className="card-grid code" colour={props.colour}>
+			<Card variant={props.variant} className="card-grid code pr-8" colour={props.colour}>
 				<div className="[grid-area:image] code-card-image-container rounded-md flex items-center justify-center">
 					<img
 						src={`${import.meta.env.VITE_BUCKET_URL + props.logo}`}
@@ -48,7 +50,7 @@ export const CodeCard = (props: codeCardProps & cardProps): JSX.Element => {
 				</div>
 
 				<p className="[grid-area:name] text-xl w-full overflow-auto flex items-baseline justify-between">
-					{props.name} <span className="text-[.8rem]  mr-4">{props.date}</span>
+					{props.name} <span className="text-[.8rem]">{props.date}</span>
 				</p>
 
 				<section className="[grid-area:tags] tags">
@@ -67,4 +69,4 @@ export const CodeCard = (props: codeCardProps & cardProps): JSX.Element => {
 			</Card>
 		</Link>
 	);
-};
+});

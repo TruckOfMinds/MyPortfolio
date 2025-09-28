@@ -25,16 +25,18 @@ export type designCardProps = {
 	logo: string;
 };
 
+export type projectCardColours = "sky" | "pink" | "yellow";
+
 export type cardProps = {
 	// Physical alterations e.g. long — or it's purpose i.e. code or design
 	variant?: string;
-	colour?: "sky" | "pink" | "yellow" | "blue" | "purple" | "gold" | "mono";
+	colour?: projectCardColours | "blue" | "purple" | "gold" | "mono";
 	children?: ReactNode;
 	className?: string;
 	style?: CSSProperties;
 	onClick?: () => void;
 	// Intended for pressing the 'Enter' key but can be any keyup
-	onEnter?: (e: React.KeyboardEvent<HTMLElement>) => void;
+	onKeyUp?: (e: React.KeyboardEvent<HTMLElement>) => void;
 	ref?: RefObject<HTMLElement | null>;
 	tabIndex?: number;
 };

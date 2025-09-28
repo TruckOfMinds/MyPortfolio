@@ -1,7 +1,7 @@
 import { useState, type JSX } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchCodeCards } from "@/utils/serverPortal";
-import { randomColour } from "@/lib/data";
+import { getCardColour } from "@/lib/data";
 
 import Header from "@/components/Header";
 import Grid from "@/components/Grid";
@@ -21,7 +21,7 @@ export default function CodePage() {
 		<>
 			<title>Code Projects | RD Portfolio</title>
 			<main>
-				<Grid id="top" className="with-header w-full mt-4">
+				<Grid id="top" className="with-header w-full pt-4">
 					<Header
 						text="My Projects"
 						Dev
@@ -80,14 +80,11 @@ const Projects = ({
 	};
 
 	const newData = data
+		.filter(isInSearch)
 		.sort(sortMethod)
-		.map(d =>
-			isInSearch(d) ? (
-				<CodeCard key={d.id} colour={randomColour()} className="h-48 card-width" {...d} />
-			) : (
-				<></>
-			)
-		);
+		.map(d => (
+			<CodeCard key={d.id} colour={getCardColour(d.id)} className="h-48 card-width" {...d} />
+		));
 
 	return (
 		<article className={`code-card-container code-projects ${className}`}>

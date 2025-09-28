@@ -16,6 +16,11 @@
 	overflow-x: hidden;
 	scroll-behavior: smooth;
 	scrollbar-color: var(--tertiary-container) var(--primary);
+
+	*:focus-visible {
+		outline: 4px solid hsl(from var(--on-primary-fixed-variant) h s 60%);
+		border-radius: 1rem;
+	}
 }
 
 .trans {

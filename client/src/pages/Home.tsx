@@ -61,7 +61,10 @@ const About = (): JSX.Element => {
 				foo bar
 			</Card>
 
-			<Card className="in-grid relative z-10 [grid-area:d]" colour="purple" ref={portalRef}>
+			<Card
+				className="in-grid relative z-10 overflow-y-clip [grid-area:d]"
+				colour="purple"
+				ref={portalRef}>
 				<Skills portalRef={portalRef} />
 			</Card>
 

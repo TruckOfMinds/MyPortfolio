@@ -1,0 +1,34 @@
+.dev {
+	--bg: var(--primary-container);
+	--text: var(--primary);
+}
+
+.design {
+	--bg: var(--secondary-container);
+	--text: var(--secondary);
+}
+
+.search-y-sort {
+	background-color: var(--bg);
+	color: var(--text);
+	transition: filter 150ms ease-in-out, scale, 300ms ease-in-out;
+
+	&:hover {
+		scale: 1.1;
+		filter: brightness(104%);
+	}
+	&:active {
+		scale: 0.95;
+		filter: brightness(90%);
+	}
+}
+
+.sort-icon {
+	fill: var(--text);
+}
+.sort-icon-parent {
+	height: 1.5rem !important;
+	path {
+		fill: var(--text);
+	}
+}

@@ -12,6 +12,7 @@ import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useState } from "react";
 import type { setUserInputProps, Status, userInputProps } from "@/types";
+import { Chevron } from "./icons";
 
 const statuses: Status[] = [
 	{
@@ -41,8 +42,19 @@ export default function ComboBoxResponsive({
 		return (
 			<Popover open={open} onOpenChange={setOpen}>
 				<PopoverTrigger asChild>
-					<Button variant="outline" className="w-[150px] justify-start">
-						{selectedStatus ? <>{selectedStatus.label}</> : <>Sort by</>}
+					<Button variant="outline" className="w-[150px] justify-start search-y-sort">
+						{selectedStatus ? (
+							<div className="flex w-full items-center justify-between">
+								{selectedStatus.label}
+								<Chevron
+									className={`sort-icon-parent transition-transform ${
+										!open ? "rotate-90" : "rotate-[270deg]"
+									}`}
+								/>
+							</div>
+						) : (
+							<>Sort by</>
+						)}
 					</Button>
 				</PopoverTrigger>
 				<PopoverContent className="w-[200px] p-0" align="start">
@@ -59,7 +71,7 @@ export default function ComboBoxResponsive({
 	return (
 		<Drawer open={open} onOpenChange={setOpen}>
 			<DrawerTrigger asChild>
-				<Button variant="outline" className="w-[150px] justify-start">
+				<Button variant="outline" className="w-[150px] justify-start search-y-sort">
 					{selectedStatus ? <>{selectedStatus.label}</> : <>Sort by</>}
 				</Button>
 			</DrawerTrigger>
@@ -91,7 +103,7 @@ function StatusList({
 	return (
 		<Command>
 			{/* <CommandInput placeholder="Filter status..." /> */}
-			<CommandList>
+			<CommandList className="jb-mono">
 				<CommandEmpty>No results found.</CommandEmpty>
 				<CommandGroup>
 					{statuses.map(status => (
