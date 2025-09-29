@@ -61,6 +61,16 @@ export type topCarouselProps = {
 	isCode?: boolean;
 };
 
+export type codeProjectProps = {
+	id: bigint;
+	repo_name: string;
+	date: string;
+	style: string[];
+	bio: string;
+	links: string[];
+	images: string[];
+};
+
 export type Elem = HTMLElement | null;
 export type ElemRef = RefObject<Elem>;
 

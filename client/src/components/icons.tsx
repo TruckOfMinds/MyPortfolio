@@ -1,3 +1,4 @@
+import type { SVGProps } from "react";
 import "./style/NavIcons.css";
 
 // Navbar.tsx
@@ -127,3 +128,9 @@ export const SortOrderIcon = ({ className }: { className: string }) => (
 		<path d="m122-240-42-42 219-219q32-32 78-32t78 32l46 46q15 15 35.5 15t35.5-15l205-205H660v-60h220v220h-60v-117L614-412q-32 32-78 32t-78-32l-47-47q-14-14-35-14t-35 14L122-240Z" />
 	</svg>
 );
+
+// CodeProject.tsx
+
+export const ProjectIcon = (props: SVGProps<SVGSVGElement>) => <svg {...props}></svg>;
+export const GitHubIcon = (props: SVGProps<SVGSVGElement>) => <svg {...props}></svg>;
+export const ExtraResourceIcon = (props: SVGProps<SVGSVGElement>) => <svg {...props}></svg>;

@@ -1,4 +1,4 @@
-import type { ChangeEvent, JSX } from "react";
+import type { ChangeEvent, JSX, ReactNode } from "react";
 import type { setUserInputProps, userInputProps } from "@/types";
 
 import "./style/Header.css";
@@ -12,38 +12,33 @@ import { shadcnToggle } from "@/lib/data";
 
 export default function Header({
 	className,
-	Dev,
-	Design,
+	isDev,
+	isDesign,
 	text,
-	userInput,
-	setUserInput,
+
+	children,
 }: {
 	className?: string;
-	Dev?: boolean;
-	Design?: boolean;
+	isDev?: boolean;
+	isDesign?: boolean;
 	text: string;
-	userInput: userInputProps;
-	setUserInput: setUserInputProps;
+	children?: ReactNode;
 }) {
 	return (
 		<header className={`flex items-center justify-between px-4 ${className}`}>
-			<TitleSection Dev={Dev} Design={Design} text={text} />
-			{Dev || Design ? (
-				<SearchAndSort isDev={Dev || Design} userInput={userInput} setUserInput={setUserInput} />
-			) : (
-				<></>
-			)}
+			<TitleSection isDev={isDev} isDesign={isDesign} text={text} />
+			{children}
 		</header>
 	);
 }
 
 const TitleSection = ({
-	Dev,
-	Design,
+	isDev,
+	isDesign,
 	text,
 }: {
-	Dev?: boolean;
-	Design?: boolean;
+	isDev?: boolean;
+	isDesign?: boolean;
 	text: string;
 }): JSX.Element => {
 	const Title = ({ text }: { text: string }): JSX.Element => (
@@ -54,9 +49,9 @@ const TitleSection = ({
 		<section className="project-title flex items-center gap-4">
 			<Title text={text} />
 
-			{Dev ? (
+			{isDev ? (
 				<div className="text-pri text-2xl rounded-full border-pri border-3 px-7">Dev</div>
-			) : Design ? (
+			) : isDesign ? (
 				<div className="text-sec text-2xl rounded-full border-sec border-3 px-7">Design</div>
 			) : (
 				<></>
@@ -65,7 +60,7 @@ const TitleSection = ({
 	);
 };
 
-const SearchAndSort = ({
+export const SearchAndSort = ({
 	isDev,
 	userInput,
 	setUserInput,

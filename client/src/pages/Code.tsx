@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchCodeCards } from "@/utils/serverPortal";
 import { getCardColour } from "@/lib/data";
 
-import Header from "@/components/Header";
+import Header, { SearchAndSort } from "@/components/Header";
 import Grid from "@/components/Grid";
 import { CodeCard } from "@/components/Card";
 
@@ -23,12 +23,11 @@ export default function CodePage() {
 			<main>
 				<Grid id="top" className="with-header w-full pt-4">
 					<Header
-						text="My Projects"
-						Dev
 						className="w-full row-start-1 row-end-1 col-start-2 col-end-4"
-						userInput={userInput}
-						setUserInput={setUserInput}
-					/>
+						text="My Projects"
+						isDev>
+						<SearchAndSort isDev userInput={userInput} setUserInput={setUserInput} />
+					</Header>
 					<Projects userInput={userInput} />
 				</Grid>
 			</main>

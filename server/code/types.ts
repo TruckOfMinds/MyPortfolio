@@ -31,17 +31,15 @@ export type codeCardProps = Promise<
 	}[]
 >;
 
-export type repoProps = Promise<
-	{
-		id: bigint;
-		repo_name: string;
-		date: string;
-		style: string;
-		bio: string;
-		links: string;
-		images: string;
-	}[]
->;
+export type repoProps = Promise<{
+	id: bigint;
+	repo_name: string;
+	date: string;
+	style: string[];
+	bio: string;
+	links: string[];
+	images: string[];
+}>;
 
 export type topProps = Promise<
 	{

@@ -81,7 +81,7 @@ export const getRepoData = async (repo: string): repoProps => {
       `,
 			[repo]
 		);
-		return rows;
+		return rows[0];
 	} catch (err) {
 		throw new Error("DB Error:" + err);
 	}
