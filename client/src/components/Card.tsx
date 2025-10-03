@@ -5,68 +5,76 @@ import { Link } from "react-router";
 import { memo, useState, type JSX } from "react";
 
 export default function Card(props: cardProps): JSX.Element {
-	return (
-		<article
-			className={[
-				"card rounded-2xl shadow-iii max-h-[50dvh] px-4 py-3",
-				props.variant,
-				props.colour,
-				props.className,
-			].join(" ")}
-			// avoids writing endless props,
-			// all props still listed in cardProps
-			{...{ props }}>
-			{props.children}
-		</article>
-	);
+  return (
+    <article
+      className={[
+        "card rounded-2xl shadow-iii max-h-[50dvh] px-4 py-3",
+        props.variant,
+        props.colour,
+        props.className,
+      ].join(" ")}
+      // avoids writing endless props,
+      // all props still listed in cardProps
+      {...{ props }}>
+      {props.children}
+    </article>
+  );
 }
 
-export const CodeCard = memo((props: codeCardProps & cardProps): JSX.Element => {
-	const StatusTag = ({ status }: { status: string }) => {
-		const [show, setShow] = useState(false);
-		return (
-			<div
-				className={`status ${status.toLowerCase()} absolute top-2 right-2 text-sm text-right rounded-full inner-shadow-i h-5 w-fit min-w-5 py-2 ${
-					show ? "px-3" : null
-				}`}
-				tabIndex={0}
-				onMouseOver={() => setShow(true)}
-				onMouseOut={() => setShow(false)}
-				onKeyUp={e => (e.key === "Enter" ? setShow(!show) : null)}>
-				{show ? status : null}
-			</div>
-		);
-	};
+//* —————————————————————————————————————————————————————————————————————————————————————
 
-	return (
-		<Link to={props.name} className={`relative ${props.className}`}>
-			<Card variant={props.variant} className="card-grid code pr-8" colour={props.colour}>
-				<div className="[grid-area:image] code-card-image-container rounded-md flex items-center justify-center">
-					<img
-						src={`${import.meta.env.VITE_BUCKET_URL + props.logo}`}
-						alt="Project image"
-						className="code-card-image"
-					/>
-				</div>
+export const CodeCard = memo(
+  ({ name, logo, tags, date, owner, ...props }: codeCardProps & cardProps): JSX.Element => {
+    const StatusTag = ({ status }: { status: string }) => {
+      const [show, setShow] = useState(false);
 
-				<p className="[grid-area:name] text-xl w-full overflow-auto flex items-baseline justify-between">
-					{props.name} <span className="text-[.8rem]">{props.date}</span>
-				</p>
+      return (
+        <div
+          className={`status ${status.toLowerCase()} absolute top-2 right-2 text-sm text-right rounded-full inner-shadow-i h-5 w-fit min-w-5 py-2 ${
+            show ? "px-3" : null
+          }`}
+          tabIndex={0}
+          onMouseOver={() => setShow(true)}
+          onMouseOut={() => setShow(false)}
+          onKeyUp={e => (e.key === "Enter" ? setShow(!show) : null)}>
+          {show ? status : null}
+        </div>
+      );
+    };
 
-				<section className="[grid-area:tags] tags">
-					{props.tags.map(t => {
-						if (t[1] === "status") {
-							return <StatusTag key={t[0]} status={t[0]} />;
-						}
+    // —————————————————————————————————————————————————————————————————————————————————————
 
-						return (
-							<p key={t[0]} className="tag text-sm px-3 py-1 rounded-full">
-								{t[0]}
-							</p>
-						);
-					})}
-				</section>
-			</Card>
-		</Link>
-	);
-});
+    return (
+      <Link to={`/${owner}/${name}`} className={`relative ${props.className}`}>
+        <Card variant={props.variant} className="card-grid code pr-8" colour={props.colour}>
+          <div className="[grid-area:image] code-card-image-container rounded-md flex items-center justify-center">
+            <img
+              src={`${import.meta.env.VITE_BUCKET_URL + logo}`}
+              alt="Project image"
+              className="code-card-image"
+              loading="lazy"
+            />
+          </div>
+
+          <p className="[grid-area:name] text-xl w-full overflow-auto flex items-baseline justify-between">
+            {name} <span className="text-[.8rem]">{date}</span>
+          </p>
+
+          <section className="[grid-area:tags] tags">
+            {tags.map(t => {
+              if (t[1] === "status") {
+                return <StatusTag key={t[0]} status={t[0]} />;
+              }
+
+              return (
+                <p key={t[0]} className="tag text-sm px-3 py-1 rounded-full">
+                  {t[0]}
+                </p>
+              );
+            })}
+          </section>
+        </Card>
+      </Link>
+    );
+  }
+);

@@ -30,6 +30,7 @@ create table if not exists rdmp_repos (
   links text[] not null,
   top boolean default false,
   is_code boolean default true,
+  owner text not null,
   unique (repo_name),
   unique (image_id)
 );
