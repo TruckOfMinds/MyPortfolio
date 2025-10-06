@@ -72,10 +72,6 @@ const About = (): JSX.Element => {
         className="in-grid [grid-area:e/e-start/e-end/f-end] flex flex-col items-center justify-between"
         variant="long"
         colour="purple">
-        <h2 className="text-start w-full orbit [letter-spacing:.1rem] text-xl mt-1">
-          Top Projects
-        </h2>
-
         <TopProjects />
       </Card>
     </Grid>
@@ -135,7 +131,7 @@ const TitleBlock = ({
   className?: string;
 }): JSX.Element => (
   <header className={`flex flex-col items-center gap-4 ${className}`}>
-    <div className="title h-[calc(50%-0.5rem)] min-w-[7rem] w-full bg-ter-cont shadow-iii rounded-2xl flex items-center justify-center">
+    <div className="title h-[calc(50%-0.5rem)] min-w-[7rem] w-full bg-ter-cont shadow-iii rounded-2xl flex items-center justify-center px-2">
       <h1 className="orbit text-ter text-center [line-height:1] text-[2.5rem]">{text}</h1>
     </div>
 

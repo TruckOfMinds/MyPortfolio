@@ -1,3 +1,4 @@
+import type { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
 import type { CSSProperties, Dispatch, ReactNode, RefObject, SetStateAction } from "react";
 
 export type gridProps = {
@@ -38,7 +39,7 @@ export type cardProps = {
   onClick?: () => void;
   // Intended for pressing the 'Enter' key but can be any keyup
   onKeyUp?: (e: React.KeyboardEvent<HTMLElement>) => void;
-  ref?: RefObject<HTMLElement | null>;
+  ref?: ElemRef;
   tabIndex?: number;
 };
 
@@ -52,6 +53,7 @@ export type topProps = {
   id: bigint;
   image: string;
   name: string;
+  owner: string;
   is_code: boolean;
 };
 
@@ -59,6 +61,7 @@ export type topCarouselProps = {
   src?: string;
   alt?: string;
   dataName?: string;
+  dataOwner?: string;
   isCode?: boolean;
 };
 
@@ -82,3 +85,7 @@ export type Status = {
   value: "date" | "name";
   label: "Date" | "Name";
 };
+
+export type Refetch = (
+  options?: RefetchOptions | undefined
+) => Promise<QueryObserverResult<object[], Error>>;

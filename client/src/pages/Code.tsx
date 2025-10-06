@@ -9,6 +9,7 @@ import { CodeCard } from "@/components/Card";
 
 import "./style/Code.css";
 import type { codeCardProps, userInputProps } from "@/types";
+import { Error, Loading } from "@/components/fallbacks";
 
 export default function CodePage() {
   const [userInput, setUserInput] = useState<userInputProps>({
@@ -21,9 +22,9 @@ export default function CodePage() {
     <>
       <title>Code Projects | RD Portfolio</title>
       <main>
-        <Grid id="top" className="with-header w-full pt-4">
+        <Grid id="top" className="with-header w-full pt-4 grow">
           <Header
-            className="w-full row-start-1 row-end-1 col-start-2 col-end-4"
+            className="w-[96%] justify-self-end row-start-1 row-end-1 col-start-2 col-end-4"
             text="My Projects"
             isDev>
             <SearchAndSort isDev userInput={userInput} setUserInput={setUserInput} />
@@ -36,13 +37,24 @@ export default function CodePage() {
 }
 
 const Projects = ({ className, userInput }: { className?: string; userInput: userInputProps }) => {
-  const { isPending, isError, error, data } = useQuery({
+  const { isPending, isError, isFetching, error, data, refetch } = useQuery({
     queryKey: ["code"],
     queryFn: fetchCodeCards,
   });
 
-  if (isPending) return <>loading...</>;
-  if (isError) return <>{error}</>;
+  if (isPending)
+    return (
+      <article className={`code-card-container code-projects self-center`}>
+        <Loading />
+      </article>
+    );
+
+  if (isError)
+    return (
+      <article className={`absolute trans top-[50dvh] left-[50dvh]`}>
+        <Error error={error} refetch={refetch} />
+      </article>
+    );
 
   // —————————————————————————————————————————————————————————————————————————————————————
 
@@ -88,7 +100,10 @@ const Projects = ({ className, userInput }: { className?: string; userInput: use
   // —————————————————————————————————————————————————————————————————————————————————————
 
   return (
-    <article className={`code-card-container code-projects ${className}`}>
+    <article
+      className={`code-card-container code-projects ${
+        isFetching ? "opacity-75" : ""
+      } ${className}`}>
       {userInput.desc ? newData.reverse() : newData}
     </article>
   );

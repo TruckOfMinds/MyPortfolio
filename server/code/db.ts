@@ -55,7 +55,7 @@ export const getCodeCardData = async (): codeCardProps => {
       `
       SELECT rdmp_repos.id, rdmp_repos.repo_name AS "name", rdmp_repos.logo, 
         ARRAY_AGG(ARRAY[rdmp_tags.name, rdmp_tags.type]) AS "tags", 
-        TO_CHAR(date, 'DD/MM/YYYY') AS "date"
+        TO_CHAR(date, 'DD/MM/YYYY') AS "date", rdmp_repos.owner
       FROM rdmp_repos
       LEFT OUTER JOIN rdmp_repo_con_tags ON rdmp_repo_con_tags.repo_id = rdmp_repos.id
       JOIN rdmp_tags ON rdmp_tags.id = rdmp_repo_con_tags.tag_id
@@ -91,14 +91,14 @@ export const getTopRepoData = async (): topProps => {
   try {
     const { rows } = await db.query(
       `
-      SELECT rdmp_repos.id, rdmp_repos.repo_name AS "name", rdmp_images.images[2] AS "image", rdmp_repos.date, rdmp_repos.is_code
+      SELECT rdmp_repos.id, rdmp_repos.repo_name AS "name", rdmp_images.images[2] AS "image", rdmp_repos.date, rdmp_repos.is_code, rdmp_repos.owner
       FROM rdmp_repos 
       JOIN rdmp_images ON rdmp_images.id = rdmp_repos.image_id
       WHERE rdmp_repos.top = true
 
       UNION ALL
 
-      SELECT rdmp_designs.id, rdmp_designs.name, rdmp_images.images[2] AS "image", rdmp_designs.date, rdmp_designs.is_code
+      SELECT rdmp_designs.id, rdmp_designs.name, rdmp_images.images[2] AS "image", rdmp_designs.date, rdmp_designs.is_code, rdmp_designs.name AS "owner"
       FROM rdmp_designs
       JOIN rdmp_images ON rdmp_images.id = rdmp_designs.image_id
       WHERE rdmp_designs.top = true
@@ -128,15 +128,21 @@ export const getContactData = async (): linkProps => {
 };
 
 export const handleRepo = (repo: gitRepo) => {
+  // console.table(repo.owner);
   try {
     db.query(
       `
       INSERT INTO rdmp_repos (repo_name, date, links, owner)
       VALUES ($1, $2, $3, $4)
       ON CONFLICT (repo_name) DO UPDATE
-      SET (repo_name, date, links) = (EXCLUDED.repo_name, EXCLUDED.date, EXCLUDED.links);
+      SET (repo_name, date, links, owner) = (EXCLUDED.repo_name, EXCLUDED.date, EXCLUDED.links, EXCLUDED.owner);
       `,
-      [repo.name, repo.updated_at, [repo.homepage, repo.html_url], repo.owner.name]
+      [
+        repo.name.replace(/-/g, " "),
+        repo.updated_at,
+        [repo.homepage, repo.html_url],
+        repo.owner.login,
+      ]
     );
   } catch (err) {
     throw new Error("DB Error:" + err);

@@ -1,33 +1,39 @@
 :root {
-	min-height: 100dvh;
-	height: fit-content;
-	width: 100dvw;
+  min-height: 100dvh;
+  height: fit-content;
+  width: 100dvw;
 
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: space-between;
+  font-size: 16px;
 
-	font-size: 16px;
+  background-color: var(--background);
+  color: var(--on-background);
 
-	background-color: var(--background);
-	color: var(--on-background);
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  scrollbar-color: var(--tertiary-container) var(--primary);
 
-	overflow-x: hidden;
-	scroll-behavior: smooth;
-	scrollbar-color: var(--tertiary-container) var(--primary);
+  *:focus-visible {
+    outline: 4px solid hsl(from var(--on-primary-fixed-variant) h s 60%);
+    border-radius: 1rem;
+  }
+}
 
-	*:focus-visible {
-		outline: 4px solid hsl(from var(--on-primary-fixed-variant) h s 60%);
-		border-radius: 1rem;
-	}
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+main {
+  min-height: fit-content;
 }
 
 .trans {
-	translate: -50% -50%;
+  translate: -50% -50%;
 }
 
 .hide-scrollbar {
-	scrollbar-color: transparent transparent;
-	scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  scrollbar-width: thin;
 }

@@ -14,7 +14,7 @@ import ContactPage from "@/pages/Contact";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import Fallback, { NotFound } from "@/components/Errors";
+import { ErrorFallback, PageLoading, NotFound } from "@/components/fallbacks";
 
 export default function App(): JSX.Element {
   const { pathname } = useLocation();
@@ -25,8 +25,8 @@ export default function App(): JSX.Element {
     <>
       <Navbar />
 
-      <ErrorBoundary FallbackComponent={Fallback}>
-        <Suspense>
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <Suspense fallback={<PageLoading />}>
           <Routes>
             <Route path="/" element={<HomePage />} />
 

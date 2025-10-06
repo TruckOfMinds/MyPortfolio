@@ -4,19 +4,23 @@ import "./style/Card.css";
 import { Link } from "react-router";
 import { memo, useState, type JSX } from "react";
 
-export default function Card(props: cardProps): JSX.Element {
+export default function Card({
+  variant,
+  colour,
+  className,
+  children,
+  ...props
+}: cardProps): JSX.Element {
   return (
     <article
       className={[
         "card rounded-2xl shadow-iii max-h-[50dvh] px-4 py-3",
-        props.variant,
-        props.colour,
-        props.className,
+        variant,
+        colour,
+        className,
       ].join(" ")}
-      // avoids writing endless props,
-      // all props still listed in cardProps
-      {...{ props }}>
-      {props.children}
+      {...props}>
+      {children}
     </article>
   );
 }
@@ -27,11 +31,10 @@ export const CodeCard = memo(
   ({ name, logo, tags, date, owner, ...props }: codeCardProps & cardProps): JSX.Element => {
     const StatusTag = ({ status }: { status: string }) => {
       const [show, setShow] = useState(false);
-
       return (
         <div
-          className={`status ${status.toLowerCase()} absolute top-2 right-2 text-sm text-right rounded-full inner-shadow-i h-5 w-fit min-w-5 py-2 ${
-            show ? "px-3" : null
+          className={`status ${status.toLowerCase()} absolute top-2 right-2 text-xs text-right rounded-full h-5 w-fit min-w-5 py-2 ${
+            show ? "px-2" : null
           }`}
           tabIndex={0}
           onMouseOver={() => setShow(true)}
@@ -42,10 +45,10 @@ export const CodeCard = memo(
       );
     };
 
-    // —————————————————————————————————————————————————————————————————————————————————————
+    //* —————————————————————————————————————————————————————————————————————————————————————
 
     return (
-      <Link to={`/${owner}/${name}`} className={`relative ${props.className}`}>
+      <Link to={encodeURI(`/${owner}/${name}`)} className={`relative ${props.className}`}>
         <Card variant={props.variant} className="card-grid code pr-8" colour={props.colour}>
           <div className="[grid-area:image] code-card-image-container rounded-md flex items-center justify-center">
             <img
@@ -57,7 +60,7 @@ export const CodeCard = memo(
           </div>
 
           <p className="[grid-area:name] text-xl w-full overflow-auto flex items-baseline justify-between">
-            {name} <span className="text-[.8rem]">{date}</span>
+            {name} <span className="text-xs">{date}</span>
           </p>
 
           <section className="[grid-area:tags] tags">
