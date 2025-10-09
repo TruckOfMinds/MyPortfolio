@@ -2,63 +2,64 @@ import type { Endpoints } from "@octokit/types";
 
 // — DB Route Queries ————————————————————————
 export type designCardProps = Promise<
-	{
-		id: bigint;
-		name: string;
-		date: string;
-		bio: string;
-		pros: string;
-		cons: string;
-		logo: string;
-	}[]
+  {
+    id: bigint;
+    name: string;
+    date: string;
+    bio: string;
+    pros: string;
+    cons: string;
+    logo: string;
+  }[]
 >;
 
 export type skillsProps = Promise<
-	{
-		id: bigint;
-		name: string;
-		logo_name: string;
-	}[]
+  {
+    id: bigint;
+    name: string;
+    logo_name: string;
+  }[]
 >;
 
+// every repo
 export type codeCardProps = Promise<
-	{
-		id: bigint;
-		name: string;
-		logo: string;
-		tags: string[];
-		date: string;
-	}[]
+  {
+    id: bigint;
+    name: string;
+    logo: string;
+    tags: string[];
+    date: string;
+  }[]
 >;
 
-export type repoProps = Promise<
-	{
-		id: bigint;
-		repo_name: string;
-		date: string;
-		style: string;
-		bio: string;
-		links: string;
-		images: string;
-	}[]
->;
+// data for individual project page
+export type repoProps = Promise<{
+  id: bigint;
+  repo_name: string;
+  date: string;
+  style: string[];
+  bio: string;
+  links: (string | null)[][];
+  owner: string;
+  images: string[];
+}>;
 
 export type topProps = Promise<
-	{
-		id: bigint;
-		name: string;
-		image: string;
-		is_code: boolean;
-	}[]
+  {
+    id: bigint;
+    name: string;
+    image: string;
+    is_code: boolean;
+  }[]
 >;
 
 export type linkProps = Promise<
-	{
-		id: bigint;
-		link: string;
-		style: string;
-		logo_name: string;
-	}[]
+  {
+    id: bigint;
+    link: string;
+    style: string;
+    logo_name: string;
+  }[]
 >;
 
 // — GitHub Handling ————————————————————————

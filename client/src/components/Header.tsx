@@ -1,4 +1,4 @@
-import type { ChangeEvent, JSX } from "react";
+import type { ChangeEvent, JSX, ReactNode } from "react";
 import type { setUserInputProps, userInputProps } from "@/types";
 
 import "./style/Header.css";
@@ -11,107 +11,105 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import { shadcnToggle } from "@/lib/data";
 
 export default function Header({
-	className,
-	Dev,
-	Design,
-	text,
-	userInput,
-	setUserInput,
+  className,
+  isDev,
+  isDesign,
+  text,
+  children,
 }: {
-	className?: string;
-	Dev?: boolean;
-	Design?: boolean;
-	text: string;
-	userInput: userInputProps;
-	setUserInput: setUserInputProps;
+  className?: string;
+  isDev?: boolean;
+  isDesign?: boolean;
+  text: string;
+  children?: ReactNode;
 }) {
-	return (
-		<header className={`flex items-center justify-between px-4 ${className}`}>
-			<TitleSection Dev={Dev} Design={Design} text={text} />
-			{Dev || Design ? (
-				<SearchAndSort isDev={Dev || Design} userInput={userInput} setUserInput={setUserInput} />
-			) : (
-				<></>
-			)}
-		</header>
-	);
+  return (
+    <header
+      className={`flex items-center justify-between w-[96%] justify-self-end row-start-1 row-end-1 col-start-2 col-end-4 ${className}`}
+    >
+      <TitleSection isDev={isDev} isDesign={isDesign} text={text} />
+      {children}
+    </header>
+  );
 }
 
 const TitleSection = ({
-	Dev,
-	Design,
-	text,
+  isDev,
+  isDesign,
+  text,
 }: {
-	Dev?: boolean;
-	Design?: boolean;
-	text: string;
+  isDev?: boolean;
+  isDesign?: boolean;
+  text: string;
 }): JSX.Element => {
-	const Title = ({ text }: { text: string }): JSX.Element => (
-		<h1 className="orbit text-5xl mb-3">{text}</h1>
-	);
+  const Title = ({ text }: { text: string }): JSX.Element => (
+    <h1 className="orbit text-5xl mb-3">{text}</h1>
+  );
 
-	return (
-		<section className="project-title flex items-center gap-4">
-			<Title text={text} />
+  return (
+    <section className="project-title flex items-center gap-4">
+      <Title text={text} />
 
-			{Dev ? (
-				<div className="text-pri text-2xl rounded-full border-pri border-3 px-7">Dev</div>
-			) : Design ? (
-				<div className="text-sec text-2xl rounded-full border-sec border-3 px-7">Design</div>
-			) : (
-				<></>
-			)}
-		</section>
-	);
+      {isDev ? (
+        <div className="text-pri text-2xl rounded-full border-pri border-3 px-7">Dev</div>
+      ) : isDesign ? (
+        <div className="text-sec text-2xl rounded-full border-sec border-3 px-7">Design</div>
+      ) : (
+        <></>
+      )}
+    </section>
+  );
 };
 
-const SearchAndSort = ({
-	isDev,
-	userInput,
-	setUserInput,
+export const SearchAndSort = ({
+  isDev,
+  userInput,
+  setUserInput,
 }: {
-	isDev?: boolean;
-	userInput: userInputProps;
-	setUserInput: setUserInputProps;
+  isDev?: boolean;
+  userInput: userInputProps;
+  setUserInput: setUserInputProps;
 }): JSX.Element => (
-	<form
-		onSubmit={e => e.preventDefault()}
-		className={`project-filter flex items-center gap-4 mr-12 ${isDev ? "dev" : "design"}`}>
-		<Label htmlFor="search" className="flex flex-col items-start">
-			Search
-			<Input
-				className="search-y-sort "
-				type="text"
-				placeholder="e.g. JavaScript"
-				name="search"
-				id="search"
-				value={userInput.search}
-				onChange={(e: ChangeEvent<HTMLInputElement>) =>
-					setUserInput({ ...userInput, search: e.target.value })
-				}
-			/>
-		</Label>
+  <form
+    onSubmit={e => e.preventDefault()}
+    className={`max-w-full flex items-center gap-4 mr-12 ${isDev ? "dev" : "design"}`}
+  >
+    <Label htmlFor="search" className="flex flex-col items-start">
+      Search
+      <Input
+        className="search-y-sort "
+        type="text"
+        placeholder="e.g. JavaScript"
+        name="search"
+        id="search"
+        value={userInput.search}
+        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          setUserInput({ ...userInput, search: e.target.value })
+        }
+      />
+    </Label>
 
-		<fieldset className="flex items-end gap-2">
-			<Label htmlFor="sort" className="flex flex-col items-start">
-				Sort by
-				<Sort userInput={userInput} setUserInput={setUserInput} />
-			</Label>
+    <fieldset className="flex items-end gap-2">
+      <Label htmlFor="sort" className="flex flex-col items-start">
+        Sort by
+        <Sort userInput={userInput} setUserInput={setUserInput} />
+      </Label>
 
-			<Tooltip delayDuration={500}>
-				<TooltipTrigger type="button">
-					<article
-						className={"search-y-sort " + shadcnToggle}
-						onClick={() => setUserInput({ ...userInput, desc: !userInput.desc })}>
-						<SortOrderIcon
-							className={`sort-icon transition-transform ${userInput.desc ? "rotate-90" : ""}`}
-						/>
-					</article>
-				</TooltipTrigger>
-				<TooltipContent>
-					<p>{userInput.desc ? "Descending" : "Ascending"}</p>
-				</TooltipContent>
-			</Tooltip>
-		</fieldset>
-	</form>
+      <Tooltip delayDuration={500}>
+        <TooltipTrigger type="button">
+          <article
+            className={"search-y-sort " + shadcnToggle}
+            onClick={() => setUserInput({ ...userInput, desc: !userInput.desc })}
+          >
+            <SortOrderIcon
+              className={`sort-icon transition-transform ${userInput.desc ? "rotate-90" : ""}`}
+            />
+          </article>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>{userInput.desc ? "Descending" : "Ascending"}</p>
+        </TooltipContent>
+      </Tooltip>
+    </fieldset>
+  </form>
 );

@@ -1,0 +1,15 @@
+.code-carousel {
+  > * {
+    position: relative;
+  }
+
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+  width: 80%;
+}
+
+.markdown-card * {
+  margin-top: 0;
+}

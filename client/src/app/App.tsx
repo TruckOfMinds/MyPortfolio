@@ -14,38 +14,36 @@ import ContactPage from "@/pages/Contact";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import Fallback, { NotFound } from "@/components/Errors";
+import { ErrorFallback, PageLoading, NotFound } from "@/components/fallbacks";
 
 export default function App(): JSX.Element {
-	const { pathname } = useLocation();
+  const { pathname } = useLocation();
 
-	useEffect(() => window.scrollTo({ top: scrollY * -1, behavior: "instant" }), [pathname]);
+  useEffect(() => window.scrollTo({ top: scrollY * -1, behavior: "instant" }), [pathname]);
 
-	return (
-		<>
-			<Navbar />
+  return (
+    <>
+      <Navbar />
 
-			<ErrorBoundary FallbackComponent={Fallback}>
-				<Suspense>
-					<Routes>
-						<Route path="/" element={<HomePage />} />
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <Suspense fallback={<PageLoading />}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
 
-						<Route path="/code-projects" element={<CodePage />}>
-							<Route path="/code-projects/:project" element={<CodeProjectPage />} />
-						</Route>
+            <Route path="/code-projects" element={<CodePage />} />
+            <Route path="/code-projects/:owner/:project" element={<CodeProjectPage />} />
 
-						<Route path="/design-projects" element={<DesignsPage />}>
-							<Route path="/design-projects/:project" element={<DesignProjectPage />} />
-						</Route>
+            <Route path="/design-projects" element={<DesignsPage />} />
+            <Route path="/design-projects/:project" element={<DesignProjectPage />} />
 
-						<Route path="/contact-me" element={<ContactPage />} />
+            <Route path="/contact-me" element={<ContactPage />} />
 
-						<Route path="*" element={<NotFound />} />
-					</Routes>
-				</Suspense>
-			</ErrorBoundary>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+      </ErrorBoundary>
 
-			<Footer />
-		</>
-	);
+      <Footer />
+    </>
+  );
 }
