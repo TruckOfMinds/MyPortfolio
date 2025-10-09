@@ -74,14 +74,19 @@ export const getRepoData = async (repo: string): repoProps => {
     const { rows } = await db.query(
       `
       SELECT rdmp_repos.id, repo_name, TO_CHAR(date, 'DD/MM/YYYY') as "date", 
-        ARRAY(brand_colour, text_colour) as "style", bio, links, owner, rdmp_images.images
+        ARRAY[brand_colour, text_colour] as "style", bio, links, owner, rdmp_images.images
       FROM rdmp_repos
       JOIN rdmp_images ON rdmp_images.id = rdmp_repos.image_id
       WHERE repo_name = $1;
       `,
       [repo]
     );
-    return rows[0];
+    let repoData: repoProps = rows[0];
+    const bufferBio = Buffer.from((await repoData).bio, "base64");
+    const decodedBio = bufferBio.toString("utf-8").replace(/\\n/g, "\n");
+    (await repoData).bio = decodedBio;
+
+    return repoData;
   } catch (err) {
     throw new Error("DB Error:" + err);
   }

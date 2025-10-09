@@ -61,8 +61,12 @@ export default function TopProjects(): JSX.Element {
       <Carousel
         setApi={setApi}
         opts={{ loop: true }}
-        className="flex items-center justify-evenly h-3/4 w-[80%]">
-        <CarouselContent className="flex items-center w-fit h-full justify-center">
+        className="flex items-center justify-evenly h-3/4 w-[80%]"
+      >
+        <CarouselContent
+          className="flex items-center w-fit h-full justify-center"
+          ParentClassName="my-carousel-content"
+        >
           <Items data={data} />
         </CarouselContent>
 
@@ -89,7 +93,8 @@ export default function TopProjects(): JSX.Element {
             viewBox="0 0 8 8"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="transition-all ">
+            className="transition-all "
+          >
             <circle
               cx="4.19946"
               cy="4.04224"
@@ -124,7 +129,8 @@ const Items = ({ data }: { data: topProps[] }): JSX.Element => {
       {data.map(d => (
         <CarouselItem
           key={d.id}
-          className="flex items-center px-4 py-2 min-w-fit h-full justify-center">
+          className="flex items-center px-4 py-2 min-w-fit h-full justify-center"
+        >
           <CarouselImage
             src={import.meta.env.VITE_BUCKET_URL + d.image}
             alt={d.name}
@@ -173,7 +179,8 @@ const ViewProject = ({
       <Button
         className="cursor-not-allowed w-full min-w-40 h-10 opacity-50 bg-on-sec-f text-sec-cont transition-all hover:bg-on-sec-f"
         aria-disabled={true}
-        tabIndex={-1}>
+        tabIndex={-1}
+      >
         <i>View Project</i>
       </Button>
     );
@@ -205,7 +212,8 @@ const ScrollMarker = ({
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     onClick={() => api?.scrollTo(index)}
-    className="transition-all hover:scale-125">
+    className="transition-all hover:scale-125"
+  >
     <circle
       cx="4.19946"
       cy="4.04224"

@@ -30,13 +30,11 @@ export default function App(): JSX.Element {
           <Routes>
             <Route path="/" element={<HomePage />} />
 
-            <Route path="/code-projects" element={<CodePage />}>
-              <Route path="/code-projects/:owner/:project" element={<CodeProjectPage />} />
-            </Route>
+            <Route path="/code-projects" element={<CodePage />} />
+            <Route path="/code-projects/:owner/:project" element={<CodeProjectPage />} />
 
-            <Route path="/design-projects" element={<DesignsPage />}>
-              <Route path="/design-projects/:project" element={<DesignProjectPage />} />
-            </Route>
+            <Route path="/design-projects" element={<DesignsPage />} />
+            <Route path="/design-projects/:project" element={<DesignProjectPage />} />
 
             <Route path="/contact-me" element={<ContactPage />} />
 

@@ -48,7 +48,9 @@ export const CodeCard = memo(
     //* —————————————————————————————————————————————————————————————————————————————————————
 
     return (
-      <Link to={encodeURI(`/${owner}/${name}`)} className={`relative ${props.className}`}>
+      <Link
+        to={encodeURI(`/code-projects/${owner}/${name}`)}
+        className={`relative ${props.className}`}>
         <Card variant={props.variant} className="card-grid code pr-8" colour={props.colour}>
           <div className="[grid-area:image] code-card-image-container rounded-md flex items-center justify-center">
             <img

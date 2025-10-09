@@ -71,7 +71,7 @@ export type codeProjectProps = {
   date: string;
   style: string[];
   bio: string;
-  links: string[];
+  links: (string | null)[][];
   images: string[];
 };
 

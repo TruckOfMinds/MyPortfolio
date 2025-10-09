@@ -39,7 +39,7 @@ export type repoProps = Promise<{
   date: string;
   style: string[];
   bio: string;
-  links: string[];
+  links: (string | null)[][];
   owner: string;
   images: string[];
 }>;

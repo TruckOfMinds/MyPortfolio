@@ -22,13 +22,12 @@ export default function CodePage() {
     <>
       <title>Code Projects | RD Portfolio</title>
       <main>
-        <Grid id="top" className="with-header w-full pt-4 grow">
+        <Grid id="top" className="with-header w-full pt-4 grows">
           <Header
-            className="w-[96%] justify-self-end row-start-1 row-end-1 col-start-2 col-end-4"
             text="My Projects"
-            isDev>
-            <SearchAndSort isDev userInput={userInput} setUserInput={setUserInput} />
-          </Header>
+            isDev
+            children={<SearchAndSort isDev userInput={userInput} setUserInput={setUserInput} />}
+          />
           <Projects userInput={userInput} />
         </Grid>
       </main>
@@ -101,9 +100,8 @@ const Projects = ({ className, userInput }: { className?: string; userInput: use
 
   return (
     <article
-      className={`code-card-container code-projects ${
-        isFetching ? "opacity-75" : ""
-      } ${className}`}>
+      className={`code-card-container code-projects ${isFetching ? "opacity-75" : ""} ${className}`}
+    >
       {userInput.desc ? newData.reverse() : newData}
     </article>
   );
