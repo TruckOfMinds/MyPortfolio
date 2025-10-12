@@ -6,12 +6,20 @@ export type designCardProps = Promise<
     id: bigint;
     name: string;
     date: string;
-    bio: string;
-    pros: string;
-    cons: string;
+
     logo: string;
   }[]
 >;
+
+export type designProjectTypes = Promise<{
+  id: bigint;
+  name: string;
+  date: string;
+  images: string[];
+  bio: string;
+  pros: string;
+  cons: string;
+}>;
 
 export type skillsProps = Promise<
   {

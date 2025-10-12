@@ -1,14 +1,19 @@
-.carousel-image {
-	aspect-ratio: 16/9;
+.my-carousel-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* max-height: 100%; */
+  max-width: 50%;
+  height: auto;
+  /* border-radius: 1rem; */
 }
 
-.my-carousel-content {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-
-	/* max-height: 100%; */
-	max-width: 50%;
-	height: auto;
-	/* border-radius: 1rem; */
+.rel {
+  position: relative;
+  top: initial;
+  left: initial;
+  right: initial;
+  bottom: initial;
+  translate: none;
 }

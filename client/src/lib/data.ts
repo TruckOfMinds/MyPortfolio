@@ -1,4 +1,4 @@
-import type { projectCardColours } from "@/types";
+import type { codeCardProps, designCardProps, projectCardColours, userInputProps } from "@/types";
 
 const bgTexts: { [k: string]: string } = {
   one: "this is the text for one",
@@ -33,4 +33,27 @@ dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive whitespace
 
 const isDark = () => localStorage.getItem("isDark") === "true";
 
-export { bgTexts, getCardColour, shadcnToggle, isDark };
+//* —————————————————————————————————————————————————————————————————————————————————————
+
+const compareDates = (date1: string, date2: string) => {
+  const aMMDD = date1.split("/");
+  const dateA = [aMMDD[1], aMMDD[0], aMMDD[2]].join("/");
+  const bMMDD = date2.split("/");
+  const dateB = [bMMDD[1], bMMDD[0], bMMDD[2]].join("/");
+
+  if (Date.parse(dateA) > Date.parse(dateB)) return 1;
+  if (Date.parse(dateA) < Date.parse(dateB)) return -1;
+  return 0;
+};
+
+const sortMethod = (
+  a: designCardProps | codeCardProps,
+  b: designCardProps | codeCardProps,
+  userInput: userInputProps
+): number => {
+  if (userInput.sort === "date") return compareDates(a.date, b.date);
+
+  return a.name.localeCompare(b.name);
+};
+
+export { bgTexts, getCardColour, shadcnToggle, isDark, sortMethod };

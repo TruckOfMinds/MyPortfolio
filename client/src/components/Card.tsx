@@ -1,8 +1,9 @@
-import type { cardProps, codeCardProps } from "@/types";
+import type { cardProps, codeCardProps, designCardProps } from "@/types";
 
 import "./style/Card.css";
 import { Link } from "react-router";
-import { memo, useState, type JSX } from "react";
+import { memo, useRef, useState, type JSX } from "react";
+import { getCardColour } from "@/lib/data";
 
 export default function Card({
   variant,
@@ -19,7 +20,8 @@ export default function Card({
         colour,
         className,
       ].join(" ")}
-      {...props}>
+      {...props}
+    >
       {children}
     </article>
   );
@@ -39,7 +41,8 @@ export const CodeCard = memo(
           tabIndex={0}
           onMouseOver={() => setShow(true)}
           onMouseOut={() => setShow(false)}
-          onKeyUp={e => (e.key === "Enter" ? setShow(!show) : null)}>
+          onKeyUp={e => (e.key === "Enter" ? setShow(!show) : null)}
+        >
           {show ? status : null}
         </div>
       );
@@ -50,7 +53,8 @@ export const CodeCard = memo(
     return (
       <Link
         to={encodeURI(`/code-projects/${owner}/${name}`)}
-        className={`relative ${props.className}`}>
+        className={`relative ${props.className}`}
+      >
         <Card variant={props.variant} className="card-grid code pr-8" colour={props.colour}>
           <div className="[grid-area:image] code-card-image-container rounded-md flex items-center justify-center">
             <img
@@ -83,3 +87,25 @@ export const CodeCard = memo(
     );
   }
 );
+
+//* —————————————————————————————————————————————————————————————————————————————————————
+
+export const DesignCard = ({
+  name,
+  className,
+  id,
+  logo,
+  date,
+  ...props
+}: designCardProps & cardProps) => {
+  const colour = useRef(getCardColour(id));
+  return (
+    <Link to={`/design-projects/${name}`}>
+      <Card {...props} colour={colour.current} className={`card-grid design ${className}`}>
+        <img src={`${import.meta.env.VITE_BUCKET_URL}/${logo}`} alt="" />
+        <h1>{name}</h1>
+        <p>{date}</p>
+      </Card>
+    </Link>
+  );
+};

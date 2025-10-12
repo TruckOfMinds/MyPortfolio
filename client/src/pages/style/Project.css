@@ -6,10 +6,35 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-
-  width: 80%;
 }
 
-.markdown-card * {
-  margin-top: 0;
+.markdown-card {
+  * {
+    margin-top: 0;
+  }
+
+  pre {
+    padding: 0;
+    > div {
+      border-width: 2px !important;
+      box-shadow: none !important;
+    }
+  }
+
+  code.solo {
+    &::before,
+    &::after {
+      content: unset;
+    }
+
+    background-color: #4d4033d0;
+    border: 1px solid rgb(122, 102, 82);
+    padding: 0.4rem 0.5rem;
+    border-radius: 0.5rem;
+    color: var(--surface);
+  }
+
+  i {
+    margin-top: 0.5rem;
+  }
 }

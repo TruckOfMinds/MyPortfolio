@@ -18,6 +18,8 @@ export default function TopProjects(): JSX.Element {
     queryFn: fetchTopProjects,
   });
 
+  // —————————————————————————————————————————————————————————————————————————————————————
+
   useEffect(() => {
     if (!api) return;
 
@@ -44,6 +46,8 @@ export default function TopProjects(): JSX.Element {
       api.off("select", handleSelect); // cleanup
     };
   }, [api]);
+
+  // —————————————————————————————————————————————————————————————————————————————————————
 
   if (isPending) return <Loading />;
   if (isError) return <Error error={error} refetch={refetch} />;

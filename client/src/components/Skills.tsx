@@ -19,12 +19,6 @@ export default function Skills({ portalRef }: { portalRef: ElemRef }): JSX.Eleme
 
   return (
     <>
-      <h2
-        className={`w-fit orbit [letter-spacing:.1rem] text-xl mt-1 pb-2 ${
-          isFetching ? "opacity-75" : ""
-        }`}>
-        Technical Stack
-      </h2>
       <section
         id="skillContainer"
         className={`w-full h-[86%] pb-2 pt-3 flex flex-wrap items-center content-evenly justify-center gap-x-4 gap-y-2 scroller background ${

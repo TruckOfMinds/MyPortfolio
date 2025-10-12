@@ -1,12 +1,8 @@
-.code-projects {
-  grid-column: 2 / 4;
-}
-
 .card-width {
   width: clamp(25dvw, 48%, 50rem);
 }
 
-.code-card-container {
+.project-card-container {
   width: 97%;
   min-height: calc(100dvh - 8rem);
   margin-top: 1rem;
@@ -21,6 +17,7 @@
 
   justify-self: center;
   align-self: self-start;
+  grid-column: 2 / 4;
 }
 
 .code-card-image-container {

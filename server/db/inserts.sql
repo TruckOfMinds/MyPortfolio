@@ -149,32 +149,139 @@ values
   )
 on conflict do nothing;
 
-insert into rdmp_repos (image_id, logo, repo_name, date, brand_colour, text_colour, bio, links, top)
-values 
-(1, '/logos/hof.svg', 'Hall of Fame', date '2025-08-27', '#a15454', '#f3f3f3', 
-'This Hall of Fame spreedsheet was created by me to document my Pokémon team victories in an external, preserved way with a bespoke search function; It also shows which Pokémon species I have used and how many times. This features the use of query functions, conditional formatting, and an API call to PokeAPI.',
- /* project, github, ... */array[
-  'https://docs.google.com/spreadsheets/d/1IcfILulfWmRJHvmKlMhtB1kduqd28Q23wv8qNp70fAw/edit?gid=1493606038#gid=1493606038', null
-]::text[], false
-), 
-(2, '/logos/eq.svg', 'EverQuill', date '2025-09-06', '#466fd0', '#f7d2a1', null, array['https://everquill.onrender.com/', 'https://github.com/TruckOfMinds/EVERQUILL']::text[], true),
-(3, '/logos/os.svg', 'OS Project', date '2025-09-06', '#1B9090', '#020A0A', null, array[null, 'https://github.com/TruckOfMinds/OS-Rolsa-Tech']::text[], false),
-(4, '/logos/snake.svg', 'Snake Game', date '2025-07-03', '#000000', '#0000ff', null, array[null, 'https://github.com/OCSYT/Snake-Game']::text[], false)
--- (null, 'CoPlay', 2025-07-17, '#081221', '#e3e971', null, array()::text[], true)
+insert into
+  rdmp_repos (
+    image_id,
+    logo,
+    repo_name,
+    date,
+    brand_colour,
+    text_colour,
+    bio,
+    links,
+    top,
+    owner
+  )
+values
+  (
+    1,
+    '/logos/hof.svg',
+    'Hall of Fame',
+    date '2025-08-27',
+    '#a15454',
+    '#f3f3f3',
+    'This Hall of Fame spreedsheet was created by me to document my Pokémon team victories in an external, preserved way with a bespoke search function; It also shows which Pokémon species I have used and how many times. This features the use of query functions, conditional formatting, and an API call to PokeAPI.',
+    /* project, github, ... */
+    array[
+      array[
+        'https://docs.google.com/spreadsheets/d/1IcfILulfWmRJHvmKlMhtB1kduqd28Q23wv8qNp70fAw/edit?gid=1493606038#gid=1493606038',
+        'Project'
+      ]::text[],
+      array[null, 'GitHub']::text[]
+    ]::text[],
+    false,
+    'TruckOfMinds'
+  ),
+  (
+    2,
+    '/logos/eq.svg',
+    'EverQuill',
+    date '2025-09-06',
+    '#466fd0',
+    '#f7d2a1',
+    null,
+    array[
+      array['https://everquill.onrender.com/', 'Project']::text[],
+      array[
+        'https://github.com/TruckOfMinds/EVERQUILL',
+        'GitHub'
+      ]::text[]
+    ]::text[],
+    true,
+    'TruckOfMinds'
+  ),
+  (
+    3,
+    '/logos/os.svg',
+    'OS Project',
+    date '2025-09-06',
+    '#1B9090',
+    '#020A0A',
+    null,
+    array[
+      array[null, 'Project']::text[],
+      array[
+        'https://github.com/TruckOfMinds/OS-Rolsa-Tech',
+        'GitHub'
+      ]::text[]
+    ]::text[],
+    false,
+    'TruckOfMinds'
+  ),
+  (
+    4,
+    '/logos/snake.svg',
+    'Snake Game',
+    date '2025-07-03',
+    '#2a2a2a',
+    '#0000ff',
+    null,
+    array[
+      array[null, 'Project']::text[],
+      array['https://github.com/OCSYT/Snake-Game', 'GitHub']::text[]
+    ]::text[],
+    false,
+    'OCSYT'
+  )
+  -- (null, 'CoPlay', 2025-07-17, '#081221', '#e3e971', null, array()::text[], true)
 on conflict do nothing;
 
-insert into rdmp_tags (name, type)
-values 
-('JavaScript', 'normal'), ('TypeScript', 'normal'), ('Python', 'normal'), ('C#', 'normal'), 
-('ReactJS', 'normal'), ('NextJS', 'normal'), ('Flask', 'normal'), ('Website', 'normal'), 
-('Web-API', 'normal'), ('Desktop', 'normal'), ('Mobile', 'normal'), ('Terminal', 'normal'), 
-('Game', 'normal'), ('E-Commerce', 'normal'), ('Media-Player', 'normal'), ('Documentaion', 'normal'), 
-('Pokémon', 'normal'), ('Communication', 'normal'), ('Real-Time', 'normal'), ('In-Development', 'status'), 
-('Deployed', 'status'), ('Database', 'normal'), ('Utility', 'normal')
+insert into
+  rdmp_tags (name, type)
+values
+  ('JavaScript', 'normal'),
+  ('TypeScript', 'normal'),
+  ('Python', 'normal'),
+  ('C#', 'normal'),
+  ('ReactJS', 'normal'),
+  ('NextJS', 'normal'),
+  ('Flask', 'normal'),
+  ('Website', 'normal'),
+  ('Web-API', 'normal'),
+  ('Desktop', 'normal'),
+  ('Mobile', 'normal'),
+  ('Terminal', 'normal'),
+  ('Game', 'normal'),
+  ('E-Commerce', 'normal'),
+  ('Media-Player', 'normal'),
+  ('Documentaion', 'normal'),
+  ('Pokémon', 'normal'),
+  ('Communication', 'normal'),
+  ('Real-Time', 'normal'),
+  ('In-Development', 'status'),
+  ('Deployed', 'status'),
+  ('Database', 'normal'),
+  ('Utility', 'normal')
 on conflict do nothing;
 
-insert into rdmp_repo_con_tags (repo_id, tag_id)
-values 
-(1, 1), (1, 16), (1, 17), (1, 21), (2, 1), (2, 5), (2, 8), (2, 18), (2, 21),
-(3, 3), (3, 1), (3, 8), (3, 14), (3, 23), (4, 4), (4, 12), (4, 13)
+insert into
+  rdmp_repo_con_tags (repo_id, tag_id)
+values
+  (2, 1),
+  (2, 16),
+  (2, 17),
+  (2, 21),
+  (3, 1),
+  (3, 5),
+  (3, 8),
+  (3, 18),
+  (3, 21),
+  (4, 3),
+  (4, 1),
+  (4, 8),
+  (4, 14),
+  (4, 23),
+  (5, 4),
+  (5, 12),
+  (5, 13)
 on conflict do nothing;

@@ -34,7 +34,7 @@ export default function CodeProjectPage(): JSX.Element {
       <title>{`${project!} | RD Portfolio`}</title>
       <main>
         <Grid id="top" className="with-header w-full pt-4">
-          <Header text={project!} children={<Links links={data.links} />} />
+          <Header text={project!} children={<Links links={data.links} />} isDev />
           <Content {...data} />
         </Grid>
       </main>
@@ -48,8 +48,7 @@ const Content = ({ images, ...props }: codeProjectProps) => (
   <>
     <Carousel
       opts={{ loop: true }}
-      className="max-w-8/10 min-h-fit h-1/2 [grid-area:c] flex flex-col items-center justify-center gap-4 rounded-2xl"
-    >
+      className="max-w-8/10 min-h-fit h-1/2 [grid-area:c] flex flex-col items-center justify-center gap-4 rounded-2xl">
       <CarouselContent ParentClassName="rounded-2xl">
         {images.map(i => (
           <CarouselItem key={i}>
@@ -62,7 +61,7 @@ const Content = ({ images, ...props }: codeProjectProps) => (
         ))}
       </CarouselContent>
 
-      <div className="code-carousel">
+      <div className="code-carousel w-4/5">
         <CarouselPrevious
           className="w-2/5"
           style={{ backgroundColor: props.style[0], color: props.style[1] }}
@@ -79,21 +78,18 @@ const Content = ({ images, ...props }: codeProjectProps) => (
     <Card
       className="in-grid scroller markdown-card prose prose-invert max-w-1/2 [grid-area:d]"
       style={
+        // [0] = dark colour
+        // [1] = light colour
         isDark()
           ? {
               backgroundColor: props.style[0],
-              color: `hsl(from ${props.style[0]} h s calc(l + 10%))`,
-              boxShadow: `0 4px 24px 4px ${props.style[0]}`,
-              scrollbarColor: `${props.style[1]} transparent`,
+              scrollbarColor: `${props.style[0]} transparent`,
             }
           : {
               backgroundColor: props.style[1],
-              color: `hsl(from ${props.style[1]} h s calc(l - 10%))`,
-              boxShadow: `0 4px 24px 4px ${props.style[1]}`,
-              scrollbarColor: `hsl(from ${props.style[1]} h s calc(l - 64)) transparent`,
+              scrollbarColor: `${props.style[0]} transparent`,
             }
-      }
-    >
+      }>
       <ReactMarkdown
         children={props.bio}
         remarkPlugins={[remarkGfm]}
@@ -105,8 +101,7 @@ const Content = ({ images, ...props }: codeProjectProps) => (
                     className="block py-2"
                     style={{
                       color: props.style[1],
-                    }}
-                  >
+                    }}>
                     <s>Redacted Image</s>
                   </i>
                 ),
@@ -120,8 +115,7 @@ const Content = ({ images, ...props }: codeProjectProps) => (
                       aProps.href && !aProps.href?.startsWith("./")
                         ? aProps.href
                         : `https://github.com/TruckOfMinds/${props.repo_name}/blob/main${aProps.href}`
-                    }
-                  >
+                    }>
                     {aProps.children}
                   </a>
                 ),
@@ -145,8 +139,7 @@ const Content = ({ images, ...props }: codeProjectProps) => (
                     {...pProps}
                     style={{
                       color: props.style[1],
-                    }}
-                  >
+                    }}>
                     {pProps.children}
                   </p>
                 ),
@@ -155,8 +148,7 @@ const Content = ({ images, ...props }: codeProjectProps) => (
                     {...liProps}
                     style={{
                       color: props.style[1],
-                    }}
-                  >
+                    }}>
                     {liProps.children}
                   </li>
                 ),
@@ -171,7 +163,7 @@ const Content = ({ images, ...props }: codeProjectProps) => (
                       style={dark}
                     />
                   ) : (
-                    <code {...rest} className={className}>
+                    <code {...rest} className={`solo ${className}`}>
                       {children}
                     </code>
                   );
@@ -184,8 +176,7 @@ const Content = ({ images, ...props }: codeProjectProps) => (
                     className="block text-xs"
                     style={{
                       color: `hsl(from ${props.style[1]} h s calc(l - 64))`,
-                    }}
-                  >
+                    }}>
                     <s>Redacted Image</s>
                   </i>
                 ),
@@ -199,32 +190,28 @@ const Content = ({ images, ...props }: codeProjectProps) => (
                       aProps.href && !aProps.href?.startsWith("./")
                         ? aProps.href
                         : `https://github.com/TruckOfMinds/${props.repo_name}/blob/main/${aProps.href}`
-                    }
-                  >
+                    }>
                     {aProps.children}
                   </a>
                 ),
                 h1: h1props => (
                   <h1
                     {...h1props}
-                    style={{ color: `hsl(from ${props.style[0]} h s calc(l - 10))` }}
-                  >
+                    style={{ color: `hsl(from ${props.style[0]} h s calc(l - 10))` }}>
                     {h1props.children}
                   </h1>
                 ),
                 h2: h2props => (
                   <h2
                     {...h2props}
-                    style={{ color: `hsl(from ${props.style[0]} h s calc(l - 10))` }}
-                  >
+                    style={{ color: `hsl(from ${props.style[0]} h s calc(l - 10))` }}>
                     {h2props.children}
                   </h2>
                 ),
                 h3: h3props => (
                   <h3
                     {...h3props}
-                    style={{ color: `hsl(from ${props.style[0]} h s calc(l - 10))` }}
-                  >
+                    style={{ color: `hsl(from ${props.style[0]} h s calc(l - 10))` }}>
                     {h3props.children}
                   </h3>
                 ),
@@ -232,9 +219,8 @@ const Content = ({ images, ...props }: codeProjectProps) => (
                   <p
                     {...pProps}
                     style={{
-                      color: `hsl(from ${props.style[1]} h s calc(l - 64))`,
-                    }}
-                  >
+                      color: `hsl(from ${props.style[1]} h s calc(l - 80))`,
+                    }}>
                     {pProps.children}
                   </p>
                 ),
@@ -242,9 +228,8 @@ const Content = ({ images, ...props }: codeProjectProps) => (
                   <li
                     {...liProps}
                     style={{
-                      color: `hsl(from ${props.style[1]} h s calc(l - 64))`,
-                    }}
-                  >
+                      color: `hsl(from ${props.style[1]} h s calc(l - 80))`,
+                    }}>
                     {liProps.children}
                   </li>
                 ),
@@ -257,9 +242,10 @@ const Content = ({ images, ...props }: codeProjectProps) => (
                       children={String(children).replace(/\n$|`/, "")}
                       language={match[1]}
                       style={dark}
+                      customStyle={{ margin: 0 }}
                     />
                   ) : (
-                    <code {...rest} className={className}>
+                    <code {...rest} className={`solo ${className}`}>
                       {children}
                     </code>
                   );
@@ -276,9 +262,9 @@ const Content = ({ images, ...props }: codeProjectProps) => (
 const Links = ({ links }: { links: (string | null)[][] }): JSX.Element => {
   const getIconFromLabel = (label: string) => {
     switch (label.toLowerCase()) {
-      case "Project":
+      case "project":
         return <ProjectIcon />;
-      case "GitHub":
+      case "github":
         return <GitHubIcon />;
       default:
         return <ExtraResourceIcon />;
@@ -288,8 +274,7 @@ const Links = ({ links }: { links: (string | null)[][] }): JSX.Element => {
   return (
     <Card
       colour="sky"
-      className="w-1/4 min-w-fit h-16 min-h-fit flex items-center justify-evenly gap-2 "
-    >
+      className="w-1/4 min-w-fit h-16 min-h-fit flex items-center justify-evenly gap-2 ">
       {links.map(l =>
         l[0] && l[1] ? (
           <Link to={l[0]} target="_blank" className="cursor-pointer">

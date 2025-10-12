@@ -1,6 +1,8 @@
 import type { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
 import type { CSSProperties, Dispatch, ReactNode, RefObject, SetStateAction } from "react";
 
+// server pulls
+
 export type gridProps = {
   layout?: string;
   className?: string;
@@ -17,15 +19,48 @@ export type codeCardProps = {
   owner: string;
 };
 
+export type codeProjectProps = {
+  id: bigint;
+  repo_name: string;
+  date: string;
+  style: string[];
+  bio: string;
+  links: (string | null)[][];
+  images: string[];
+};
+
 export type designCardProps = {
   id: bigint;
   name: string;
   date: string;
+  logo: string;
+};
+
+export type designProjectTypes = {
+  id: bigint;
+  name: string;
+  date: string;
+  images: string[];
   bio: string;
   pros: string;
   cons: string;
-  logo: string;
 };
+
+export type skillProps = {
+  id: bigint;
+  name: string;
+  logo_name: string;
+};
+
+export type topProps = {
+  id: bigint;
+  image: string;
+  name: string;
+  owner: string;
+  is_code: boolean;
+};
+
+// —————————————————————————————————————————————————————————————————————————————————————
 
 export type projectCardColours = "sky" | "pink" | "yellow";
 
@@ -43,36 +78,12 @@ export type cardProps = {
   tabIndex?: number;
 };
 
-export type skillProps = {
-  id: bigint;
-  name: string;
-  logo_name: string;
-};
-
-export type topProps = {
-  id: bigint;
-  image: string;
-  name: string;
-  owner: string;
-  is_code: boolean;
-};
-
 export type topCarouselProps = {
   src?: string;
   alt?: string;
   dataName?: string;
   dataOwner?: string;
   isCode?: boolean;
-};
-
-export type codeProjectProps = {
-  id: bigint;
-  repo_name: string;
-  date: string;
-  style: string[];
-  bio: string;
-  links: (string | null)[][];
-  images: string[];
 };
 
 export type Elem = HTMLElement | null;
