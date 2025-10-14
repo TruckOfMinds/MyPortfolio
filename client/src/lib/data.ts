@@ -1,4 +1,5 @@
 import type { codeCardProps, designCardProps, projectCardColours, userInputProps } from "@/types";
+import type { CSSProperties } from "react";
 
 const bgTexts: { [k: string]: string } = {
   one: "this is the text for one",
@@ -56,4 +57,60 @@ const sortMethod = (
   return a.name.localeCompare(b.name);
 };
 
-export { bgTexts, getCardColour, shadcnToggle, isDark, sortMethod };
+//* —————————————————————————————————————————————————————————————————————————————————————
+
+type contactProps = {
+  id: number;
+  name: string;
+  image: string;
+  hex: { txt: string; bg: string };
+  link: string;
+};
+const contactsData: contactProps[] = [
+  {
+    id: 1,
+    name: "Gmail",
+    image: "",
+    hex: { bg: "var(--surface)", txt: "var(--on-surface)" },
+    link: "mailto:reudbub07@gmail.com ",
+  },
+];
+
+//* —————————————————————————————————————————————————————————————————————————————————————
+
+const useMDStyles = (col: string[]): { [k: string]: CSSProperties } =>
+  isDark()
+    ? {
+        card: {
+          backgroundColor: col[0],
+          scrollbarColor: `${col[0]} transparent`,
+        },
+        img: { color: col[1] },
+        a: { color: col[1] },
+        h1: { color: col[1] },
+        h2: { color: col[1] },
+        h3: { color: col[1] },
+        p: { color: col[1] },
+        li: { color: col[1] },
+      }
+    : {
+        card: {
+          backgroundColor: col[1],
+          scrollbarColor: `${col[0]} transparent`,
+        },
+        img: {
+          color: `hsl(from ${col[1]} h s calc(l - 64))`,
+        },
+        a: { color: `hsl(from ${col[0]} h s calc(l - 10))` },
+        h1: { color: `hsl(from ${col[0]} h s calc(l - 10))` },
+        h2: { color: `hsl(from ${col[0]} h s calc(l - 10))` },
+        h3: { color: `hsl(from ${col[0]} h s calc(l - 10))` },
+        p: {
+          color: `hsl(from ${col[1]} h s calc(l - 80))`,
+        },
+        li: {
+          color: `hsl(from ${col[1]} h s calc(l - 80))`,
+        },
+      };
+
+export { bgTexts, getCardColour, shadcnToggle, isDark, sortMethod, contactsData, useMDStyles };

@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/carousel";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dark } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { isDark } from "@/lib/data";
+import { useMDStyles } from "@/lib/data";
 import Grid from "@/components/Grid";
 import Header from "@/components/Header";
 import Card from "@/components/Card";
@@ -24,7 +24,7 @@ import remarkGfm from "remark-gfm";
 export default function CodeProjectPage(): JSX.Element {
   const { owner, project } = useParams();
 
-  const { data } = useSuspenseQuery({
+  const { isRefetching, data } = useSuspenseQuery({
     queryKey: ["codeProject", project],
     queryFn: () => fetchCodeProject(owner!, project!),
   });
@@ -35,7 +35,7 @@ export default function CodeProjectPage(): JSX.Element {
       <main>
         <Grid id="top" className="with-header w-full pt-4">
           <Header text={project!} children={<Links links={data.links} />} isDev />
-          <Content {...data} />
+          <Content {...data} isRefetching={isRefetching} />
         </Grid>
       </main>
     </>
@@ -44,218 +44,117 @@ export default function CodeProjectPage(): JSX.Element {
 
 //* —————————————————————————————————————————————————————————————————————————————————————
 
-const Content = ({ images, ...props }: codeProjectProps) => (
-  <>
-    <Carousel
-      opts={{ loop: true }}
-      className="max-w-8/10 min-h-fit h-1/2 [grid-area:c] flex flex-col items-center justify-center gap-4 rounded-2xl">
-      <CarouselContent ParentClassName="rounded-2xl">
-        {images.map(i => (
-          <CarouselItem key={i}>
-            <img
-              src={import.meta.env.VITE_BUCKET_URL + "/" + i}
-              alt={`Code Project Image #${images.indexOf(i)}`}
-              className="code-project-image rounded-2xl"
-            />
-          </CarouselItem>
-        ))}
-      </CarouselContent>
+const Content = ({
+  images,
+  isRefetching,
+  style,
+  ...props
+}: codeProjectProps & { isRefetching: boolean }) => {
+  const styles = useMDStyles(style);
 
-      <div className="code-carousel w-4/5">
-        <CarouselPrevious
-          className="w-2/5"
-          style={{ backgroundColor: props.style[0], color: props.style[1] }}
+  return (
+    <>
+      <Carousel
+        opts={{ loop: true }}
+        className={`max-w-8/10 min-h-fit h-1/2 [grid-area:c] flex flex-col items-center justify-center gap-4 rounded-2xl ${
+          isRefetching ? "opacity-75" : null
+        }`}>
+        <CarouselContent ParentClassName="rounded-2xl">
+          {images.map(i => (
+            <CarouselItem key={i}>
+              <img
+                src={import.meta.env.VITE_BUCKET_URL + "/" + i}
+                alt={`Code Project Image #${images.indexOf(i)}`}
+                className="code-project-image rounded-2xl"
+              />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+
+        <div className="code-carousel w-4/5">
+          <CarouselPrevious
+            className="w-2/5"
+            style={{ backgroundColor: style[0], color: style[1] }}
+          />
+          <CarouselNext className="w-2/5" style={{ backgroundColor: style[0], color: style[1] }} />
+        </div>
+      </Carousel>
+
+      {/* ————————————————————————————————————————————————————————————————————————————————————— */}
+
+      <Card
+        className="in-grid scroller markdown-card prose prose-invert max-w-1/2 [grid-area:d]"
+        style={styles.card}>
+        <ReactMarkdown
+          children={props.bio}
+          remarkPlugins={[remarkGfm]}
+          components={{
+            img: () => (
+              <i className="block py-2" style={styles.img}>
+                <s>Redacted Image</s>
+              </i>
+            ),
+            a: aProps => (
+              <a
+                {...aProps}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={styles.a}
+                href={
+                  aProps.href && !aProps.href?.startsWith("./")
+                    ? aProps.href
+                    : `https://github.com/TruckOfMinds/${props.repo_name}/blob/main${aProps.href}`
+                }>
+                {aProps.children}
+              </a>
+            ),
+            h1: h1props => (
+              <h1 {...h1props} style={styles.h1} className="orbit text-2xl">
+                {h1props.children}
+              </h1>
+            ),
+            h2: h2props => (
+              <h2 {...h2props} style={styles.h2} className="orbit text-xl">
+                {h2props.children}
+              </h2>
+            ),
+            h3: h3props => (
+              <h3 {...h3props} style={styles.h3} className="orbit">
+                {h3props.children}
+              </h3>
+            ),
+            p: pProps => (
+              <p {...pProps} style={styles.p}>
+                {pProps.children}
+              </p>
+            ),
+            li: liProps => (
+              <li {...liProps} style={styles.li}>
+                {liProps.children}
+              </li>
+            ),
+            code: codeProps => {
+              const { children, className, ...rest } = codeProps;
+              const match = /language-(\w+)/.exec(className || "");
+              return match ? (
+                <SyntaxHighlighter
+                  PreTag="div"
+                  children={String(children).replace(/\n$|`/, "")}
+                  language={match[1]}
+                  style={dark}
+                />
+              ) : (
+                <code {...rest} className={`solo ${className}`}>
+                  {children}
+                </code>
+              );
+            },
+          }}
         />
-        <CarouselNext
-          className="w-2/5"
-          style={{ backgroundColor: props.style[0], color: props.style[1] }}
-        />
-      </div>
-    </Carousel>
-
-    {/* ————————————————————————————————————————————————————————————————————————————————————— */}
-
-    <Card
-      className="in-grid scroller markdown-card prose prose-invert max-w-1/2 [grid-area:d]"
-      style={
-        // [0] = dark colour
-        // [1] = light colour
-        isDark()
-          ? {
-              backgroundColor: props.style[0],
-              scrollbarColor: `${props.style[0]} transparent`,
-            }
-          : {
-              backgroundColor: props.style[1],
-              scrollbarColor: `${props.style[0]} transparent`,
-            }
-      }>
-      <ReactMarkdown
-        children={props.bio}
-        remarkPlugins={[remarkGfm]}
-        components={
-          isDark()
-            ? {
-                img: () => (
-                  <i
-                    className="block py-2"
-                    style={{
-                      color: props.style[1],
-                    }}>
-                    <s>Redacted Image</s>
-                  </i>
-                ),
-                a: aProps => (
-                  <a
-                    {...aProps}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ color: props.style[1] }}
-                    href={
-                      aProps.href && !aProps.href?.startsWith("./")
-                        ? aProps.href
-                        : `https://github.com/TruckOfMinds/${props.repo_name}/blob/main${aProps.href}`
-                    }>
-                    {aProps.children}
-                  </a>
-                ),
-                h1: h1props => (
-                  <h1 {...h1props} style={{ color: props.style[1] }}>
-                    {h1props.children}
-                  </h1>
-                ),
-                h2: h2props => (
-                  <h2 {...h2props} style={{ color: props.style[1] }}>
-                    {h2props.children}
-                  </h2>
-                ),
-                h3: h3props => (
-                  <h3 {...h3props} style={{ color: props.style[1] }}>
-                    {h3props.children}
-                  </h3>
-                ),
-                p: pProps => (
-                  <p
-                    {...pProps}
-                    style={{
-                      color: props.style[1],
-                    }}>
-                    {pProps.children}
-                  </p>
-                ),
-                li: liProps => (
-                  <li
-                    {...liProps}
-                    style={{
-                      color: props.style[1],
-                    }}>
-                    {liProps.children}
-                  </li>
-                ),
-                code: codeProps => {
-                  const { children, className, ...rest } = codeProps;
-                  const match = /language-(\w+)/.exec(className || "");
-                  return match ? (
-                    <SyntaxHighlighter
-                      PreTag="div"
-                      children={String(children).replace(/\n$|`/, "")}
-                      language={match[1]}
-                      style={dark}
-                    />
-                  ) : (
-                    <code {...rest} className={`solo ${className}`}>
-                      {children}
-                    </code>
-                  );
-                },
-              }
-            : // —————————————————————————————————————————————————————————————————————————————————————
-              {
-                img: () => (
-                  <i
-                    className="block text-xs"
-                    style={{
-                      color: `hsl(from ${props.style[1]} h s calc(l - 64))`,
-                    }}>
-                    <s>Redacted Image</s>
-                  </i>
-                ),
-                a: aProps => (
-                  <a
-                    {...aProps}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ color: `hsl(from ${props.style[0]} h s calc(l - 10))` }}
-                    href={
-                      aProps.href && !aProps.href?.startsWith("./")
-                        ? aProps.href
-                        : `https://github.com/TruckOfMinds/${props.repo_name}/blob/main/${aProps.href}`
-                    }>
-                    {aProps.children}
-                  </a>
-                ),
-                h1: h1props => (
-                  <h1
-                    {...h1props}
-                    style={{ color: `hsl(from ${props.style[0]} h s calc(l - 10))` }}>
-                    {h1props.children}
-                  </h1>
-                ),
-                h2: h2props => (
-                  <h2
-                    {...h2props}
-                    style={{ color: `hsl(from ${props.style[0]} h s calc(l - 10))` }}>
-                    {h2props.children}
-                  </h2>
-                ),
-                h3: h3props => (
-                  <h3
-                    {...h3props}
-                    style={{ color: `hsl(from ${props.style[0]} h s calc(l - 10))` }}>
-                    {h3props.children}
-                  </h3>
-                ),
-                p: pProps => (
-                  <p
-                    {...pProps}
-                    style={{
-                      color: `hsl(from ${props.style[1]} h s calc(l - 80))`,
-                    }}>
-                    {pProps.children}
-                  </p>
-                ),
-                li: liProps => (
-                  <li
-                    {...liProps}
-                    style={{
-                      color: `hsl(from ${props.style[1]} h s calc(l - 80))`,
-                    }}>
-                    {liProps.children}
-                  </li>
-                ),
-                code: codeProps => {
-                  const { children, className, ...rest } = codeProps;
-                  const match = /language-(\w+)/.exec(className || "");
-                  return match ? (
-                    <SyntaxHighlighter
-                      PreTag="div"
-                      children={String(children).replace(/\n$|`/, "")}
-                      language={match[1]}
-                      style={dark}
-                      customStyle={{ margin: 0 }}
-                    />
-                  ) : (
-                    <code {...rest} className={`solo ${className}`}>
-                      {children}
-                    </code>
-                  );
-                },
-              }
-        }
-      />
-    </Card>
-  </>
-);
+      </Card>
+    </>
+  );
+};
 
 //* —————————————————————————————————————————————————————————————————————————————————————
 
@@ -274,7 +173,7 @@ const Links = ({ links }: { links: (string | null)[][] }): JSX.Element => {
   return (
     <Card
       colour="sky"
-      className="w-1/4 min-w-fit h-16 min-h-fit flex items-center justify-evenly gap-2 ">
+      className="w-1/4 min-w-fit h-16 min-h-fit flex items-center justify-evenly gap-2 mr-12">
       {links.map(l =>
         l[0] && l[1] ? (
           <Link to={l[0]} target="_blank" className="cursor-pointer">
