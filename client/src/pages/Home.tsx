@@ -65,13 +65,18 @@ const About = (): JSX.Element => {
         className="in-grid relative z-10 overflow-y-clip [grid-area:d]"
         colour="purple"
         ref={portalRef}>
+        <h2 className={`w-fit orbit [letter-spacing:.1rem] text-xl mt-1 pb-1 `}>Technical Stack</h2>
         <Skills portalRef={portalRef} />
       </Card>
 
       <Card
-        className="in-grid [grid-area:e/e-start/e-end/f-end] flex flex-col items-center justify-between"
+        className="in-grid [grid-area:e/e-start/e-end/f-end] flex flex-col items-center justify-start"
         variant="long"
         colour="purple">
+        <h2 className="text-start w-full orbit [letter-spacing:.1rem] text-xl mt-1 pb-3">
+          Top Projects
+        </h2>
+
         <TopProjects />
       </Card>
     </Grid>
@@ -139,7 +144,7 @@ const TitleBlock = ({
       src={src}
       alt={alt}
       loading="lazy"
-      className="bg-ter h-[calc(50%-0.5rem)] min-w-[7rem] w-full rounded-2xl text-ter-cont shadow-iii flex items-center justify-center object-contain"
+      className="bg-ter h-[calc(50%-0.5rem)] min-w-[7rem] w-full rounded-2xl text-ter-cont shadow-iii flex items-center justify-center object-cover"
     />
   </header>
 );

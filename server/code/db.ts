@@ -7,6 +7,7 @@ import {
   repoProps,
   skillsProps,
   topProps,
+  designProjectTypes,
 } from "./types.js";
 import dotenv from "dotenv";
 
@@ -21,15 +22,31 @@ export const getDesignCardData = async (): designCardProps => {
   try {
     const { rows } = await db.query(
       `
-      SELECT id, name, TO_CHAR(date, 'DD/MM/YYYY') as "date", bio,  
-        pros, cons, logo
+      SELECT id, name, TO_CHAR(date, 'DD/MM/YYYY') as "date", logo
       FROM rdmp_designs
       ORDER BY date, name DESC;
       `
     );
     return rows;
   } catch (err) {
-    throw new Error("DB Error:" + err);
+    throw new Error("DB Error: " + err);
+  }
+};
+
+export const getDesignProjectData = async (project: string): designProjectTypes => {
+  try {
+    const { rows } = await db.query(
+      `
+      SELECT rdmp_designs.id, rdmp_designs.name, TO_CHAR(rdmp_designs.date, 'DD/MM/YYYY') as "date", rdmp_designs.bio, rdmp_designs.pros, rdmp_designs.cons, rdmp_images.images
+      FROM rdmp_designs
+      JOIN rdmp_images ON rdmp_images.id = rdmp_designs.image_id
+      WHERE rdmp_designs.name = $1
+      `,
+      [project]
+    );
+    return rows[0];
+  } catch (err) {
+    throw new Error("DB Error: " + err);
   }
 };
 
@@ -45,7 +62,7 @@ export const getSkillsData = async (): skillsProps => {
 
     return rows;
   } catch (err) {
-    throw new Error("DB Error:" + err);
+    throw new Error("DB Error: " + err);
   }
 };
 
@@ -65,7 +82,7 @@ export const getCodeCardData = async (): codeCardProps => {
     );
     return rows;
   } catch (err) {
-    throw new Error("DB Error:" + err);
+    throw new Error("DB Error: " + err);
   }
 };
 
@@ -81,14 +98,17 @@ export const getRepoData = async (repo: string): repoProps => {
       `,
       [repo]
     );
-    let repoData: repoProps = rows[0];
-    const bufferBio = Buffer.from((await repoData).bio, "base64");
-    const decodedBio = bufferBio.toString("utf-8").replace(/\\n/g, "\n");
-    (await repoData).bio = decodedBio;
+
+    const repoData = rows[0];
+    if (repoData.bio) {
+      const bufferBio = Buffer.from(repoData.bio, "base64");
+      const decodedBio = bufferBio.toString("utf-8").replace(/\\n/g, "\n");
+      repoData.bio = decodedBio;
+    } else repoData.bio = "This project has no bio.";
 
     return repoData;
   } catch (err) {
-    throw new Error("DB Error:" + err);
+    throw new Error("DB Error: " + err);
   }
 };
 
@@ -113,7 +133,7 @@ export const getTopRepoData = async (): topProps => {
     );
     return rows;
   } catch (err) {
-    throw new Error("DB Error:" + err);
+    throw new Error("DB Error: " + err);
   }
 };
 
@@ -128,29 +148,31 @@ export const getContactData = async (): linkProps => {
     );
     return rows;
   } catch (err) {
-    throw new Error("DB Error:" + err);
+    throw new Error("DB Error: " + err);
   }
 };
 
 export const handleRepo = (repo: gitRepo) => {
-  // console.table(repo.owner);
   try {
     db.query(
       `
       INSERT INTO rdmp_repos (repo_name, date, links, owner)
       VALUES ($1, $2, $3, $4)
       ON CONFLICT (repo_name) DO UPDATE
-      SET (repo_name, date, links, owner) = (EXCLUDED.repo_name, EXCLUDED.date, EXCLUDED.links, EXCLUDED.owner);
+      SET (repo_name, date, links[1:2],  owner) = (EXCLUDED.repo_name, EXCLUDED.date, EXCLUDED.links[1:2], EXCLUDED.owner);
       `,
       [
         repo.name.replace(/-/g, " "),
         repo.updated_at,
-        [repo.homepage, repo.html_url],
+        [
+          [repo.homepage, "Project"],
+          [repo.html_url, "GitHub"],
+        ],
         repo.owner.login,
       ]
     );
   } catch (err) {
-    throw new Error("DB Error:" + err);
+    throw new Error("DB Error: " + err);
   }
 };
 
@@ -160,11 +182,11 @@ export const updateBio = (bio: string, name: string) => {
       `
       UPDATE rdmp_repos
       SET bio = $1
-      WHERE repo_name = $2;
+      WHERE repo_name = $2
       `,
       [bio, name]
     );
   } catch (err) {
-    throw new Error("DB Error:" + err);
+    throw new Error("DB Error: " + err);
   }
 };

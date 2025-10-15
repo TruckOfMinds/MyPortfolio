@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchCodeCards } from "@/utils/serverPortal";
-import { getCardColour } from "@/lib/data";
+import { sortMethod, getCardColour } from "@/lib/data";
 
 import Header, { SearchAndSort } from "@/components/Header";
 import Grid from "@/components/Grid";
@@ -70,39 +70,16 @@ const Projects = ({ className, userInput }: { className?: string; userInput: use
     return false;
   };
 
-  // —————————————————————————————————————————————————————————————————————————
-
-  const sortMethod = (a: codeCardProps, b: codeCardProps): number => {
-    if (userInput.sort === "date") {
-      const aMMDD = a.date.split("/");
-      const dateA = [aMMDD[1], aMMDD[0], aMMDD[2]].join("/");
-      const bMMDD = b.date.split("/");
-      const dateB = [bMMDD[1], bMMDD[0], bMMDD[2]].join("/");
-
-      if (Date.parse(dateA) > Date.parse(dateB)) return 1;
-      if (Date.parse(dateA) < Date.parse(dateB)) return -1;
-      return 0;
-    }
-
-    return a.name.localeCompare(b.name);
-  };
-
-  // —————————————————————————————————————————————————————————————————————————
-
   const newData = data
     .filter(isInSearch)
-    .sort(sortMethod)
+    .sort((a, b) => sortMethod(a, b, userInput))
     .map(d => (
       <CodeCard key={d.id} colour={getCardColour(d.id)} className="h-48 card-width" {...d} />
     ));
 
-  // —————————————————————————————————————————————————————————————————————————————————————
-
   return (
-    <article
-      className={`code-card-container code-projects ${isFetching ? "opacity-75" : ""} ${className}`}
-    >
+    <section className={`project-card-container ${isFetching ? "opacity-75" : ""} ${className}`}>
       {userInput.desc ? newData.reverse() : newData}
-    </article>
+    </section>
   );
 };

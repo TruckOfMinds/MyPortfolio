@@ -25,7 +25,7 @@ export default function App(): JSX.Element {
     <>
       <Navbar />
 
-      <ErrorBoundary FallbackComponent={ErrorFallback}>
+      <ErrorBoundary FallbackComponent={ErrorFallback} key={pathname}>
         <Suspense fallback={<PageLoading />}>
           <Routes>
             <Route path="/" element={<HomePage />} />

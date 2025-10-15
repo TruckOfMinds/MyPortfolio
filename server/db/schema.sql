@@ -1,10 +1,10 @@
-drop table if exists rdmp_designs,
-rdmp_technical_skills,
-rdmp_contact_links,
-rdmp_repos,
-rdmp_tags,
-rdmp_repo_con_tags,
-rdmp_images cascade;
+-- drop table if exists rdmp_designs,
+-- rdmp_technical_skills,
+-- rdmp_contact_links,
+-- rdmp_repos,
+-- rdmp_tags,
+-- rdmp_repo_con_tags,
+-- rdmp_images cascade;
 
 create table if not exists rdmp_images (
   id bigint primary key generated always as identity,
@@ -18,6 +18,7 @@ create table if not exists rdmp_technical_skills (
   unique (logo_name)
 );
 
+-- drop table if exists rdmp_repos cascade;
 create table if not exists rdmp_repos (
   id bigint primary key generated always as identity,
   image_id bigint references rdmp_images (id),
@@ -27,13 +28,14 @@ create table if not exists rdmp_repos (
   brand_colour text,
   text_colour text,
   bio text,
-  links text[] not null,
+  links text[2][] not null,
   top boolean default false,
   is_code boolean default true,
   owner text not null,
   unique (repo_name),
   unique (image_id)
 );
+
 
 create table if not exists rdmp_tags (
   id bigint primary key generated always as identity,

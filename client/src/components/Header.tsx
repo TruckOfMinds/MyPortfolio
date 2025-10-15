@@ -25,8 +25,7 @@ export default function Header({
 }) {
   return (
     <header
-      className={`flex items-center justify-between w-[96%] justify-self-end row-start-1 row-end-1 col-start-2 col-end-4 ${className}`}
-    >
+      className={`flex items-center justify-between w-[96%] justify-self-end row-start-1 row-end-1 col-start-2 col-end-4 ${className}`}>
       <TitleSection isDev={isDev} isDesign={isDesign} text={text} />
       {children}
     </header>
@@ -72,14 +71,13 @@ export const SearchAndSort = ({
 }): JSX.Element => (
   <form
     onSubmit={e => e.preventDefault()}
-    className={`max-w-full flex items-center gap-4 mr-12 ${isDev ? "dev" : "design"}`}
-  >
+    className={`max-w-full flex items-center gap-4 mr-12 ${isDev ? "dev" : "design"}`}>
     <Label htmlFor="search" className="flex flex-col items-start">
       Search
       <Input
         className="search-y-sort "
         type="text"
-        placeholder="e.g. JavaScript"
+        placeholder={`${isDev ? "e.g. JavaScript" : "Project name"}`}
         name="search"
         id="search"
         value={userInput.search}
@@ -99,8 +97,7 @@ export const SearchAndSort = ({
         <TooltipTrigger type="button">
           <article
             className={"search-y-sort " + shadcnToggle}
-            onClick={() => setUserInput({ ...userInput, desc: !userInput.desc })}
-          >
+            onClick={() => setUserInput({ ...userInput, desc: !userInput.desc })}>
             <SortOrderIcon
               className={`sort-icon transition-transform ${userInput.desc ? "rotate-90" : ""}`}
             />

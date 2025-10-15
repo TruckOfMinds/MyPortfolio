@@ -6,10 +6,47 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-
-  width: 80%;
 }
 
-.markdown-card * {
-  margin-top: 0;
+.markdown-card {
+  * {
+    margin-top: 0;
+  }
+
+  pre {
+    padding: 0;
+    > div {
+      border-width: 2px !important;
+      box-shadow: none !important;
+      margin: 0 !important;
+      scrollbar-color: lightgrey transparent;
+    }
+  }
+
+  code.solo {
+    &::before,
+    &::after {
+      content: unset;
+    }
+
+    /* background-color: rgba(77, 64, 51, 0.5); */
+    background-color: hsl(from var(--on-surface) h s l / 40%);
+    /* border: 1px solid rgb(122, 102, 82); */
+    padding: 0.4rem 0.4rem;
+    border-radius: 0.4rem;
+    color: var(--background);
+  }
+
+  i {
+    margin-top: 0.5rem;
+  }
+}
+
+/* Desgin */
+
+.res-shadow {
+  box-shadow: var(--shadow-i);
+  &:disabled {
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
 }
