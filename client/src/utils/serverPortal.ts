@@ -2,7 +2,7 @@ import type {
   codeCardProps,
   codeProjectProps,
   designCardProps,
-  designProjectTypes,
+  designProjectProps,
   skillProps,
   topProps,
 } from "@/types";
@@ -39,7 +39,7 @@ export const fetchDesignCards = async (): Promise<designCardProps[]> =>
     .catch((err: Error) => console.error(err.message));
 
 // DesignProject.tsx
-export const fetchDesignProject = async (project: string): Promise<designProjectTypes> =>
+export const fetchDesignProject = async (project: string): Promise<designProjectProps> =>
   await fetch(`${server}/get-designs/${project}`)
     .then(res => res.json())
     .catch(err => console.error(err));
