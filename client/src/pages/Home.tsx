@@ -144,7 +144,7 @@ const TitleBlock = ({
       src={src}
       alt={alt}
       loading="lazy"
-      className="bg-ter h-[calc(50%-0.5rem)] min-w-[7rem] w-full rounded-2xl text-ter-cont shadow-iii flex items-center justify-center object-contain"
+      className="bg-ter h-[calc(50%-0.5rem)] min-w-[7rem] w-full rounded-2xl text-ter-cont shadow-iii flex items-center justify-center object-cover"
     />
   </header>
 );

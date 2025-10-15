@@ -17,3 +17,7 @@
   bottom: initial;
   translate: none;
 }
+
+.snap {
+  scroll-snap-type: x normal;
+}

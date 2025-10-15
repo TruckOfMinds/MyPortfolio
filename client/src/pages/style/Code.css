@@ -6,7 +6,7 @@
   width: 97%;
   min-height: calc(100dvh - 8rem);
   margin-top: 1rem;
-  padding-left: 01.5rem;
+  padding-left: 2.1rem;
 
   display: flex;
   flex-wrap: wrap;
@@ -25,14 +25,6 @@
   height: 10rem;
   padding: 1rem;
   line-height: 10rem;
-}
-
-.code-card-image {
-  filter: grayscale() hue-rotate(50%);
-  object-fit: contain;
-  object-position: center;
-  height: 100%;
-  width: auto;
 }
 
 .tags {

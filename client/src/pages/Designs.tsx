@@ -5,7 +5,7 @@ import { useState } from "react";
 import type { userInputProps } from "@/types";
 import { fetchDesignCards } from "@/utils/serverPortal";
 import { Error, Loading } from "@/components/fallbacks";
-import { sortMethod } from "@/lib/data";
+import { getCardColour, sortMethod } from "@/lib/data";
 import { useQuery } from "@tanstack/react-query";
 import { DesignCard } from "@/components/Card";
 
@@ -59,11 +59,11 @@ const Projects = ({ userInput }: { userInput: userInputProps }) => {
   const newData = data
     .filter(
       d =>
-        userInput.search ||
+        userInput.search === "" ||
         d.name.toLocaleLowerCase().includes(userInput.search.toLocaleLowerCase())
     )
     .sort((a, b) => sortMethod(a, b, userInput))
-    .map(d => <DesignCard {...d} />);
+    .map(d => <DesignCard key={d.id} colour={getCardColour(d.id)} {...d} />);
 
   return (
     <section className={`project-card-container ${isFetching ? "" : null}`}>

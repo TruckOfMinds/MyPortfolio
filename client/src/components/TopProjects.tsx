@@ -58,34 +58,24 @@ export default function TopProjects(): JSX.Element {
       <Carousel
         setApi={setApi}
         opts={{ loop: true }}
-        className="flex flex-col items-center justify-between h-full w-[60%] gap-2">
-        <CarouselContent className="w-fit h-full" ParentClassName="w-full">
+        className="flex flex-col items-center justify-center h-full w-[60%] gap-2">
+        <CarouselContent className="w-fit h-full snap" ParentClassName="w-full rounded-2xl">
           <Items data={data} />
         </CarouselContent>
 
         <div className="flex items-center gap-1 min-h-2 ">
           {data.length > 1 ? (
             data.map((_, index) => (
-              <ScrollMarker key={index} current={index === current} index={index} api={api} />
+              <ScrollMarker
+                key={index}
+                current={index === current}
+                index={index}
+                api={api}
+                colour="rgb(253 214 255)"
+              />
             ))
           ) : (
-            <svg
-              width="8"
-              height="8"
-              viewBox="0 0 8 8"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="transition-all">
-              <circle
-                cx="4.19946"
-                cy="4.04224"
-                r="3.2981"
-                fill="rgb(253 214 255)"
-                stroke="rgb(253 214 255)"
-                strokeWidth="1"
-                className="opacity-50"
-              />
-            </svg>
+            <DisabledScrollMarker />
           )}
         </div>
       </Carousel>
@@ -186,14 +176,16 @@ const ViewProject = ({
 
 //* —————————————————————————————————————————————————————————————————————————————————————
 
-const ScrollMarker = ({
+export const ScrollMarker = ({
   current,
   index,
   api,
+  colour,
 }: {
   current: boolean;
   index: number;
   api: CarouselApi;
+  colour: string;
 }): JSX.Element => (
   <svg
     width="8"
@@ -207,10 +199,30 @@ const ScrollMarker = ({
       cx="4.19946"
       cy="4.04224"
       r="3.2981"
-      fill="rgb(253 214 255)"
+      fill={colour}
       strokeWidth={current ? "1" : "0"}
-      stroke="rgb(253 214 255)"
+      stroke={colour}
       className={`cursor-pointer ${!current ? "opacity-50" : ""}`}
+    />
+  </svg>
+);
+
+export const DisabledScrollMarker = () => (
+  <svg
+    width="8"
+    height="8"
+    viewBox="0 0 8 8"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className="transition-all">
+    <circle
+      cx="4.19946"
+      cy="4.04224"
+      r="3.2981"
+      fill="rgb(253 214 255)"
+      stroke="rgb(253 214 255)"
+      strokeWidth="1"
+      className="opacity-50"
     />
   </svg>
 );

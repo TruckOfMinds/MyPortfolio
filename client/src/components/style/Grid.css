@@ -16,6 +16,18 @@
 
     &.with-header {
       grid-template-rows: 8rem 1fr;
+      &.design {
+        min-height: 100dvh;
+        height: fit-content;
+        grid-template-areas:
+          ". . ."
+          ". images images"
+          ". bio bio"
+          ". procon procon";
+        grid-template-rows: 8rem 4fr 1fr 1fr;
+        row-gap: 2rem;
+        margin-bottom: 1rem;
+      }
     }
   }
 
@@ -61,4 +73,11 @@
     var(--secondary) 69%,
     var(--on-secondary-fixed-variant)
   );
+}
+
+.carousel-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
 }

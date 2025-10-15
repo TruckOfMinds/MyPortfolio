@@ -36,7 +36,7 @@ export type designCardProps = {
   logo: string;
 };
 
-export type designProjectTypes = {
+export type designProjectProps = {
   id: bigint;
   name: string;
   date: string;

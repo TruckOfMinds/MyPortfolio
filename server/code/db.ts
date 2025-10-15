@@ -39,7 +39,7 @@ export const getDesignProjectData = async (project: string): designProjectTypes 
       `
       SELECT rdmp_designs.id, rdmp_designs.name, TO_CHAR(rdmp_designs.date, 'DD/MM/YYYY') as "date", rdmp_designs.bio, rdmp_designs.pros, rdmp_designs.cons, rdmp_images.images
       FROM rdmp_designs
-      JOIN rdmp_images ON rdmp__images.id = rdmp_designs.image_id
+      JOIN rdmp_images ON rdmp_images.id = rdmp_designs.image_id
       WHERE rdmp_designs.name = $1
       `,
       [project]
@@ -153,7 +153,6 @@ export const getContactData = async (): linkProps => {
 };
 
 export const handleRepo = (repo: gitRepo) => {
-  // console.table(repo.owner);
   try {
     db.query(
       `
