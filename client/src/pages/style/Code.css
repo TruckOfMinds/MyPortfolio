@@ -3,16 +3,16 @@
 }
 
 .project-card-container {
-  width: 97%;
+  width: calc(93% + 2rem);
   min-height: calc(100dvh - 8rem);
   margin-top: 1rem;
-  padding-left: 2.1rem;
+  /* padding-left: 1.5rem; */
 
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   align-content: flex-start;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 1.5rem;
 
   justify-self: center;

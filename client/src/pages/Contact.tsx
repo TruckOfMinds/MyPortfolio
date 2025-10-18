@@ -10,11 +10,13 @@ export default function ContactPage() {
     <>
       <title>Contact Me | RD Potfolio</title>
       <main>
-        <Grid id="top" className="with-header">
+        <Grid id="top" className="with-header contact mt-4">
           <Header text="Contact Me" />
           <Card
-            colour="blue"
-            className="w-full max-w-max justify-center [grid-area:text] text-center h-fit min-h-10"></Card>
+            colour="gold"
+            className="max-w-[93%] min-w-1/2 min-h-1/3 flex items-center justify-center [grid-area:text] text-center h-fit ">
+            this is the text
+          </Card>
           <Contacts />
         </Grid>
       </main>
@@ -23,15 +25,27 @@ export default function ContactPage() {
 }
 
 const Contacts = () => (
-  <section className="w-full min-h-full h-fit flex flex-wrap items-center justify-center">
+  <Card
+    colour="purple"
+    className="w-[93%] min-h-4/5 flex flex-wrap items-center justify-center [grid-area:contacts]">
     {contactsData.map(c => (
       <Link
         to={c.link}
-        className="rounded-2xl px-8 py-10 text-xl flex items-center gap-4"
+        className="rounded-2xl px-8 py-6 text-xl flex items-center gap-4 shadow-ii"
         style={{ backgroundColor: c.hex.bg, color: c.hex.txt }}>
-        <img src={c.image} alt={c.name + " Logo"} loading="lazy" className="h-3/4 w-auto" />
-        <p>{c.name}</p>
+        {typeof c.image === "string" ? (
+          <img
+            src={c.image}
+            alt={c.name + " Logo"}
+            loading="lazy"
+            // use class so svgs have the same styles
+            className="contact-image h-3/4 w-auto text-lg"
+          />
+        ) : (
+          c.image
+        )}
+        <p className="text-2xl orbit">{c.name}</p>
       </Link>
     ))}
-  </section>
+  </Card>
 );

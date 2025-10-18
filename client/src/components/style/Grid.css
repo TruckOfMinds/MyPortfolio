@@ -16,6 +16,7 @@
 
     &.with-header {
       grid-template-rows: 8rem 1fr;
+
       &.design {
         min-height: 100dvh;
         height: fit-content;
@@ -27,6 +28,11 @@
         grid-template-rows: 8rem 4fr 1fr 1fr;
         row-gap: 2rem;
         margin-bottom: 1rem;
+      }
+      &.contact {
+        grid-template-areas: ". . ." ". text text" ". contacts contacts";
+        grid-template-rows: 8rem repeat(2, 1fr);
+        /* margin-bottom: 1rem; */
       }
     }
   }
