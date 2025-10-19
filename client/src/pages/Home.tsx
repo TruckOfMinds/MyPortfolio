@@ -9,6 +9,14 @@ import Skills from "@/components/Skills";
 import "./style/Home.css";
 import type { cardProps, Elem } from "@/types";
 
+/* In-File Components =>
+  - Hero
+  - About
+  - Background
+  - BackgroundCard
+  - TitleBlock
+*/
+
 export default function HomePage(): JSX.Element {
   return (
     <main>

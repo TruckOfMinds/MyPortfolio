@@ -6,6 +6,10 @@ import { Link } from "react-router";
 import { Button } from "./ui/button";
 import "./style/Footer.css";
 
+/* In-File Components :
+  - FooterCTA
+*/
+
 export default function Footer() {
   const email: string = import.meta.env.VITE_EMAIL;
 

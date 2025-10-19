@@ -3,6 +3,14 @@ import Grid from "./Grid";
 import type { Refetch } from "@/types";
 import { Button } from "./ui/button";
 
+/* In-File Components =>
+  - ErrorFallback
+  - NotFound
+  - PageLoading
+  - Loading
+  - Error
+*/
+
 function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
   return (
     <div className="flex flex-col items-center gap-4 justify-between">

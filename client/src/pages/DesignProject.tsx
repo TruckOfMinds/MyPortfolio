@@ -19,6 +19,10 @@ import remarkGfm from "remark-gfm";
 import { DisabledScrollMarker, ScrollMarker } from "@/components/TopProjects";
 import "./style/Project.css";
 
+/* In-File Components =>
+  - Content
+*/
+
 export default function DesignProjectPage(): JSX.Element {
   const { project } = useParams();
   const { isRefetching, data } = useSuspenseQuery({

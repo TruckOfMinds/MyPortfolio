@@ -9,6 +9,10 @@ import { getCardColour, sortMethod } from "@/lib/data";
 import { useQuery } from "@tanstack/react-query";
 import { DesignCard } from "@/components/Card";
 
+/* In-File Components =>
+  - Projects
+*/
+
 export default function DesignsPage() {
   const [userInput, setUserInput] = useState<userInputProps>({
     search: "",
@@ -35,6 +39,7 @@ export default function DesignsPage() {
 }
 
 //* —————————————————————————————————————————————————————————————————————————————————————
+
 // ? changing inputs while data loads
 const Projects = ({ userInput }: { userInput: userInputProps }) => {
   const { isPending, isError, isFetching, error, data, refetch } = useQuery({

@@ -4,6 +4,12 @@ import "./style/Card.css";
 import { Link } from "react-router";
 import { memo, useState, type JSX } from "react";
 
+/* In-File Components =>
+  - StatusTag
+  - CodeCard
+  - DesignCard
+*/
+
 export default function Card({ variant, colour, className, ...props }: cardProps): JSX.Element {
   return (
     <article

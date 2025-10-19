@@ -21,6 +21,11 @@ import Card from "@/components/Card";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
+/* In-File Components =>
+  - Content
+  - Links
+*/
+
 export default function CodeProjectPage(): JSX.Element {
   const { owner, project } = useParams();
 

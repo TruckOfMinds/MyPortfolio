@@ -1,6 +1,20 @@
 import type { SVGProps } from "react";
 import "./style/NavIcons.css";
 
+/* In-File Components :
+  - Chevron
+  - HomeIcon
+  - CodeIcon
+  - DesignIcon
+  - ContactIcon
+  - LightIcon
+  - DarkIcon
+  - SortOrderIcon
+  - ProjectIcon
+  - GitHubIcon
+  - ExtraResourceIcon
+*/
+
 // Navbar.tsx
 
 export const Chevron = ({ onClick, className }: { onClick?: () => void; className: string }) => (
@@ -145,6 +159,7 @@ export const ProjectIcon = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 );
+
 export const GitHubIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     {...props}
@@ -163,6 +178,7 @@ export const GitHubIcon = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 );
+
 export const ExtraResourceIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     {...props}

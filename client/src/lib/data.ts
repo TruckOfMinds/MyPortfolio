@@ -5,17 +5,17 @@ import type { CSSProperties, JSX } from "react";
 const myBackground: { [k: string]: { text: string; title: string; image: string } } = {
   one: {
     text: "this is the text for one",
-    title: "one",
+    title: "Tech Educators",
     image: "",
   },
   two: {
     text: "you've reached two",
-    title: "two",
+    title: "Access Norwich",
     image: "",
   },
   three: {
     text: "congrats on the hatrick",
-    title: "three",
+    title: "LSHS ..?",
     image: "",
   },
 };

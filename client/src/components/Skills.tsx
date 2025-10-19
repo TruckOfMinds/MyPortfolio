@@ -7,6 +7,10 @@ import { Error, Loading } from "./fallbacks";
 import Card from "./Card";
 import "./style/Skills.css";
 
+/* In-File Components :
+  - SkillCard
+*/
+
 export default function Skills({ portalRef }: { portalRef: ElemRef }): JSX.Element {
   const { isPending, isError, isFetching, error, data, refetch } = useQuery({
     queryKey: ["skills"],
@@ -43,7 +47,7 @@ const SkillCard = ({ d, portalRef }: { d: skillProps; portalRef: ElemRef }): JSX
 
   // —— EVENTS ——————————————————————————————————————————————————————————————————————————
 
-  //* Handle Position
+  //* Handles Position
   useLayoutEffect(() => {
     if (!show) return;
     if (!ref.current || !portalRef.current || !skillNameRef.current) {
@@ -64,7 +68,7 @@ const SkillCard = ({ d, portalRef }: { d: skillProps; portalRef: ElemRef }): JSX
     });
   }, [show, portalRef]);
 
-  //* Handle State
+  //* Handles State
   useEffect(() => {
     // if event is not on its corresponding skill
     const handleEvent = (e: Event) => {
@@ -98,7 +102,6 @@ const SkillCard = ({ d, portalRef }: { d: skillProps; portalRef: ElemRef }): JSX
   return (
     <>
       <Card
-        // ! Event not firing — refs are null
         onClick={() => setShow(!show)}
         className="skill cursor-pointer rounded-lg h-16 w-16 brightness-105 flex items-center justify-center transition-all hover:brightness-115 hover:scale-110 active:brightness-90 active:scale-95"
         colour="purple"

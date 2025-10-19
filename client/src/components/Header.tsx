@@ -10,6 +10,11 @@ import { SortOrderIcon } from "./icons";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { shadcnToggle } from "@/lib/data";
 
+/* In-File Components :
+  - TitleSection
+  - SearchAndSort
+*/
+
 export default function Header({
   className,
   isDev,

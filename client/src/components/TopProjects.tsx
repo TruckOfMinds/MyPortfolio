@@ -8,6 +8,14 @@ import { Link } from "react-router";
 import type { topCarouselProps, topProps } from "@/types";
 import { Error, Loading } from "./fallbacks";
 
+/* In-File Components :
+  - Items
+  - CarouselImage
+  - ViewProject
+  - ScrollMarker
+  - DisabledScrollMarker
+*/
+
 export default function TopProjects(): JSX.Element {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);

@@ -5,6 +5,10 @@ import { contactsData } from "@/lib/data";
 import { Link } from "react-router";
 import Card from "@/components/Card";
 
+/* In-File Components =>
+  - Contacts
+*/
+
 export default function ContactPage() {
   return (
     <>

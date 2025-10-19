@@ -11,6 +11,11 @@ import "./style/Code.css";
 import type { codeCardProps, userInputProps } from "@/types";
 import { Error, Loading } from "@/components/fallbacks";
 
+/* In-File Components =>
+  - Projects
+  - isInSearch
+*/
+
 export default function CodePage() {
   const [userInput, setUserInput] = useState<userInputProps>({
     search: "",
