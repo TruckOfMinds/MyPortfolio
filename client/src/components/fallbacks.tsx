@@ -1,13 +1,14 @@
 import type { FallbackProps } from "react-error-boundary";
 import Grid from "./Grid";
 import type { Refetch } from "@/types";
+import { Button } from "./ui/button";
 
 function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
   return (
-    <div>
+    <div className="flex flex-col items-center gap-4 justify-between">
       <h1>Something went wrong</h1>
       <pre>{error.message}</pre>
-      <button onClick={resetErrorBoundary}>Try again</button>
+      <Button onClick={resetErrorBoundary}>Try again</Button>
     </div>
   );
 }
@@ -25,9 +26,9 @@ function NotFound() {
 
 function PageLoading() {
   return (
-    <Grid id="top">
+    <section className="w-dvw h-dvh bg-surf-d flex flex-col items-center justify-center gap-4">
       <p>Loading...</p>
-    </Grid>
+    </section>
   );
 }
 

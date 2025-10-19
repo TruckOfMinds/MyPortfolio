@@ -37,3 +37,9 @@ main {
   scrollbar-color: transparent transparent;
   scrollbar-width: thin;
 }
+
+.center.two-rows {
+  grid-area: a / a-start / d-start / d-end;
+  align-self: center;
+  justify-self: center;
+}

@@ -1,5 +1,5 @@
-import { useRef, useState, type JSX } from "react";
-import { bgTexts } from "@/lib/data";
+import { useEffect, useRef, useState, type JSX, type SetStateAction } from "react";
+import { myBackground } from "@/lib/data";
 
 import Card from "@/components/Card";
 import Grid from "@/components/Grid";
@@ -7,7 +7,7 @@ import TopProjects from "@/components/TopProjects";
 import Skills from "@/components/Skills";
 
 import "./style/Home.css";
-import type { Elem } from "@/types";
+import type { cardProps, Elem } from "@/types";
 
 export default function HomePage(): JSX.Element {
   return (
@@ -28,7 +28,7 @@ const Hero = (): JSX.Element => (
     </h1>
 
     <img
-      src="fallback-ter.svg"
+      src="placeholder.svg"
       alt="Image of my code!"
       className="image rotate-[8.5deg] [grid-area:b] w-sm min-h-54 bg-ter rounded-4xl text-ter-cont [line-height:13.5rem] shadow-iii"
     />
@@ -84,49 +84,77 @@ const About = (): JSX.Element => {
 };
 
 const Background = (): JSX.Element => {
-  const [bgText, setBgText] = useState("Click a card to hear more about me!");
+  const [bgText, setBgText] = useState("");
+  const refOne = useRef(null);
+  const refTwo = useRef(null);
+  const refThree = useRef(null);
+
+  useEffect(() => {
+    if (!bgText) return;
+
+    const handleClick = (e: MouseEvent) => {
+      const target = e.target;
+
+      const card1 = refOne.current;
+      const card2 = refTwo.current;
+      const card3 = refThree.current;
+
+      if (target === card1 || target === card2 || target === card3) return;
+
+      setBgText("");
+    };
+
+    window.addEventListener("click", handleClick);
+
+    return () => window.removeEventListener("click", handleClick);
+  }, [bgText]);
 
   return (
     <Grid layout="three-two" id="background" className="bg-pri">
       <TitleBlock text="My Background" alt="#" className="in-grid [grid-area:a]" />
 
       <Card variant="long" colour="sky" className="in-grid [grid-area:b/b-start/b-end/c-end]">
-        {bgText}
+        {myBackground[bgText].text || "Click a card to read more about me!"}
       </Card>
 
-      <Card
-        colour="mono"
-        className={`in-grid transition-all cursor-pointer [grid-area:d] ${
-          bgText === bgTexts.one ? "scale-110" : ""
-        }`}
-        onClick={() => setBgText(bgTexts.one)}>
-        one
-      </Card>
-
-      <Card
-        colour="mono"
-        className={`in-grid transition-all cursor-pointer [grid-area:e] ${
-          bgText === bgTexts.two ? "scale-110" : ""
-        }`}
-        onClick={() => setBgText(bgTexts.two)}>
-        two
-      </Card>
-
-      <Card
-        colour="mono"
-        className={`in-grid bg-on-pri transition-all cursor-pointer [grid-area:f] ${
-          bgText === bgTexts.three ? "scale-110" : ""
-        }`}
-        onClick={() => setBgText(bgTexts.three)}>
-        three
-      </Card>
+      {Array.from({ length: 3 }).map((_, count) => (
+        <BackgroundCard
+          ref={count == 0 ? refOne : count == 1 ? refTwo : refThree}
+          index={count == 0 ? "one" : count == 1 ? "two" : "three"}
+          bgText={bgText}
+          setBgText={setBgText}></BackgroundCard>
+      ))}
     </Grid>
   );
 };
 
+const BackgroundCard = ({
+  ref,
+  className,
+  index,
+  bgText,
+  setBgText,
+  ...props
+}: cardProps & {
+  index: "one" | "two" | "three";
+  bgText: string;
+  setBgText: (val: SetStateAction<string>) => void;
+}) => (
+  <Card
+    className={`in-grid bg-on-pri transition-all cursor-pointer [grid-area:f] ${className} ${
+      bgText === index ? "scale-110" : ""
+    }`}
+    onClick={() => setBgText(index)}
+    ref={ref}
+    {...props}>
+    <img src={myBackground[index].image} alt="Image For a 'My Background' section" />
+    <p>{myBackground[index].title}</p>
+  </Card>
+);
+
 const TitleBlock = ({
   text,
-  src = "fallback-ter.svg",
+  src = "placeholder.svg",
   alt,
   className,
 }: {
@@ -144,7 +172,7 @@ const TitleBlock = ({
       src={src}
       alt={alt}
       loading="lazy"
-      className="bg-ter h-[calc(50%-0.5rem)] min-w-[7rem] w-full rounded-2xl text-ter-cont shadow-iii flex items-center justify-center object-cover"
+      className="bg-ter h-[calc(50%-0.5rem)] min-w-[7rem] w-full rounded-2xl text-ter-cont shadow-iii flex items-center justify-center object-contain"
     />
   </header>
 );

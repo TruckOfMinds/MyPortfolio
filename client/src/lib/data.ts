@@ -1,10 +1,23 @@
+import { ExtraResourceIcon } from "@/components/icons";
 import type { codeCardProps, designCardProps, projectCardColours, userInputProps } from "@/types";
-import type { CSSProperties } from "react";
+import type { CSSProperties, JSX } from "react";
 
-const bgTexts: { [k: string]: string } = {
-  one: "this is the text for one",
-  two: "you've reached two",
-  three: "congrats on the hatrick",
+const myBackground: { [k: string]: { text: string; title: string; image: string } } = {
+  one: {
+    text: "this is the text for one",
+    title: "one",
+    image: "",
+  },
+  two: {
+    text: "you've reached two",
+    title: "two",
+    image: "",
+  },
+  three: {
+    text: "congrats on the hatrick",
+    title: "three",
+    image: "",
+  },
 };
 
 //* —————————————————————————————————————————————————————————————————————————————————————
@@ -62,7 +75,7 @@ const sortMethod = (
 type contactProps = {
   id: number;
   name: string;
-  image: string;
+  image: string | JSX.Element;
   hex: { txt: string; bg: string };
   link: string;
 };
@@ -71,7 +84,21 @@ const contactsData: contactProps[] = [
     id: 1,
     name: "Gmail",
     image: "",
-    hex: { bg: "var(--surface)", txt: "var(--on-surface)" },
+    hex: { bg: "#303030", txt: "#ffffff" },
+    link: "mailto:reudbub07@gmail.com",
+  },
+  {
+    id: 2,
+    name: "Linkedin",
+    image: ExtraResourceIcon({ fill: "white" }),
+    hex: { bg: "#0a66c2", txt: "#ffffff" },
+    link: "www.linkedin.com/in/reuben-dubois-dev",
+  },
+  {
+    id: 3,
+    name: "GitHub",
+    image: "/github-mark-white.svg",
+    hex: { bg: "#171d1e", txt: "#ffffff" },
     link: "mailto:reudbub07@gmail.com ",
   },
 ];
@@ -113,4 +140,4 @@ const useMDStyles = (col: string[]): { [k: string]: CSSProperties } =>
         },
       };
 
-export { bgTexts, getCardColour, shadcnToggle, isDark, sortMethod, contactsData, useMDStyles };
+export { myBackground, getCardColour, shadcnToggle, isDark, sortMethod, contactsData, useMDStyles };

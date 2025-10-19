@@ -21,7 +21,7 @@ export default function Skills({ portalRef }: { portalRef: ElemRef }): JSX.Eleme
     <>
       <section
         id="skillContainer"
-        className={`w-full h-[86%] pb-2 pt-3 flex flex-wrap items-center content-evenly justify-center gap-x-4 gap-y-2 scroller background ${
+        className={`w-full h-[86%] pb-2 pt-3 flex flex-wrap items-center content-evenly justify-center gap-x-4 gap-y-3 scroller background ${
           isFetching ? "opacity-75" : ""
         }`}>
         {data.map(d => (

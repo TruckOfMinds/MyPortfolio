@@ -22,28 +22,26 @@ export default function App(): JSX.Element {
   useEffect(() => window.scrollTo({ top: scrollY * -1, behavior: "instant" }), [pathname]);
 
   return (
-    <>
+    <Suspense fallback={<PageLoading />}>
       <Navbar />
 
       <ErrorBoundary FallbackComponent={ErrorFallback} key={pathname}>
-        <Suspense fallback={<PageLoading />}>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
 
-            <Route path="/code-projects" element={<CodePage />} />
-            <Route path="/code-projects/:owner/:project" element={<CodeProjectPage />} />
+          <Route path="/code-projects" element={<CodePage />} />
+          <Route path="/code-projects/:owner/:project" element={<CodeProjectPage />} />
 
-            <Route path="/design-projects" element={<DesignsPage />} />
-            <Route path="/design-projects/:project" element={<DesignProjectPage />} />
+          <Route path="/design-projects" element={<DesignsPage />} />
+          <Route path="/design-projects/:project" element={<DesignProjectPage />} />
 
-            <Route path="/contact-me" element={<ContactPage />} />
+          <Route path="/contact-me" element={<ContactPage />} />
 
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </ErrorBoundary>
 
       <Footer />
-    </>
+    </Suspense>
   );
 }
