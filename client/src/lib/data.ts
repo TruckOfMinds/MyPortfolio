@@ -45,7 +45,7 @@ dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive whitespace
 
 //* —————————————————————————————————————————————————————————————————————————————————————
 
-const isDark = () => localStorage.getItem("isDark") === "true";
+const isDark = () => JSON.parse(localStorage.getItem("isDark")!).isDark;
 
 //* —————————————————————————————————————————————————————————————————————————————————————
 

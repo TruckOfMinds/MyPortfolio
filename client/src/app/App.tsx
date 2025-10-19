@@ -1,4 +1,4 @@
-import { Suspense, useEffect, type JSX } from "react";
+import { Suspense, useEffect, useState, type JSX } from "react";
 import { Route, Routes, useLocation } from "react-router";
 import { ErrorBoundary } from "react-error-boundary";
 
@@ -15,33 +15,38 @@ import ContactPage from "@/pages/Contact";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ErrorFallback, PageLoading, NotFound } from "@/components/fallbacks";
+import { isDark } from "@/lib/data";
 
 export default function App(): JSX.Element {
+  const [theme, setTheme] = useState("light");
   const { pathname } = useLocation();
 
   useEffect(() => window.scrollTo({ top: scrollY * -1, behavior: "instant" }), [pathname]);
+  useEffect(() => setTheme(isDark() ? "dark" : "light"), []);
 
   return (
-    <Suspense fallback={<PageLoading />}>
-      <Navbar />
+    <div className={`h-full w-full ${theme}`}>
+      <Suspense fallback={<PageLoading />}>
+        <Navbar setTheme={setTheme} />
 
-      <ErrorBoundary FallbackComponent={ErrorFallback} key={pathname}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
+        <ErrorBoundary FallbackComponent={ErrorFallback} key={pathname}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
 
-          <Route path="/code-projects" element={<CodePage />} />
-          <Route path="/code-projects/:owner/:project" element={<CodeProjectPage />} />
+            <Route path="/code-projects" element={<CodePage />} />
+            <Route path="/code-projects/:owner/:project" element={<CodeProjectPage />} />
 
-          <Route path="/design-projects" element={<DesignsPage />} />
-          <Route path="/design-projects/:project" element={<DesignProjectPage />} />
+            <Route path="/design-projects" element={<DesignsPage />} />
+            <Route path="/design-projects/:project" element={<DesignProjectPage />} />
 
-          <Route path="/contact-me" element={<ContactPage />} />
+            <Route path="/contact-me" element={<ContactPage />} />
 
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </ErrorBoundary>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </ErrorBoundary>
 
-      <Footer />
-    </Suspense>
+        <Footer />
+      </Suspense>
+    </div>
   );
 }
