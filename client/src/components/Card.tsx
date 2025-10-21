@@ -1,6 +1,6 @@
-import type { cardProps, codeCardProps, designCardProps } from "@/types";
-
 import "./style/Card.css";
+
+import type { cardProps, codeCardProps, designCardProps } from "@/types";
 import { Link } from "react-router";
 import { memo, useState, type JSX } from "react";
 

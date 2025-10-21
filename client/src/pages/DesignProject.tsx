@@ -1,6 +1,11 @@
-import Card from "@/components/Card";
-import Grid from "@/components/Grid";
-import Header from "@/components/Header";
+import "./style/Project.css";
+
+import type { designProjectProps } from "@/types";
+import { fetchDesignProject } from "@/utils/serverPortal";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { useEffect, useState, type JSX } from "react";
+import { useParams } from "react-router";
+import { DisabledScrollMarker, ScrollMarker } from "@/components/TopProjects";
 import {
   Carousel,
   CarouselContent,
@@ -9,15 +14,12 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel";
-import type { designProjectProps } from "@/types";
-import { fetchDesignProject } from "@/utils/serverPortal";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { useEffect, useState, type JSX } from "react";
-import { useParams } from "react-router";
+
+import Card from "@/components/Card";
+import Grid from "@/components/Grid";
+import Header from "@/components/Header";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { DisabledScrollMarker, ScrollMarker } from "@/components/TopProjects";
-import "./style/Project.css";
 
 /* In-File Components =>
   - Content

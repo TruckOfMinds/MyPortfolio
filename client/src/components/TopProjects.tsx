@@ -1,11 +1,11 @@
-import { useEffect, useState, type JSX } from "react";
+import type { topCarouselProps, topProps } from "@/types";
 import { type CarouselApi } from "@/components/ui/carousel";
+import { useEffect, useState, type JSX } from "react";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import { Button } from "./ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { fetchTopProjects } from "@/utils/serverPortal";
 import { Link } from "react-router";
-import type { topCarouselProps, topProps } from "@/types";
 import { Error, Loading } from "./fallbacks";
 
 /* In-File Components :

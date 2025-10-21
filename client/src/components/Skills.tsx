@@ -1,11 +1,13 @@
+import "./style/Skills.css";
+
 import type { Elem, ElemRef, skillProps } from "@/types";
+import { useEffect, useLayoutEffect, useRef, useState, type JSX } from "react";
 import { fetchSkills } from "@/utils/serverPortal";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useLayoutEffect, useRef, useState, type JSX } from "react";
 import { createPortal } from "react-dom";
 import { Error, Loading } from "./fallbacks";
+
 import Card from "./Card";
-import "./style/Skills.css";
 
 /* In-File Components :
   - SkillCard

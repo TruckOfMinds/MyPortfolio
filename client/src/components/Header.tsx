@@ -1,14 +1,15 @@
+import "./style/Header.css";
+
 import type { ChangeEvent, JSX, ReactNode } from "react";
 import type { setUserInputProps, userInputProps } from "@/types";
 
-import "./style/Header.css";
-
-import Sort from "./Sort";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { SortOrderIcon } from "./icons";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { shadcnToggle } from "@/lib/data";
+
+import Sort from "./Sort";
 
 /* In-File Components :
   - TitleSection

@@ -1,10 +1,11 @@
+import "./style/Footer.css";
+
 import { type JSX, type ReactNode } from "react";
+import { Link } from "react-router";
+import { Button } from "./ui/button";
 
 import Grid from "./Grid";
 import Card from "./Card";
-import { Link } from "react-router";
-import { Button } from "./ui/button";
-import "./style/Footer.css";
 
 /* In-File Components :
   - FooterCTA

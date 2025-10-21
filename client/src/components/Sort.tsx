@@ -1,5 +1,10 @@
+import type { setUserInputProps, Status, userInputProps } from "@/types";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { Button } from "@/components/ui/button";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { useState } from "react";
+import { Chevron } from "./icons";
 import {
   Command,
   CommandEmpty,
@@ -8,11 +13,6 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { useState } from "react";
-import type { setUserInputProps, Status, userInputProps } from "@/types";
-import { Chevron } from "./icons";
 
 /* In-File Components :
   - StatusList (not exported)

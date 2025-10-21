@@ -1,5 +1,8 @@
-import { useState, type Dispatch, type JSX, type SetStateAction } from "react";
 import "./style/Navbar.css";
+
+import { useState, type Dispatch, type JSX, type SetStateAction } from "react";
+import { Link, useMatch } from "react-router";
+import { isDark } from "@/lib/data";
 import {
   Chevron,
   HomeIcon,
@@ -9,8 +12,6 @@ import {
   LightIcon,
   DarkIcon,
 } from "./icons";
-import { Link, useMatch } from "react-router";
-import { isDark } from "@/lib/data";
 
 export default function Navbar({
   theme,

@@ -1,7 +1,8 @@
 import type { FallbackProps } from "react-error-boundary";
-import Grid from "./Grid";
 import type { Refetch } from "@/types";
 import { Button } from "./ui/button";
+
+import Grid from "./Grid";
 
 /* In-File Components =>
   - ErrorFallback

@@ -1,10 +1,14 @@
 import "./style/Project.css";
+
 import type { codeProjectProps } from "@/types";
 import type { JSX } from "react";
 import { Link, useParams } from "react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { fetchCodeProject } from "@/utils/serverPortal";
 import { ExtraResourceIcon, GitHubIcon, ProjectIcon } from "@/components/icons";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { dark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { useMDStyles } from "@/lib/data";
 import {
   Carousel,
   CarouselContent,
@@ -12,9 +16,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { dark } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { useMDStyles } from "@/lib/data";
+
 import Grid from "@/components/Grid";
 import Header from "@/components/Header";
 import Card from "@/components/Card";

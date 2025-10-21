@@ -1,8 +1,10 @@
-import Grid from "@/components/Grid";
 import "./style/Contact.css";
-import Header from "@/components/Header";
+
 import { contactsData } from "@/lib/data";
 import { Link } from "react-router";
+
+import Grid from "@/components/Grid";
+import Header from "@/components/Header";
 import Card from "@/components/Card";
 
 /* In-File Components =>
