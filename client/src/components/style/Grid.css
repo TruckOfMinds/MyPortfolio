@@ -72,13 +72,22 @@
 .gradient {
   text-align: center;
   color: var(--on-primary);
+  transition: background-image 300ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
 
-  background: linear-gradient(
-    116deg,
-    var(--primary) 35%,
-    var(--secondary) 69%,
-    var(--on-secondary-fixed-variant)
-  );
+  background: #171d1e
+    linear-gradient(
+      to bottom,
+      var(--on-primary-fixed) 0%,
+      var(--on-primary) 19%,
+      var(--primary) 33%,
+      hsl(from var(--secondary) h s calc(l - 3)) 75%,
+      var(--on-secondary-container) 97%,
+      hsl(from var(--on-secondary-fixed-variant) h s calc(l - 4)) 100%
+    );
+}
+.dark .gradient {
+  background-image: linear-gradient(to bottom, transparent);
 }
 
 .carousel-button-container {

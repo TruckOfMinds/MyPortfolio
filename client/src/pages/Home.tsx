@@ -1,3 +1,6 @@
+import "./style/Home.css";
+
+import type { cardProps, Elem } from "@/types";
 import { useEffect, useRef, useState, type JSX, type SetStateAction } from "react";
 import { myBackground } from "@/lib/data";
 
@@ -5,9 +8,6 @@ import Card from "@/components/Card";
 import Grid from "@/components/Grid";
 import TopProjects from "@/components/TopProjects";
 import Skills from "@/components/Skills";
-
-import "./style/Home.css";
-import type { cardProps, Elem } from "@/types";
 
 /* In-File Components =>
   - Hero
@@ -29,32 +29,31 @@ export default function HomePage(): JSX.Element {
 
 const Hero = (): JSX.Element => (
   <Grid layout="two-two" className="gradient" id="home">
-    <h1 className="[grid-area:a] rotate-[-5deg] orbit text-9xl [line-height:1] text-shadow-v">
-      reuben
-      <br />
-      dubois
-    </h1>
+    <section className="[grid-area:a/a-start/d-end/d-end] flex flex-col items-center justify-between gap-8">
+      <h1 className="orbit text-9xl [line-height:1] text-shadow-v">reuben dubois</h1>
 
+      <p>some creative tagline trust me bro</p>
+
+      <div className="flex items-center flex-wrap justify-center gap-4">
+        <Card colour="sky" className="shadow-v">
+          UI/UX Designer
+        </Card>
+        <Card colour="yellow" className="px-6 py-5 shadow-v">
+          Software Engineer
+        </Card>
+        <Card colour="pink" className="shadow-v">
+          Web Developer
+        </Card>
+      </div>
+    </section>
+
+    {/* STRETCH => make the svgs gradient animate */}
     <img
-      src="placeholder.svg"
-      alt="Image of my code!"
-      className="image rotate-[8.5deg] [grid-area:b] w-sm min-h-54 bg-ter rounded-4xl text-ter-cont [line-height:13.5rem] shadow-iii"
+      src="/wireframeCodeGradient.svg"
+      alt="App Wireframe & JSX Code fading from transparent to white"
+      loading="eager"
+      className="w-dvw row-start-2 row-end-3 col-span-3 self-end"
     />
-
-    <div className="[grid-area:c] rotate-[-8deg] flex flex-col items-center gap-4">
-      <img
-        src="/design.jpg"
-        alt="Image of my design project!"
-        className="w-[18rem] min-h-32 bg-ter rounded-2xl text-ter-cont [line-height:8rem] shadow-iii size"
-      />
-      <p>Scroll to see more!</p>
-    </div>
-
-    <h2 className="[grid-area:d] rotate-[4deg] text-shadow-v text-[1.6rem]">
-      <span className="orbit text-[7rem] [line-height:1.1] ">UI/UX</span>
-      <br />
-      Design and Developer
-    </h2>
   </Grid>
 );
 
