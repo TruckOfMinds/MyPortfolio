@@ -7,6 +7,7 @@ import { Error, Loading } from "@/components/fallbacks";
 import { getCardColour, sortMethod } from "@/lib/data";
 import { useQuery } from "@tanstack/react-query";
 import { DesignCard } from "@/components/Card";
+
 import Header, { SearchAndSort } from "@/components/Header";
 
 import Grid from "@/components/Grid";

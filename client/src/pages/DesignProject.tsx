@@ -6,6 +6,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { useEffect, useState, type JSX } from "react";
 import { useParams } from "react-router";
 import { DisabledScrollMarker, ScrollMarker } from "@/components/TopProjects";
+
 import {
   Carousel,
   CarouselContent,
@@ -27,6 +28,7 @@ import remarkGfm from "remark-gfm";
 
 export default function DesignProjectPage(): JSX.Element {
   const { project } = useParams();
+
   const { isRefetching, data } = useSuspenseQuery({
     queryKey: ["designProject", project!],
     queryFn: () => fetchDesignProject(project!),

@@ -62,6 +62,9 @@ export type topProps = {
 
 // —————————————————————————————————————————————————————————————————————————————————————
 
+export type themeType = "light" | "dark";
+export type contextType = { theme: themeType; setTheme: Dispatch<SetStateAction<themeType>> };
+
 export type projectCardColours = "sky" | "pink" | "yellow";
 
 export type cardProps = {

@@ -2,7 +2,6 @@ import "./style/Footer.css";
 
 import { type JSX, type ReactNode } from "react";
 import { Link } from "react-router";
-import { Button } from "./ui/button";
 
 import Grid from "./Grid";
 import Card from "./Card";
@@ -17,7 +16,6 @@ export default function Footer() {
   return (
     <Grid id="footer" layout="row">
       <Card
-        colour="blue"
         variant="in-grid full"
         className="px-8 flex items-center justify-evenly gap-x-[calc(25%/3)] shadow-v [grid-area:a/a-start/a-end/c-end]">
         <Logo className="w-1/4 cursor-pointer " onClick={() => scroll({ top: 0 })} />
@@ -50,13 +48,11 @@ const FooterCTA = ({
   to: string;
   newTab?: boolean;
 }): JSX.Element => (
-  <Button
-    asChild
-    className="min-w-fit w-full min-h-fit px-2 py-2 shadow-v border-2 border-ter-cont text-ter-cont text-center rounded-lg transition-colors bg-transparent hover:bg-pri active:brightness-150">
-    <Link to={to} target={newTab ? "_blank" : undefined}>
+  <Link to={to} target={newTab ? "_blank" : undefined}>
+    <button className="min-w-fit w-full min-h-fit px-2 py-2 cursor-pointer shadow-i border-2 border-ter-cont text-ter-cont text-center rounded-lg transition-colors bg-transparent footer-button active:brightness-150">
       {children}
-    </Link>
-  </Button>
+    </button>
+  </Link>
 );
 
 const Logo = ({

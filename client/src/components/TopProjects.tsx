@@ -62,7 +62,9 @@ export default function TopProjects(): JSX.Element {
 
   return (
     <div
-      className={`flex items-center justify-evenly w-full h-5/6 ${isFetching ? "opacity-75" : ""}`}>
+      className={`flex items-center justify-center gap-16 w-full h-5/6 ${
+        isFetching ? "opacity-75" : ""
+      }`}>
       <Carousel
         setApi={setApi}
         opts={{ loop: true }}

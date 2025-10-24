@@ -21,7 +21,7 @@ export default function Skills({ portalRef }: { portalRef: ElemRef }): JSX.Eleme
   });
 
   if (isPending) return <Loading />;
-  if (isError) return <Error error={error} refetch={refetch} />;
+  if (isError) return <Error error={error} refetch={refetch} className="mt-4" />;
 
   return (
     <>

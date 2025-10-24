@@ -45,7 +45,7 @@ dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive whitespace
 
 //* —————————————————————————————————————————————————————————————————————————————————————
 
-const isDark = () => localStorage.getItem("isDark") === "true";
+const isLocalDark = () => localStorage.getItem("theme") === "dark";
 
 //* —————————————————————————————————————————————————————————————————————————————————————
 
@@ -106,7 +106,7 @@ const contactsData: contactProps[] = [
 //* —————————————————————————————————————————————————————————————————————————————————————
 
 const useMDStyles = (col: string[]): { [k: string]: CSSProperties } =>
-  isDark()
+  isLocalDark()
     ? {
         card: {
           backgroundColor: col[0],
@@ -140,4 +140,12 @@ const useMDStyles = (col: string[]): { [k: string]: CSSProperties } =>
         },
       };
 
-export { myBackground, getCardColour, shadcnToggle, isDark, sortMethod, contactsData, useMDStyles };
+export {
+  myBackground,
+  getCardColour,
+  shadcnToggle,
+  isLocalDark,
+  sortMethod,
+  contactsData,
+  useMDStyles,
+};

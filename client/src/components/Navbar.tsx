@@ -1,8 +1,9 @@
 import "./style/Navbar.css";
 
-import { useState, type Dispatch, type JSX, type SetStateAction } from "react";
+import type { contextType } from "@/types";
+import { useContext, useState, type JSX } from "react";
 import { Link, useMatch } from "react-router";
-import { isDark } from "@/lib/data";
+import { ThemeContext } from "@/lib/context";
 import {
   Chevron,
   HomeIcon,
@@ -13,31 +14,32 @@ import {
   DarkIcon,
 } from "./icons";
 
-export default function Navbar({
-  theme,
-  setTheme,
-}: {
-  theme: string;
-  setTheme: Dispatch<SetStateAction<string>>;
-}): JSX.Element {
+export default function Navbar(): JSX.Element {
+  const { theme, setTheme }: contextType = useContext(ThemeContext);
   const [expanded, setExpanded] = useState(false);
 
   const usePath = (path: string): boolean => Boolean(useMatch(path));
 
   const toggleTheme = () => {
-    // fallback to state if no local storage, e.g. mannually deleted
-    const currentTheme = isDark() ?? theme === "dark";
-
-    setTheme(!currentTheme ? "dark" : "light");
-    localStorage.setItem("isDark", String(theme === "dark"));
+    switch (theme) {
+      case "light":
+        localStorage.setItem("theme", "dark");
+        setTheme("dark");
+        break;
+      case "dark":
+        localStorage.setItem("theme", "light");
+        setTheme("light");
+        break;
+    }
   };
 
   return (
     <nav
       className={`navbar
-        w-[6rem] h-dvh fixed left-0 top-0 ${expanded ? `w-[10rem]` : ``}
+        w-[6rem] h-dvh fixed left-0 top-0 text-light
         flex flex-col items-center justify-evenly
-        rounded-r-2xl bg-on-pri-f-var pl-3 pr-3 shadow-v`}>
+        rounded-r-2xl bg-on-pri-f-var pl-3 pr-3 shadow-v
+        ${expanded ? `w-[10rem]` : ``}`}>
       <Chevron
         onClick={() => setExpanded(!expanded)}
         className={`nav-toggle transition-transform cursor-pointer ${expanded ? `rotate-180` : ``}`}
@@ -70,9 +72,9 @@ export default function Navbar({
       </div>
 
       <div id="themeChanger" onClick={toggleTheme}>
-        {theme === "dark" ? <DarkIcon /> : <LightIcon />}
+        {theme !== "dark" ? <DarkIcon /> : <LightIcon />}
 
-        <p className={` text-xs mt-1 ${expanded ? `open` : `closed`}`}>Change Theme</p>
+        <p className={`text-xs mt-1 ${expanded ? `open` : `closed`}`}>Change Theme</p>
       </div>
     </nav>
   );

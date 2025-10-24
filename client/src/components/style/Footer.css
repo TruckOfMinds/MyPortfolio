@@ -15,3 +15,14 @@
     }
   }
 }
+
+#footer > article {
+  background-color: var(--primary);
+}
+
+.footer-button:hover {
+  background-color: hsl(from var(--primary) h s calc(l + 12));
+}
+.dark .footer-button:hover {
+  background-color: hsl(from var(--primary) h s calc(l - 12));
+}
