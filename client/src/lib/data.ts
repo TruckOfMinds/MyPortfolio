@@ -1,21 +1,27 @@
 import { ExtraResourceIcon } from "@/components/icons";
-import type { codeCardProps, designCardProps, projectCardColours, userInputProps } from "@/types";
+import type {
+  codeCardProps,
+  designCardProps,
+  projectCardColours,
+  themeType,
+  userInputProps,
+} from "@/types";
 import type { CSSProperties, JSX } from "react";
 
 const myBackground: { [k: string]: { text: string; title: string; image: string } } = {
   one: {
     text: "this is the text for one",
-    title: "one",
+    title: "Tech Educators",
     image: "",
   },
   two: {
     text: "you've reached two",
-    title: "two",
+    title: "Access Norwich",
     image: "",
   },
   three: {
     text: "congrats on the hatrick",
-    title: "three",
+    title: "LSHS ..?",
     image: "",
   },
 };
@@ -45,7 +51,10 @@ dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive whitespace
 
 //* —————————————————————————————————————————————————————————————————————————————————————
 
-const isDark = () => localStorage.getItem("isDark") === "true";
+const getTheme = () => {
+  const storedTheme = localStorage.getItem("theme");
+  return storedTheme === "light" || storedTheme === "dark" ? storedTheme : "light";
+};
 
 //* —————————————————————————————————————————————————————————————————————————————————————
 
@@ -105,8 +114,8 @@ const contactsData: contactProps[] = [
 
 //* —————————————————————————————————————————————————————————————————————————————————————
 
-const useMDStyles = (col: string[]): { [k: string]: CSSProperties } =>
-  isDark()
+const useMDStyles = (col: string[], theme: themeType): { [k: string]: CSSProperties } =>
+  theme === "dark"
     ? {
         card: {
           backgroundColor: col[0],
@@ -140,4 +149,12 @@ const useMDStyles = (col: string[]): { [k: string]: CSSProperties } =>
         },
       };
 
-export { myBackground, getCardColour, shadcnToggle, isDark, sortMethod, contactsData, useMDStyles };
+export {
+  myBackground,
+  getCardColour,
+  shadcnToggle,
+  getTheme,
+  sortMethod,
+  contactsData,
+  useMDStyles,
+};

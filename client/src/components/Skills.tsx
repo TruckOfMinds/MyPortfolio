@@ -1,11 +1,17 @@
+import "./style/Skills.css";
+
 import type { Elem, ElemRef, skillProps } from "@/types";
+import { useEffect, useLayoutEffect, useRef, useState, type JSX } from "react";
 import { fetchSkills } from "@/utils/serverPortal";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useLayoutEffect, useRef, useState, type JSX } from "react";
 import { createPortal } from "react-dom";
 import { Error, Loading } from "./fallbacks";
+
 import Card from "./Card";
-import "./style/Skills.css";
+
+/* In-File Components :
+  - SkillCard
+*/
 
 export default function Skills({ portalRef }: { portalRef: ElemRef }): JSX.Element {
   const { isPending, isError, isFetching, error, data, refetch } = useQuery({
@@ -15,13 +21,13 @@ export default function Skills({ portalRef }: { portalRef: ElemRef }): JSX.Eleme
   });
 
   if (isPending) return <Loading />;
-  if (isError) return <Error error={error} refetch={refetch} />;
+  if (isError) return <Error error={error} refetch={refetch} className="mt-4" />;
 
   return (
     <>
       <section
         id="skillContainer"
-        className={`w-full h-[86%] pb-2 pt-3 flex flex-wrap items-center content-evenly justify-center gap-x-4 gap-y-3 scroller background ${
+        className={`w-full h-[86%] pb-2 pt-3 flex flex-wrap items-center content-evenly justify-center gap-x-4 gap-y-3 scroller ${
           isFetching ? "opacity-75" : ""
         }`}>
         {data.map(d => (
@@ -43,7 +49,7 @@ const SkillCard = ({ d, portalRef }: { d: skillProps; portalRef: ElemRef }): JSX
 
   // —— EVENTS ——————————————————————————————————————————————————————————————————————————
 
-  //* Handle Position
+  //* Handles Position
   useLayoutEffect(() => {
     if (!show) return;
     if (!ref.current || !portalRef.current || !skillNameRef.current) {
@@ -64,7 +70,7 @@ const SkillCard = ({ d, portalRef }: { d: skillProps; portalRef: ElemRef }): JSX
     });
   }, [show, portalRef]);
 
-  //* Handle State
+  //* Handles State
   useEffect(() => {
     // if event is not on its corresponding skill
     const handleEvent = (e: Event) => {
@@ -98,9 +104,8 @@ const SkillCard = ({ d, portalRef }: { d: skillProps; portalRef: ElemRef }): JSX
   return (
     <>
       <Card
-        // ! Event not firing — refs are null
         onClick={() => setShow(!show)}
-        className="skill cursor-pointer rounded-lg h-16 w-16 brightness-105 flex items-center justify-center transition-all hover:brightness-115 hover:scale-110 active:brightness-90 active:scale-95"
+        className="skill cursor-pointer rounded-lg h-16 w-16 flex items-center justify-center transition-all hover:brightness-115 hover:scale-110 active:brightness-90 active:scale-95"
         colour="purple"
         ref={ref}
         tabIndex={0}

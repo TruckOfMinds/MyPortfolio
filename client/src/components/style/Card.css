@@ -8,7 +8,7 @@
 
   background-color: var(--background-color);
   color: var(--text-color);
-  scrollbar-color: hsl(from var(--image-color) h s l / 0.75) transparent;
+  scrollbar-color: hsl(from var(--image-color) h s l / 0.9) transparent;
   .tag {
     background-color: var(--tag-background);
     color: var(--tag-text);
@@ -24,7 +24,7 @@
     --text-color: var(--on-primary-container);
     --tag-background: var(--primary-fixed-dim);
     --tag-text: var(--on-primary-fixed);
-    --image-color: var(--primary);
+    --image-color: #2c638b;
     --image-text: var(--primary-container);
   }
   &.pink {
@@ -32,7 +32,7 @@
     --text-color: var(--on-secondary-container);
     --tag-background: var(--secondary-fixed-dim);
     --tag-text: var(--on-secondary-fixed);
-    --image-color: var(--secondary);
+    --image-color: #794f81;
     --image-text: var(--secondary-container);
   }
   &.yellow {
@@ -40,7 +40,7 @@
     --text-color: var(--on-tertiary-container);
     --tag-background: var(--tertiary-fixed-dim);
     --tag-text: var(--on-tertiary-fixed);
-    --image-color: var(--tertiary);
+    --image-color: #79590c;
     --image-text: var(--tertiary-container);
   }
   &.blue {
@@ -49,8 +49,7 @@
     --tag-background: var(--primary-fixed-dim);
     --tag-text: var(--on-primary-fixed);
     --image-color: var(--primary-container);
-    --image-text: var(--primary);
-    --scrollbar: var(--image-color) transparent transparent;
+    --image-text: var(--on-primary-container);
   }
   &.purple {
     --background-color: var(--on-secondary-container);
@@ -58,22 +57,27 @@
     --tag-background: var(--secondary-fixed-dim);
     --tag-text: var(--on-secondary-fixed);
     --image-color: var(--secondary-container);
-    --image-text: var(--secondary);
-    --scrollbar: var(--image-color) transparent transparent;
+    --image-text: var(--on-secondary-container);
   }
   &.gold {
-    --background-color: var(--on-tertiary-container);
+    --background-color: var(--tertiary);
     --text-color: var(--tertiary-container);
     --tag-background: var(--tertiary-fixed-dim);
     --tag-text: var(--on-tertiary-fixed);
     --image-color: var(--tertiary-container);
-    --image-text: var(--tertiary);
-    --scrollbar: var(--image-color) transparent transparent;
+    --image-text: var(--on-tertiary-container);
   }
   &.mono {
-    --background-color: var(--on-primary);
+    --background-color: var(--surface);
     --text-color: var(--on-background);
-    --scrollbar: var(--image-color) transparent transparent;
+  }
+}
+
+/* dark mode changes that dont have bespoke variables */
+.dark {
+  .card.purple,
+  .card.blue {
+    --background-color: var(--tertiary);
   }
 }
 
@@ -122,11 +126,6 @@
 
 .scroller {
   overflow: visible auto;
-
-  /* Colors */
-  &.background {
-    scrollbar-color: var(--background) transparent;
-  }
 }
 
 .card-image {

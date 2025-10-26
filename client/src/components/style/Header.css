@@ -1,34 +1,50 @@
 .dev {
-	--bg: var(--primary-container);
-	--text: var(--primary);
+  --bg: var(--primary-container);
+  --text: #2c638b;
 }
 
 .design {
-	--bg: var(--secondary-container);
-	--text: var(--secondary);
+  --bg: var(--secondary-container);
+  --text: #794f81;
 }
 
 .search-y-sort {
-	background-color: var(--bg);
-	color: var(--text);
-	transition: filter 150ms ease-in-out, scale, 300ms ease-in-out;
+  background-color: var(--bg);
+  color: var(--text);
+  transition: filter 150ms ease-in-out, scale, 300ms ease-in-out;
 
-	&:hover {
-		scale: 1.1;
-		filter: brightness(104%);
-	}
-	&:active {
-		scale: 0.95;
-		filter: brightness(90%);
-	}
+  &::placeholder {
+    color: hsl(from var(--text) h s l / 75%);
+  }
+
+  &:hover {
+    scale: 1.1;
+    filter: brightness(104%);
+  }
+  &:active {
+    scale: 0.95;
+    filter: brightness(90%);
+  }
 }
 
 .sort-icon {
-	fill: var(--text);
+  fill: var(--text);
 }
 .sort-icon-parent {
-	height: 1.5rem !important;
-	path {
-		fill: var(--text);
-	}
+  height: 1.5rem !important;
+  path {
+    fill: var(--text);
+  }
+}
+
+.header-label {
+  color: var(--project-type-colour);
+  border-color: var(--project-type-colour);
+
+  &.dev {
+    --project-type-colour: var(--primary-set);
+  }
+  &.des {
+    --project-type-colour: var(--secondary-set);
+  }
 }

@@ -1,8 +1,14 @@
-import type { cardProps, codeCardProps, designCardProps } from "@/types";
-
 import "./style/Card.css";
+
+import type { cardProps, codeCardProps, designCardProps } from "@/types";
 import { Link } from "react-router";
 import { memo, useState, type JSX } from "react";
+
+/* In-File Components =>
+  - StatusTag
+  - CodeCard
+  - DesignCard
+*/
 
 export default function Card({ variant, colour, className, ...props }: cardProps): JSX.Element {
   return (
@@ -45,7 +51,7 @@ export const CodeCard = memo(
         to={encodeURI(`/code-projects/${owner}/${name}`)}
         className={`relative ${props.className}`}>
         <Card variant={props.variant} className="card-grid code pr-8" colour={props.colour}>
-          <div className="[grid-area:image] code-card-image-container image-cont rounded-md flex items-center justify-center">
+          <div className="[grid-area:image] code-card-image-container image-cont rounded-lg flex items-center justify-center">
             <img
               src={`${import.meta.env.VITE_BUCKET_URL + logo}`}
               alt={`${name} Logo Image`}

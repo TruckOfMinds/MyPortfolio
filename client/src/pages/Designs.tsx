@@ -1,13 +1,20 @@
-import Grid from "@/components/Grid";
 import "./style/Designs.css";
-import Header, { SearchAndSort } from "@/components/Header";
-import { useState } from "react";
+
 import type { userInputProps } from "@/types";
+import { useState } from "react";
 import { fetchDesignCards } from "@/utils/serverPortal";
 import { Error, Loading } from "@/components/fallbacks";
 import { getCardColour, sortMethod } from "@/lib/data";
 import { useQuery } from "@tanstack/react-query";
 import { DesignCard } from "@/components/Card";
+
+import Header, { SearchAndSort } from "@/components/Header";
+
+import Grid from "@/components/Grid";
+
+/* In-File Components =>
+  - Projects
+*/
 
 export default function DesignsPage() {
   const [userInput, setUserInput] = useState<userInputProps>({
@@ -35,6 +42,7 @@ export default function DesignsPage() {
 }
 
 //* —————————————————————————————————————————————————————————————————————————————————————
+
 // ? changing inputs while data loads
 const Projects = ({ userInput }: { userInput: userInputProps }) => {
   const { isPending, isError, isFetching, error, data, refetch } = useQuery({

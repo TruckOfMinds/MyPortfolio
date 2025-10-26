@@ -1,14 +1,20 @@
+import "./style/Header.css";
+
 import type { ChangeEvent, JSX, ReactNode } from "react";
 import type { setUserInputProps, userInputProps } from "@/types";
 
-import "./style/Header.css";
-
-import Sort from "./Sort";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { SortOrderIcon } from "./icons";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { shadcnToggle } from "@/lib/data";
+
+import Sort from "./Sort";
+
+/* In-File Components :
+  - TitleSection
+  - SearchAndSort
+*/
 
 export default function Header({
   className,
@@ -49,10 +55,11 @@ const TitleSection = ({
     <section className="project-title flex items-center gap-4">
       <Title text={text} />
 
-      {isDev ? (
-        <div className="text-pri text-2xl rounded-full border-pri border-3 px-7">Dev</div>
-      ) : isDesign ? (
-        <div className="text-sec text-2xl rounded-full border-sec border-3 px-7">Design</div>
+      {isDev || isDesign ? (
+        <div
+          className={`header-label ${isDev ? "dev" : "des"} text-2xl rounded-full border-3 px-7`}>
+          {isDev ? "Dev" : "Design"}
+        </div>
       ) : (
         <></>
       )}
@@ -72,10 +79,10 @@ export const SearchAndSort = ({
   <form
     onSubmit={e => e.preventDefault()}
     className={`max-w-full flex items-center gap-4 mr-12 ${isDev ? "dev" : "design"}`}>
-    <Label htmlFor="search" className="flex flex-col items-start">
+    <Label htmlFor="search" className="flex flex-col items-start text-inv-sys">
       Search
       <Input
-        className="search-y-sort "
+        className="search-y-sort"
         type="text"
         placeholder={`${isDev ? "e.g. JavaScript" : "Project name"}`}
         name="search"
@@ -88,7 +95,7 @@ export const SearchAndSort = ({
     </Label>
 
     <fieldset className="flex items-end gap-2">
-      <Label htmlFor="sort" className="flex flex-col items-start">
+      <Label htmlFor="sort" className="flex flex-col items-start text-inv-sys">
         Sort by
         <Sort userInput={userInput} setUserInput={setUserInput} />
       </Label>
@@ -104,7 +111,7 @@ export const SearchAndSort = ({
           </article>
         </TooltipTrigger>
         <TooltipContent>
-          <p>{userInput.desc ? "Descending" : "Ascending"}</p>
+          <p className="jb-mono">{userInput.desc ? "Descending" : "Ascending"}</p>
         </TooltipContent>
       </Tooltip>
     </fieldset>

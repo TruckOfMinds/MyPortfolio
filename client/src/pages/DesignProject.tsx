@@ -1,6 +1,12 @@
-import Card from "@/components/Card";
-import Grid from "@/components/Grid";
-import Header from "@/components/Header";
+import "./style/Project.css";
+
+import type { designProjectProps } from "@/types";
+import { fetchDesignProject } from "@/utils/serverPortal";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { useEffect, useState, type JSX } from "react";
+import { useParams } from "react-router";
+import { DisabledScrollMarker, ScrollMarker } from "@/components/TopProjects";
+
 import {
   Carousel,
   CarouselContent,
@@ -9,18 +15,20 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel";
-import type { designProjectProps } from "@/types";
-import { fetchDesignProject } from "@/utils/serverPortal";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { useEffect, useState, type JSX } from "react";
-import { useParams } from "react-router";
+
+import Card from "@/components/Card";
+import Grid from "@/components/Grid";
+import Header from "@/components/Header";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { DisabledScrollMarker, ScrollMarker } from "@/components/TopProjects";
-import "./style/Project.css";
+
+/* In-File Components =>
+  - Content
+*/
 
 export default function DesignProjectPage(): JSX.Element {
   const { project } = useParams();
+
   const { isRefetching, data } = useSuspenseQuery({
     queryKey: ["designProject", project!],
     queryFn: () => fetchDesignProject(project!),
@@ -99,26 +107,22 @@ const Content = ({ images, ...props }: designProjectProps) => {
       />
 
       <div className="[grid-area:procon] w-[90.1%] h-full gap-8 flex items-center justify-between">
-        <Card colour="purple" className="w-[50%] min-h-full">
-          <h1 className="text-xl orbit mb-2">What Went Well</h1>
-          <ReactMarkdown
-            remarkPlugins={[remarkGfm]}
-            components={{ ul: ulProps => <ul {...ulProps} style={{ listStyle: "inside" }} /> }}
-            children={props.pros}
-          />
-        </Card>
-
-        <Card colour="purple" className="w-[50%] min-h-full">
-          <h1 className="text-xl orbit mb-2">What Went Worse</h1>
-          <ReactMarkdown
-            remarkPlugins={[remarkGfm]}
-            components={{
-              ul: ulProps => <ul {...ulProps} style={{ listStyle: "inside" }} />,
-            }}
-            children={props.cons}
-          />
-        </Card>
+        <ProCon title="What Went Well" children={props.pros} />
+        <ProCon title="What Went Worse" children={props.cons} />
       </div>
     </>
   );
 };
+
+const ProCon = ({ title, children }: { title: string; children: string }) => (
+  <Card colour="purple" className="w-[50%] min-h-full">
+    <h1 className="text-xl orbit mb-2">{title}</h1>
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      components={{
+        ul: ulProps => <ul {...ulProps} style={{ listStyle: "inside", marginLeft: "1rem" }} />,
+      }}
+      children={children}
+    />
+  </Card>
+);

@@ -1,15 +1,20 @@
+import "./style/Code.css";
+
+import type { codeCardProps, userInputProps } from "@/types";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { CodeCard } from "@/components/Card";
 import { fetchCodeCards } from "@/utils/serverPortal";
 import { sortMethod, getCardColour } from "@/lib/data";
-
-import Header, { SearchAndSort } from "@/components/Header";
-import Grid from "@/components/Grid";
-import { CodeCard } from "@/components/Card";
-
-import "./style/Code.css";
-import type { codeCardProps, userInputProps } from "@/types";
 import { Error, Loading } from "@/components/fallbacks";
+import Header, { SearchAndSort } from "@/components/Header";
+
+import Grid from "@/components/Grid";
+
+/* In-File Components =>
+  - Projects
+  - isInSearch
+*/
 
 export default function CodePage() {
   const [userInput, setUserInput] = useState<userInputProps>({

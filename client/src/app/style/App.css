@@ -5,16 +5,24 @@
 
   font-size: 16px;
 
-  background-color: var(--background);
-  color: var(--on-background);
+  background-color: var(--sys-theme);
+  color: var(--inverse-sys-theme);
 
   overflow-x: hidden;
   scroll-behavior: smooth;
   scrollbar-color: var(--tertiary-container) var(--primary);
 
-  *:focus-visible {
-    outline: 4px solid hsl(from var(--on-primary-fixed-variant) h s 60%);
-    border-radius: 1rem;
+  &,
+  * {
+    transition-property: color, background-color, border-color, outline-color, text-decoration-color,
+      fill, stroke, opacity;
+    transition-timing-function: ease-in-out;
+    transition-duration: 150ms;
+  }
+
+  #root *:focus-visible {
+    outline: 4px solid #3fb1f3;
+    border-radius: calc(1rem - 4px);
   }
 }
 
