@@ -25,3 +25,32 @@
 .home-shadow {
   box-shadow: 0rem -0.25rem 1rem #00000060;
 }
+
+.title-font {
+  font-size: clamp(4rem, calc(8dvw + 1rem), 12rem);
+}
+
+/* .view-button {
+  background-color: var(--tertiary-container);
+  color: var(--on-tertiary-container);
+} */
+.view-button {
+  background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
+}
+
+#heroGradient {
+  text-align: center;
+  background-image: linear-gradient(
+    to bottom,
+    #003152 0%,
+    #074b72 20%,
+    #2c638b 40%,
+    #4f5681 60%,
+    #714a78 80%,
+    #603768 100%
+  );
+}
+.dark #heroGradient {
+  opacity: 0;
+}

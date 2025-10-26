@@ -29,12 +29,14 @@ export default function HomePage(): JSX.Element {
 
 const Hero = (): JSX.Element => (
   <Grid layout="two-two" className="bg-dark" id="top">
-    <section className="[grid-area:a/a-start/d-end/d-end] w-full flex flex-col items-center justify-between gap-8 z-[3]">
-      <h1 className="orbit text-9xl text-light [line-height:1] text-shadow-v">reuben dubois</h1>
+    <section className="w-4/5 min-w-fit max-w-full h-fit min-h-1/2 flex flex-col items-center justify-center gap-10 z-[3] absolute top-1/2 left-1/2 trans">
+      <h1 className="orbit title-font text-light text-center [line-height:1] text-shadow-v [letter-spacing:calc((.25dvw+.1rem)*-1)]">
+        reuben<span className="[letter-spacing:calc((1dvw+.5rem)*-1)]"> </span>dubois
+      </h1>
 
       <p className="text-light">some creative tagline trust me bro</p>
 
-      <div className="flex items-center flex-wrap justify-center gap-4">
+      <div className="flex items-center flex-wrap w-full justify-center gap-12">
         <Card colour="sky" className="shadow-v">
           UI/UX Designer
         </Card>
@@ -47,15 +49,14 @@ const Hero = (): JSX.Element => (
       </div>
     </section>
 
-    {/* STRETCH => make the svgs gradient animate */}
     <img
       src="/wireframeCodeGradient.svg"
       alt="App Wireframe & JSX Code fading from transparent to white"
       loading="eager"
-      className="w-dvw row-start-2 row-end-3 col-span-3 self-end z-[2]"
+      className="w-dvw row-[-1] col-span-full self-end z-[2]"
     />
 
-    <div id="heroGradient" className="transition-opacity z-[1]" />
+    <div id="heroGradient" className="absolute w-full h-full top-0 left-0" />
   </Grid>
 );
 
@@ -63,7 +64,7 @@ const About = (): JSX.Element => {
   const portalRef = useRef<Elem>(null);
 
   return (
-    <Grid layout="three-two" id="about" className="bg-sec z-10 up-shadow">
+    <Grid layout="three-two" id="about" className="bg-sec z-20 home-shadow">
       <TitleBlock text="Who Am I?" alt="#" className="in-grid [grid-area:a]" />
 
       <Card variant="long" className="in-grid [grid-area:b/b-start/b-end/c-end]" colour="pink">
@@ -162,9 +163,10 @@ const BackgroundCard = ({
   onClick: () => void;
 }) => (
   <Card
-    className={`w-4/5 transition-all cursor-pointer h-2/3 min-h-fit max-h-full card blue [user-select:none] ${className} ${
+    className={`w-4/5 transition-all cursor-pointer h-2/3 min-h-fit max-h-full [user-select:none] ${className} ${
       bgText === index ? "scale-110" : ""
     }`}
+    colour="blue"
     onClick={onClick}
     ref={ref}
     {...props}>
@@ -187,9 +189,9 @@ const TitleBlock = ({
   className?: string;
 }): JSX.Element => (
   <header className={`flex flex-col items-center gap-4 min-h-fit max-h-4/5 ${className}`}>
-    <div className="h-[calc(40%-0.5rem)] min-w-[7rem] w-full bg-ter-cont shadow-iii rounded-2xl flex items-center justify-center px-2 pb-1">
-      <h1 className="orbit text-ter text-center [line-height:1] text-[2.5rem]">{text}</h1>
-    </div>
+    <Card className="h-[calc(40%-0.5rem)] min-w-[7rem] w-full shadow-iii rounded-2xl flex items-center justify-center card yellow">
+      <h1 className="orbit text-center [line-height:1] text-[2.5rem]">{text}</h1>
+    </Card>
 
     <img
       src={src}

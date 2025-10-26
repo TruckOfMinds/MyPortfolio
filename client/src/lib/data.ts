@@ -1,5 +1,11 @@
 import { ExtraResourceIcon } from "@/components/icons";
-import type { codeCardProps, designCardProps, projectCardColours, userInputProps } from "@/types";
+import type {
+  codeCardProps,
+  designCardProps,
+  projectCardColours,
+  themeType,
+  userInputProps,
+} from "@/types";
 import type { CSSProperties, JSX } from "react";
 
 const myBackground: { [k: string]: { text: string; title: string; image: string } } = {
@@ -45,7 +51,10 @@ dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive whitespace
 
 //* —————————————————————————————————————————————————————————————————————————————————————
 
-const isLocalDark = () => localStorage.getItem("theme") === "dark";
+const getTheme = () => {
+  const storedTheme = localStorage.getItem("theme");
+  return storedTheme === "light" || storedTheme === "dark" ? storedTheme : "light";
+};
 
 //* —————————————————————————————————————————————————————————————————————————————————————
 
@@ -105,8 +114,8 @@ const contactsData: contactProps[] = [
 
 //* —————————————————————————————————————————————————————————————————————————————————————
 
-const useMDStyles = (col: string[]): { [k: string]: CSSProperties } =>
-  isLocalDark()
+const useMDStyles = (col: string[], theme: themeType): { [k: string]: CSSProperties } =>
+  theme === "dark"
     ? {
         card: {
           backgroundColor: col[0],
@@ -144,7 +153,7 @@ export {
   myBackground,
   getCardColour,
   shadcnToggle,
-  isLocalDark,
+  getTheme,
   sortMethod,
   contactsData,
   useMDStyles,

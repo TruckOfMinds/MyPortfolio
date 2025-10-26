@@ -36,10 +36,10 @@
   --primary-fixed-dim: #99ccfa;
   --on-primary-fixed-variant: #074b72;
 
-  --secondary: #794f81;
+  --secondary: #794f82;
   --secondary-set: var(--secondary);
   --secondary-container: #fdd6ff;
-  --on-secondary-container: #603768;
+  --on-secondary-container: #5f3768;
   --secondary-fixed: #fdd6ff;
   --on-secondary-fixed: #300a39;
   --secondary-fixed-dim: #e9b5ef;

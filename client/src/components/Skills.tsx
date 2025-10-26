@@ -27,7 +27,7 @@ export default function Skills({ portalRef }: { portalRef: ElemRef }): JSX.Eleme
     <>
       <section
         id="skillContainer"
-        className={`w-full h-[86%] pb-2 pt-3 flex flex-wrap items-center content-evenly justify-center gap-x-4 gap-y-3 scroller background ${
+        className={`w-full h-[86%] pb-2 pt-3 flex flex-wrap items-center content-evenly justify-center gap-x-4 gap-y-3 scroller ${
           isFetching ? "opacity-75" : ""
         }`}>
         {data.map(d => (
@@ -105,7 +105,7 @@ const SkillCard = ({ d, portalRef }: { d: skillProps; portalRef: ElemRef }): JSX
     <>
       <Card
         onClick={() => setShow(!show)}
-        className="skill cursor-pointer rounded-lg h-16 w-16 brightness-105 flex items-center justify-center transition-all hover:brightness-115 hover:scale-110 active:brightness-90 active:scale-95"
+        className="skill cursor-pointer rounded-lg h-16 w-16 flex items-center justify-center transition-all hover:brightness-115 hover:scale-110 active:brightness-90 active:scale-95"
         colour="purple"
         ref={ref}
         tabIndex={0}

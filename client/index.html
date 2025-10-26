@@ -5,6 +5,14 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>RD Portfolio</title>
+    <script>
+      (() => {
+        const storedTheme = localStorage.getItem("theme");
+        document
+          .querySelector(":root")
+          .classList.add(storedTheme === "light" || storedTheme === "dark" ? storedTheme : "light");
+      })();
+    </script>
   </head>
   <body>
     <div id="root" class="jb-mono"></div>

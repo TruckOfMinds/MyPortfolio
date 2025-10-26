@@ -1,7 +1,7 @@
 import "./style/Navbar.css";
 
 import type { contextType } from "@/types";
-import { useContext, useState, type JSX } from "react";
+import { useContext, useState, type JSX, type KeyboardEvent } from "react";
 import { Link, useMatch } from "react-router";
 import { ThemeContext } from "@/lib/context";
 import {
@@ -37,12 +37,14 @@ export default function Navbar(): JSX.Element {
     <nav
       className={`navbar
         w-[6rem] h-dvh fixed left-0 top-0 text-light
-        flex flex-col items-center justify-evenly
+        flex flex-col items-center justify-evenly z-10
         rounded-r-2xl bg-on-pri-f-var pl-3 pr-3 shadow-v
         ${expanded ? `w-[10rem]` : ``}`}>
       <Chevron
         onClick={() => setExpanded(!expanded)}
+        onKeyUp={(e: KeyboardEvent<SVGSVGElement>) => e.key === "Enter" && setExpanded(!expanded)}
         className={`nav-toggle transition-transform cursor-pointer ${expanded ? `rotate-180` : ``}`}
+        tabIndex={0}
       />
 
       <div className="nav-links h-3/5 flex flex-col items-center justify-between gap-1">
@@ -71,7 +73,11 @@ export default function Navbar(): JSX.Element {
         </Link>
       </div>
 
-      <div id="themeChanger" onClick={toggleTheme}>
+      <div
+        id="themeChanger"
+        onClick={toggleTheme}
+        onKeyUp={(e: KeyboardEvent<HTMLDivElement>) => e.key === "Enter" && toggleTheme()}
+        tabIndex={0}>
         {theme !== "dark" ? <DarkIcon /> : <LightIcon />}
 
         <p className={`text-xs mt-1 ${expanded ? `open` : `closed`}`}>Change Theme</p>

@@ -62,18 +62,18 @@ export default function TopProjects(): JSX.Element {
 
   return (
     <div
-      className={`flex items-center justify-center gap-16 w-full h-5/6 ${
+      className={`flex items-center justify-center gap-1 w-full h-5/6 ${
         isFetching ? "opacity-75" : ""
       }`}>
       <Carousel
         setApi={setApi}
         opts={{ loop: true }}
-        className="flex flex-col items-center justify-center h-full w-[60%] gap-2">
+        className="flex flex-col items-center justify-between gap-4 h-full w-[60%] pt-4">
         <CarouselContent className="w-fit h-full snap" ParentClassName="w-full rounded-2xl">
           <Items data={data} />
         </CarouselContent>
 
-        <div className="flex items-center gap-1 min-h-2 ">
+        <div className="flex items-center gap-1 min-h-2">
           {data.length > 1 ? (
             data.map((_, index) => (
               <ScrollMarker
@@ -90,8 +90,8 @@ export default function TopProjects(): JSX.Element {
         </div>
       </Carousel>
 
-      <section className="flex flex-col items-center justify-center gap-6 h-full w-1/2">
-        <h1 className="w-fit text-xl text-center">{project.name}</h1>
+      <section className="flex flex-col items-center justify-evenly gap-1 h-full w-1/2">
+        <h1 className="w-fit text-2xl text-center">{project.name}</h1>
         <ViewProject name={project.name} isCode={project.isCode} owner={project.owner} />
       </section>
     </div>
@@ -173,9 +173,10 @@ const ViewProject = ({
     <Link
       to={`${isCode ? `code-projects/${owner}` : "design-projects"}/${name}`}
       inert={disabled}
-      aria-disabled={disabled}>
+      aria-disabled={disabled}
+      className="w-4/5">
       <Button
-        className={`bg-ter  text-lg px-8 py-6 text-ter-cont transition-all hover:bg-ter hover:scale-110 hover:brightness-110 active:brightness-75 active:scale-90 ${
+        className={`view-button w-full cursor-pointer text-lg py-6 transition-all hover:bg-ter hover:scale-110 hover:brightness-110 active:brightness-75 active:scale-90 ${
           disabled ? " cursor-not-allowed" : null
         }`}>
         View Project

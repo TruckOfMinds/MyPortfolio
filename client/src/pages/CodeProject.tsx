@@ -1,7 +1,7 @@
 import "./style/Project.css";
 
 import type { codeProjectProps } from "@/types";
-import { type JSX } from "react";
+import { useContext, type JSX } from "react";
 import { Link, useParams } from "react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { fetchCodeProject } from "@/utils/serverPortal";
@@ -23,6 +23,7 @@ import Header from "@/components/Header";
 import Card from "@/components/Card";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { ThemeContext } from "@/lib/context";
 
 /* In-File Components =>
   - Content
@@ -58,7 +59,8 @@ const Content = ({
   style,
   ...props
 }: codeProjectProps & { isRefetching: boolean }) => {
-  const styles = useMDStyles(style);
+  const { theme } = useContext(ThemeContext);
+  const styles = useMDStyles(style, theme);
 
   return (
     <>

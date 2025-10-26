@@ -16,9 +16,10 @@ import ContactPage from "@/pages/Contact";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ThemeContext } from "@/lib/context";
+import { getTheme } from "@/lib/data";
 
 export default function App(): JSX.Element {
-  const [theme, setTheme] = useState<themeType>("light");
+  const [theme, setTheme] = useState<themeType>(getTheme);
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -31,13 +32,6 @@ export default function App(): JSX.Element {
     rootClasses?.remove(isDark ? "light" : "dark");
     rootClasses?.add(isDark ? "dark" : "light");
   }, [theme]);
-
-  window.onload = () => {
-    const storedTheme = localStorage.getItem("theme");
-    const currentTheme: themeType =
-      storedTheme === "light" || storedTheme === "dark" ? storedTheme : "light";
-    setTheme(currentTheme);
-  };
 
   return (
     <ThemeContext value={{ theme, setTheme }}>

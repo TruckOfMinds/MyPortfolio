@@ -48,7 +48,7 @@ const FooterCTA = ({
   to: string;
   newTab?: boolean;
 }): JSX.Element => (
-  <Link to={to} target={newTab ? "_blank" : undefined}>
+  <Link to={to} target={newTab ? "_blank" : undefined} tabIndex={-1}>
     <button className="min-w-fit w-full min-h-fit px-2 py-2 cursor-pointer shadow-i border-2 border-ter-cont text-ter-cont text-center rounded-lg transition-colors bg-transparent footer-button active:brightness-150">
       {children}
     </button>

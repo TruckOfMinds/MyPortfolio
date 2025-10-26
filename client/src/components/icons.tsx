@@ -18,7 +18,11 @@ import "./style/NavIcons.css";
 
 // Navbar.tsx
 
-export const Chevron = ({ onClick, className }: { onClick?: () => void; className: string }) => (
+export const Chevron = ({
+  onClick,
+  className,
+  ...props
+}: { onClick?: () => void; className: string } & SVGProps<SVGSVGElement>) => (
   <svg
     width="74"
     height="74"
@@ -26,7 +30,8 @@ export const Chevron = ({ onClick, className }: { onClick?: () => void; classNam
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     onClick={onClick}
-    className={`nav-icon ${className}`}>
+    className={`nav-icon ${className}`}
+    {...props}>
     <path
       d="M40.095 37.8808C40.4855 37.4903 40.4855 36.8571 40.095 36.4666L26.453 22.8246C26.0624 22.434 26.0624 21.8009 26.453 21.4103L28.3085 19.5548C28.6991 19.1642 29.3322 19.1642 29.7227 19.5548L46.6346 36.4666C47.0251 36.8571 47.0251 37.4903 46.6346 37.8808L29.7227 54.7926C29.3322 55.1832 28.6991 55.1832 28.3085 54.7926L26.453 52.9371C26.0624 52.5465 26.0624 51.9134 26.453 51.5228L40.095 37.8808Z"
       fill="white"
