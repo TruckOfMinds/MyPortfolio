@@ -8,21 +8,31 @@ import type {
 } from "@/types";
 import type { CSSProperties, JSX } from "react";
 
+export {
+  myBackground,
+  getCardColour,
+  shadcnToggle,
+  getTheme,
+  sortMethod,
+  contactsData,
+  useMDStyles,
+};
+
 const myBackground: { [k: string]: { text: string; title: string; image: string } } = {
   one: {
-    text: "this is the text for one",
     title: "Tech Educators",
     image: "",
+    text: "***Mar 2025 - Jul 2025*** —",
   },
   two: {
-    text: "you've reached two",
     title: "Access Norwich",
     image: "",
+    text: "***Sep 2023 - Jul 2025*** —",
   },
   three: {
-    text: "congrats on the hatrick",
-    title: "LSHS ..?",
+    title: "High School",
     image: "",
+    text: "***Sep 2018 - Jul 2023*** —",
   },
 };
 
@@ -148,13 +158,3 @@ const useMDStyles = (col: string[], theme: themeType): { [k: string]: CSSPropert
           color: `hsl(from ${col[1]} h s calc(l - 80))`,
         },
       };
-
-export {
-  myBackground,
-  getCardColour,
-  shadcnToggle,
-  getTheme,
-  sortMethod,
-  contactsData,
-  useMDStyles,
-};

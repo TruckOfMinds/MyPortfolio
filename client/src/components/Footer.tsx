@@ -17,10 +17,10 @@ export default function Footer() {
     <Grid id="footer" layout="row">
       <Card
         variant="in-grid full"
-        className="px-8 flex items-center justify-evenly gap-x-[calc(25%/3)] shadow-v [grid-area:a/a-start/a-end/c-end]">
-        <Logo className="w-1/4 cursor-pointer " onClick={() => scroll({ top: 0 })} />
+        className="px-8 flex max-sm:flex-col items-center justify-evenly gap-x-[calc(25%/3)] gap-y-4 shadow-v [grid-area:a/a-start/a-end/c-end]">
+        <Logo className="w-1/4 cursor-pointer h-fit min-h-12" onClick={() => scroll({ top: 0 })} />
 
-        <div className="flex flex-col w-1/4 min-w-fit gap-4 justify-center">
+        <div className="flex  sm:flex-col w-1/4 min-w-fit gap-4 justify-center">
           <FooterCTA to={`mailto:${email}`} newTab>
             <div className="flex flex-col items-center gap-1">
               <p>Contact me</p>
@@ -31,7 +31,7 @@ export default function Footer() {
           <FooterCTA to="/design-projects">View My Designs</FooterCTA>
         </div>
 
-        <p className="font-light text-sm text-ter-cont text-center w-1/4">
+        <p className="font-light text-sm text-ter-cont w-1/4">
           {new Date().getFullYear()} RD Design & Development
         </p>
       </Card>
@@ -49,7 +49,7 @@ const FooterCTA = ({
   newTab?: boolean;
 }): JSX.Element => (
   <Link to={to} target={newTab ? "_blank" : undefined} tabIndex={-1}>
-    <button className="min-w-fit w-full min-h-fit px-2 py-2 cursor-pointer shadow-i border-2 border-ter-cont text-ter-cont text-center rounded-lg transition-colors bg-transparent footer-button active:brightness-150">
+    <button className="min-w-fit w-full max-sm:h-full min-h-fit px-2 py-2 cursor-pointer shadow-i border-2 border-ter-cont text-ter-cont text-center rounded-lg transition-colors bg-transparent footer-button active:brightness-150">
       {children}
     </button>
   </Link>

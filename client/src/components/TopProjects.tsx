@@ -62,7 +62,7 @@ export default function TopProjects(): JSX.Element {
 
   return (
     <div
-      className={`flex items-center justify-center gap-1 w-full h-5/6 ${
+      className={`flex flex-flex-wrap-reverse items-center justify-center gap-1 w-full h-5/6 ${
         isFetching ? "opacity-75" : ""
       }`}>
       <Carousel
@@ -90,7 +90,7 @@ export default function TopProjects(): JSX.Element {
         </div>
       </Carousel>
 
-      <section className="flex flex-col items-center justify-evenly gap-1 h-full w-1/2">
+      <section className="flex flex-col items-center justify-center gap-8 orbit h-full w-1/3">
         <h1 className="w-fit text-2xl text-center">{project.name}</h1>
         <ViewProject name={project.name} isCode={project.isCode} owner={project.owner} />
       </section>
@@ -176,7 +176,7 @@ const ViewProject = ({
       aria-disabled={disabled}
       className="w-4/5">
       <Button
-        className={`view-button w-full cursor-pointer text-lg py-6 transition-all hover:bg-ter hover:scale-110 hover:brightness-110 active:brightness-75 active:scale-90 ${
+        className={`view-button jb-mono w-full cursor-pointer text-lg py-6 transition-all hover:bg-ter hover:scale-110 hover:brightness-110 active:brightness-75 active:scale-90 ${
           disabled ? " cursor-not-allowed" : null
         }`}>
         View Project

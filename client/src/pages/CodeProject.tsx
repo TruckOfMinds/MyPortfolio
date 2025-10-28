@@ -64,31 +64,43 @@ const Content = ({
 
   return (
     <>
-      <Carousel
-        opts={{ loop: true }}
-        className={`max-w-8/10 min-h-fit h-1/2 [grid-area:c] flex flex-col items-center justify-center gap-4 rounded-2xl ${
-          isRefetching ? "opacity-75" : null
-        }`}>
-        <CarouselContent ParentClassName="rounded-2xl">
-          {images.map(i => (
-            <CarouselItem key={i}>
-              <img
-                src={import.meta.env.VITE_BUCKET_URL + "/" + i}
-                alt={`Code Project Image #${images.indexOf(i)}`}
-                className="code-project-image rounded-2xl"
-              />
-            </CarouselItem>
-          ))}
-        </CarouselContent>
+      <section className="max-w-8/10 min-h-fit h-1/2 [grid-area:c]">
+        <Carousel
+          opts={{ loop: true }}
+          className={`w-full min-h-fit h-full flex flex-col items-center justify-center gap-4 rounded-2xl ${
+            isRefetching ? "opacity-75" : null
+          }`}>
+          <CarouselContent ParentClassName="rounded-2xl">
+            {images.map(i => (
+              <CarouselItem key={i}>
+                <img
+                  src={import.meta.env.VITE_BUCKET_URL + "/" + i}
+                  alt={`Code Project Image #${images.indexOf(i)}`}
+                  className="code-project-image rounded-2xl"
+                />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
 
-        <div className="code-carousel w-4/5">
-          <CarouselPrevious
-            className="w-2/5"
-            style={{ backgroundColor: style[0], color: style[1] }}
-          />
-          <CarouselNext className="w-2/5" style={{ backgroundColor: style[0], color: style[1] }} />
-        </div>
-      </Carousel>
+          <div className="code-carousel w-4/5">
+            <CarouselPrevious
+              className="w-2/5"
+              style={{ backgroundColor: style[0], color: style[1] }}
+            />
+            <CarouselNext
+              className="w-2/5"
+              style={{ backgroundColor: style[0], color: style[1] }}
+            />
+          </div>
+        </Carousel>
+
+        <Card
+          className="flex items-center justify-evenly gap-2 w-full"
+          style={{ backgroundColor: style[0], color: style[1] }}>
+          <p>{`Updated at: ${props.date}`}</p>
+          {/* ADD created date & status tag */}
+        </Card>
+      </section>
 
       {/* ————————————————————————————————————————————————————————————————————————————————————— */}
 

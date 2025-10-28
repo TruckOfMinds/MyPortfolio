@@ -7,16 +7,20 @@
   height: 4rem;
   row-gap: 0.25rem;
 
-  &.active {
-    color: var(--tertiary-container);
-    path {
-      fill: var(--tertiary-container);
-    }
-  }
-
   p {
     font-size: 0.9rem;
   }
+}
+
+.active {
+  color: var(--tertiary-container);
+  path {
+    fill: var(--tertiary-container);
+  }
+}
+
+.nav-toggle:focus {
+  outline: initial;
 }
 
 /* all icons */
@@ -72,3 +76,11 @@
     }
   }
 }
+
+.mobile-navbar {
+  height: clamp(5rem, calc(10dvh + 1rem), 25%);
+}
+
+/* .mobile-nav-link > svg {
+  height: 60%;
+} */

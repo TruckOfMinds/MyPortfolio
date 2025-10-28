@@ -2,7 +2,7 @@ import "./style/Card.css";
 
 import type { cardProps, codeCardProps, designCardProps } from "@/types";
 import { Link } from "react-router";
-import { memo, useState, type JSX } from "react";
+import { memo, useState, type HtmlHTMLAttributes, type JSX } from "react";
 
 /* In-File Components =>
   - StatusTag
@@ -10,7 +10,12 @@ import { memo, useState, type JSX } from "react";
   - DesignCard
 */
 
-export default function Card({ variant, colour, className, ...props }: cardProps): JSX.Element {
+export default function Card({
+  variant,
+  colour,
+  className,
+  ...props
+}: cardProps & HtmlHTMLAttributes<HTMLDivElement>): JSX.Element {
   return (
     <article
       className={[
@@ -86,10 +91,10 @@ export const CodeCard = memo(
 //* —————————————————————————————————————————————————————————————————————————————————————
 
 export const DesignCard = memo(
-  ({ name, className, logo, date, ...props }: designCardProps & cardProps) => {
+  ({ name, className, logo, date, id, ...props }: designCardProps & cardProps) => {
     return (
       <Link to={`/design-projects/${name}`} className="design-card">
-        <Card {...props} className={`card-grid design py-4 ${className}`}>
+        <Card {...props} className={`card-grid design py-4 ${className}`} id={`${id}`}>
           <div className="image-cont w-full [grid-area:image] justify-self-center rounded-md flex items-center justify-center">
             <img
               src={`${import.meta.env.VITE_BUCKET_URL}/${logo}`}

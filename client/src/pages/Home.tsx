@@ -8,6 +8,7 @@ import Card from "@/components/Card";
 import Grid from "@/components/Grid";
 import TopProjects from "@/components/TopProjects";
 import Skills from "@/components/Skills";
+import Markdown from "react-markdown";
 
 /* In-File Components =>
   - Hero
@@ -28,7 +29,7 @@ export default function HomePage(): JSX.Element {
 }
 
 const Hero = (): JSX.Element => (
-  <Grid layout="two-two" className="bg-dark" id="top">
+  <Grid layout="two-two" className="bg-dark hero" id="top">
     <section className="w-4/5 min-w-fit max-w-full h-fit min-h-1/2 flex flex-col items-center justify-center gap-10 z-[3] absolute top-1/2 left-1/2 trans">
       <h1 className="orbit title-font text-light text-center [line-height:1] text-shadow-v [letter-spacing:calc((.25dvw+.1rem)*-1)]">
         reuben<span className="[letter-spacing:calc((1dvw+.5rem)*-1)]"> </span>dubois
@@ -36,7 +37,7 @@ const Hero = (): JSX.Element => (
 
       <p className="text-light">some creative tagline trust me bro</p>
 
-      <div className="flex items-center flex-wrap w-full justify-center gap-12">
+      <div className="flex items-center flex-wrap w-full justify-center gap-x-12 gap-y-4">
         <Card colour="sky" className="shadow-v">
           UI/UX Designer
         </Card>
@@ -53,7 +54,7 @@ const Hero = (): JSX.Element => (
       src="/wireframeCodeGradient.svg"
       alt="App Wireframe & JSX Code fading from transparent to white"
       loading="eager"
-      className="w-dvw row-[-1] col-span-full self-end z-[2]"
+      className="min-w-dvw min-h-[40dvh] object-bottom object-cover row-[-1] col-span-full self-end z-[2]"
     />
 
     <div id="heroGradient" className="absolute w-full h-full top-0 left-0" />
@@ -75,7 +76,9 @@ const About = (): JSX.Element => {
         className="in-grid relative z-10 overflow-y-clip [grid-area:d]"
         colour="purple"
         ref={portalRef}>
-        <h2 className={`w-fit orbit [letter-spacing:.1rem] text-xl mt-1 pb-1 `}>Technical Stack</h2>
+        <h2 className={`w-fit orbit [letter-spacing:.1rem] text-xl text-center mt-1 pb-1 `}>
+          Technical Stack
+        </h2>
         <Skills portalRef={portalRef} />
       </Card>
 
@@ -102,6 +105,8 @@ const Background = (): JSX.Element => {
   useEffect(() => {
     if (bgText === "") return;
 
+    document.getElementById("backgroundInfo")?.scrollIntoView();
+
     const handleClick = (e: Event) => {
       const target = e.target;
 
@@ -121,8 +126,12 @@ const Background = (): JSX.Element => {
     <Grid layout="three-two" id="background" className="bg-pri">
       <TitleBlock text="My Background" alt="#" className="in-grid [grid-area:a]" />
 
-      <Card variant="long" colour="sky" className="in-grid [grid-area:b/b-start/b-end/c-end]">
-        {myBackground[bgText]?.text || "Click a card to read more about me!"}
+      <Card
+        variant="long"
+        colour="sky"
+        className="in-grid [grid-area:b/b-start/b-end/c-end]"
+        id="backgroundInfo">
+        <Markdown>{myBackground[bgText]?.text || "Click a card to read more about me!"}</Markdown>
       </Card>
 
       <BackgroundCard
@@ -163,7 +172,7 @@ const BackgroundCard = ({
   onClick: () => void;
 }) => (
   <Card
-    className={`w-4/5 transition-all cursor-pointer h-2/3 min-h-fit max-h-full [user-select:none] ${className} ${
+    className={`w-4/5 transition-all cursor-pointer h-2/3 min-h-fit max-h-full text-xl orbit flex flex-col items-center justify-center gap-4 max-w-full [user-select:none] ${className} ${
       bgText === index ? "scale-110" : ""
     }`}
     colour="blue"
@@ -188,8 +197,8 @@ const TitleBlock = ({
   alt: string;
   className?: string;
 }): JSX.Element => (
-  <header className={`flex flex-col items-center gap-4 min-h-fit max-h-4/5 ${className}`}>
-    <Card className="h-[calc(40%-0.5rem)] min-w-[7rem] w-full shadow-iii rounded-2xl flex items-center justify-center card yellow">
+  <header className={`flex flex-col items-center gap-4 min-h-fit max-h-9/10 ${className}`}>
+    <Card className="h-[calc(40%-0.5rem)] min-h-fit min-w-[7rem] w-full shadow-iii rounded-2xl flex items-center justify-center card yellow">
       <h1 className="orbit text-center [line-height:1] text-[2.5rem]">{text}</h1>
     </Card>
 

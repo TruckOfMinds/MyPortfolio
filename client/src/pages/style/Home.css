@@ -27,7 +27,7 @@
 }
 
 .title-font {
-  font-size: clamp(4rem, calc(8dvw + 1rem), 12rem);
+  font-size: clamp(7rem, calc(8dvw + 1rem), 12rem);
 }
 
 /* .view-button {

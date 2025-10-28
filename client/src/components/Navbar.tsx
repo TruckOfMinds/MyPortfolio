@@ -1,7 +1,7 @@
 import "./style/Navbar.css";
 
 import type { contextType } from "@/types";
-import { useContext, useState, type JSX, type KeyboardEvent } from "react";
+import { useContext, useState, type JSX, type KeyboardEvent, type ReactNode } from "react";
 import { Link, useMatch } from "react-router";
 import { ThemeContext } from "@/lib/context";
 import {
@@ -13,12 +13,21 @@ import {
   LightIcon,
   DarkIcon,
 } from "./icons";
+import { useMediaQuery } from "@/hooks/use-media-query";
+
+type NavLinkProps = {
+  className?: string;
+  to: string;
+  children: ReactNode;
+};
+const NavLink = ({ className, ...props }: NavLinkProps) => (
+  <Link {...props} className={`${useMatch(props.to) ? `active` : ``} ${className}`} />
+);
 
 export default function Navbar(): JSX.Element {
   const { theme, setTheme }: contextType = useContext(ThemeContext);
   const [expanded, setExpanded] = useState(false);
-
-  const usePath = (path: string): boolean => Boolean(useMatch(path));
+  const isDesktop = useMediaQuery("(min-width: 1000px)");
 
   const toggleTheme = () => {
     switch (theme) {
@@ -33,7 +42,7 @@ export default function Navbar(): JSX.Element {
     }
   };
 
-  return (
+  return isDesktop ? (
     <nav
       className={`navbar
         w-[6rem] h-dvh fixed left-0 top-0 text-light
@@ -47,30 +56,26 @@ export default function Navbar(): JSX.Element {
         tabIndex={0}
       />
 
-      <div className="nav-links h-3/5 flex flex-col items-center justify-between gap-1">
-        <Link to={"/"} className={`nav-link ${usePath("/") ? `active` : ``}`}>
+      <div className="nav-links w-full h-3/5 flex flex-col items-center justify-between gap-1">
+        <NavLink className="nav-link" to={"/"}>
           <HomeIcon />
           <p className={expanded ? `open` : `closed`}>Home</p>
-        </Link>
+        </NavLink>
 
-        <Link
-          to={"/code-projects"}
-          className={`nav-link ${usePath("/code-projects") ? `active` : ``}`}>
+        <NavLink className="nav-link" to={"/code-projects"}>
           <CodeIcon />
           <p className={expanded ? `open` : `closed`}>Dev Projects</p>
-        </Link>
+        </NavLink>
 
-        <Link
-          to={"/design-projects"}
-          className={`nav-link ${usePath("/design-projects") ? `active` : ``}`}>
+        <NavLink className="nav-link" to={"/design-projects"}>
           <DesignsIcon />
           <p className={expanded ? `open` : `closed`}>Design Projects</p>
-        </Link>
+        </NavLink>
 
-        <Link to={"/contact-me"} className={`nav-link ${usePath("/contact-me") ? `active` : ``}`}>
+        <NavLink className="nav-link" to={"/contact-me"}>
           <ContactIcon />
           <p className={expanded ? `open` : `closed`}>Contact Me</p>
-        </Link>
+        </NavLink>
       </div>
 
       <div
@@ -82,6 +87,41 @@ export default function Navbar(): JSX.Element {
 
         <p className={`text-xs mt-1 ${expanded ? `open` : `closed`}`}>Change Theme</p>
       </div>
+    </nav>
+  ) : (
+    <nav
+      className={`
+      w-dvw mobile-navbar 
+      fixed bottom-0 left-0 
+      flex items-center justify-evenly
+      bg-on-pri-f-var text-light
+      px-1 py-4 rounded-t-2xl z-50
+      `}>
+      <NavLink
+        to="/"
+        className="mobile-nav-link flex flex-col gap-2 items-center justify-center text-xs h-9/10"
+        children={[<HomeIcon />, <p>Home</p>]}
+      />
+      <NavLink
+        to="/code-projects"
+        className="mobile-nav-link flex flex-col gap-2 items-center justify-center text-xs h-9/10"
+        children={[<CodeIcon />, <p>Dev</p>]}
+      />
+      <div
+        onClick={toggleTheme}
+        onKeyUp={(e: KeyboardEvent<HTMLDivElement>) => e.key === "Enter" && toggleTheme()}
+        children={theme !== "dark" ? <DarkIcon /> : <LightIcon />}
+      />
+      <NavLink
+        to="/design-projects"
+        className="mobile-nav-link flex flex-col gap-2 items-center justify-center text-xs h-9/10"
+        children={[<DesignsIcon />, <p>Design</p>]}
+      />
+      <NavLink
+        to="/contact-me"
+        className="mobile-nav-link flex flex-col gap-2 items-center justify-center text-xs h-9/10"
+        children={[<ContactIcon />, <p>Contact</p>]}
+      />
     </nav>
   );
 }

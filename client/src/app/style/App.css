@@ -8,17 +8,17 @@
   background-color: var(--sys-theme);
   color: var(--inverse-sys-theme);
 
-  overflow-x: hidden;
+  overflow-x: hidden !important;
   scroll-behavior: smooth;
   scrollbar-color: var(--tertiary-container) var(--primary);
 
-  &,
+  /* &,
   * {
     transition-property: color, background-color, border-color, outline-color, text-decoration-color,
       fill, stroke, opacity;
     transition-timing-function: ease-in-out;
     transition-duration: 150ms;
-  }
+  } */
 
   #root *:focus-visible {
     outline: 4px solid #3fb1f3;
@@ -50,4 +50,10 @@ main {
   grid-area: a / a-start / d-start / d-end;
   align-self: center;
   justify-self: center;
+}
+
+@media screen and (width < 1000px) {
+  :root {
+    font-size: 14px;
+  }
 }
