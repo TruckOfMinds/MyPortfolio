@@ -12,14 +12,6 @@
   scroll-behavior: smooth;
   scrollbar-color: var(--tertiary-container) var(--primary);
 
-  /* &,
-  * {
-    transition-property: color, background-color, border-color, outline-color, text-decoration-color,
-      fill, stroke, opacity;
-    transition-timing-function: ease-in-out;
-    transition-duration: 150ms;
-  } */
-
   #root *:focus-visible {
     outline: 4px solid #3fb1f3;
     border-radius: calc(1rem - 4px);
@@ -46,14 +38,14 @@ main {
   scrollbar-width: thin;
 }
 
-.center.two-rows {
-  grid-area: a / a-start / d-start / d-end;
-  align-self: center;
-  justify-self: center;
-}
-
 @media screen and (width < 1000px) {
   :root {
     font-size: 14px;
+  }
+}
+
+@media screen and (width < 768px) {
+  :root {
+    font-size: 12px;
   }
 }

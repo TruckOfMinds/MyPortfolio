@@ -1,7 +1,7 @@
 import "./style/Home.css";
 
 import type { cardProps, Elem } from "@/types";
-import { useEffect, useRef, useState, type JSX } from "react";
+import { forwardRef, useEffect, useRef, useState, type JSX } from "react";
 import { myBackground } from "@/lib/data";
 
 import Card from "@/components/Card";
@@ -30,18 +30,18 @@ export default function HomePage(): JSX.Element {
 
 const Hero = (): JSX.Element => (
   <Grid layout="two-two" className="bg-dark hero" id="top">
-    <section className="w-4/5 min-w-fit max-w-full h-fit min-h-1/2 flex flex-col items-center justify-center gap-10 z-[3] absolute top-1/2 left-1/2 trans">
+    <section className="w-4/5 min-w-fit max-w-full h-fit min-h-1/2 flex flex-col items-center justify-between thou:justify-center gap-10 z-[3] absolute top-1/2 left-1/2 trans">
       <h1 className="orbit title-font text-light text-center [line-height:1] text-shadow-v [letter-spacing:calc((.25dvw+.1rem)*-1)]">
         reuben<span className="[letter-spacing:calc((1dvw+.5rem)*-1)]"> </span>dubois
       </h1>
 
       <p className="text-light">some creative tagline trust me bro</p>
 
-      <div className="flex items-center flex-wrap w-full justify-center gap-x-12 gap-y-4">
+      <div className="flex items-center flex-wrap max-mob:flex-col w-full justify-center gap-x-12 gap-y-8">
         <Card colour="sky" className="shadow-v">
           UI/UX Designer
         </Card>
-        <Card colour="yellow" className="px-5 py-4 shadow-v text-xl">
+        <Card colour="yellow" className="shadow-v">
           Software Engineer
         </Card>
         <Card colour="pink" className="shadow-v">
@@ -66,14 +66,12 @@ const About = (): JSX.Element => {
 
   return (
     <Grid layout="three-two" id="about" className="bg-sec z-20 home-shadow">
-      <TitleBlock text="Who Am I?" alt="#" className="in-grid [grid-area:a]" />
+      <TitleBlock text="Who Am I?" alt="#" className="w-[93%] mob:in-grid [grid-area:a]" />
 
-      <Card variant="long" className="in-grid [grid-area:b/b-start/b-end/c-end]" colour="pink">
-        foo bar
-      </Card>
+      <p className="outline-card text-ter-cont">foo bar</p>
 
       <Card
-        className="in-grid relative z-10 overflow-y-clip [grid-area:d]"
+        className="in-grid relative z-10 overflow-y-clip [grid-area:c] thou:[grid-area:d]"
         colour="purple"
         ref={portalRef}>
         <h2 className={`w-fit orbit [letter-spacing:.1rem] text-xl text-center mt-1 pb-1 `}>
@@ -83,7 +81,7 @@ const About = (): JSX.Element => {
       </Card>
 
       <Card
-        className="in-grid [grid-area:e/e-start/e-end/f-end] flex flex-col items-center justify-start"
+        className="in-grid flex flex-col items-center justify-start [grid-area:d/d-start/d-end/e-end] thou:[grid-area:e/e-start/e-end/f-end]"
         variant="long"
         colour="purple">
         <h2 className="text-start w-full orbit [letter-spacing:.1rem] text-xl mt-1 pb-3">
@@ -105,7 +103,7 @@ const Background = (): JSX.Element => {
   useEffect(() => {
     if (bgText === "") return;
 
-    document.getElementById("backgroundInfo")?.scrollIntoView();
+    document.getElementById("background")?.scrollIntoView({ block: "start" });
 
     const handleClick = (e: Event) => {
       const target = e.target;
@@ -124,66 +122,69 @@ const Background = (): JSX.Element => {
 
   return (
     <Grid layout="three-two" id="background" className="bg-pri">
-      <TitleBlock text="My Background" alt="#" className="in-grid [grid-area:a]" />
+      <TitleBlock
+        text="My Background"
+        alt="#"
+        className="w-[93%] [grid-area:a] center-title-block-text"
+      />
 
-      <Card
-        variant="long"
-        colour="sky"
-        className="in-grid [grid-area:b/b-start/b-end/c-end]"
+      <div
+        className={`outline-card ${
+          bgText === "" ? "" : "focused"
+        } text-ter-cont transition-all [grid-area:b] thou:[grid-area:b/b-start/b-end/c-end]`}
         id="backgroundInfo">
         <Markdown>{myBackground[bgText]?.text || "Click a card to read more about me!"}</Markdown>
-      </Card>
+      </div>
 
       <BackgroundCard
         ref={refOne}
         index={"one"}
         bgText={bgText}
         onClick={() => setBgText(bgText === "one" ? "" : "one")}
-        className="[grid-area:d]"
+        className="[grid-area:c] thou:[grid-area:d]"
       />
       <BackgroundCard
         ref={refTwo}
         index={"two"}
         bgText={bgText}
         onClick={() => setBgText(bgText === "two" ? "" : "two")}
-        className="[grid-area:e]"
+        className="[grid-area:d] thou:[grid-area:e]"
       />
       <BackgroundCard
         ref={refThree}
         index={"three"}
         bgText={bgText}
         onClick={() => setBgText(bgText === "three" ? "" : "three")}
-        className="[grid-area:f]"
+        className="[grid-area:e] thou:[grid-area:f]"
       />
     </Grid>
   );
 };
 
-const BackgroundCard = ({
-  ref,
-  className,
-  index,
-  bgText,
-  onClick,
-  ...props
-}: cardProps & {
+type backgroundCardProps = cardProps & {
   index: "one" | "two" | "three";
   bgText: string;
-  onClick: () => void;
-}) => (
-  <Card
-    className={`w-4/5 transition-all cursor-pointer h-2/3 min-h-fit max-h-full text-xl orbit flex flex-col items-center justify-center gap-4 max-w-full [user-select:none] ${className} ${
-      bgText === index ? "scale-110" : ""
-    }`}
-    colour="blue"
-    onClick={onClick}
-    ref={ref}
-    {...props}>
-    {myBackground[index].image && (
-      <img src={myBackground[index].image} alt="Image For a 'My Background' section" />
-    )}
-    <p>{myBackground[index].title}</p>
-  </Card>
+  onClick: (e: MouseEvent) => void;
+};
+const BackgroundCard = forwardRef<HTMLElement, backgroundCardProps>(
+  ({ className, index, bgText, ...props }, ref) => (
+    <Card
+      {...props}
+      className={`w-4/5 transition-all cursor-pointer h-2/3 min-h-fit max-h-full text-xl orbit flex flex-col items-center justify-center gap-4 max-w-full [user-select:none] ${className} ${
+        bgText === index ? "scale-105 brightness-125" : ""
+      }`}
+      colour="blue"
+      ref={ref}
+      onClick={e => {
+        e.stopPropagation();
+        props.onClick(e);
+      }}>
+      {myBackground[index].image && (
+        <img src={myBackground[index].image} alt="Image For a 'My Background' section" />
+      )}
+      <p>{myBackground[index].title}</p>
+    </Card>
+  )
 );
 
 const TitleBlock = ({
@@ -197,16 +198,17 @@ const TitleBlock = ({
   alt: string;
   className?: string;
 }): JSX.Element => (
-  <header className={`flex flex-col items-center gap-4 min-h-fit max-h-9/10 ${className}`}>
-    <Card className="h-[calc(40%-0.5rem)] min-h-fit min-w-[7rem] w-full shadow-iii rounded-2xl flex items-center justify-center card yellow">
-      <h1 className="orbit text-center [line-height:1] text-[2.5rem]">{text}</h1>
+  <header
+    className={`flex flex-col items-center gap-4 min-h-fit h-80 max-thou:mb-4 max-w-[90dvw] min-[1001px]:w-4/5 min-[1001px]:h-[88%] ${className}`}>
+    <Card className="h-[calc(40%-0.5rem)] min-h-fit min-w-[7rem] w-full shadow-i rounded-2xl flex items-center justify-center card yellow px-8">
+      <h1 className="orbit text-center [line-height:1] text-[calc(2dvw+1rem)]">{text}</h1>
     </Card>
 
     <img
       src={src}
       alt={alt}
       loading="lazy"
-      className="bg-ter h-[calc(60%-0.5rem)] min-w-[7rem] w-full rounded-2xl text-ter-cont shadow-iii flex items-center justify-center object-contain"
+      className="bg-ter h-[calc(60%-0.5rem)] min-w-[7rem] w-full rounded-2xl text-ter-cont shadow-i  flex items-center justify-center object-contain"
     />
   </header>
 );

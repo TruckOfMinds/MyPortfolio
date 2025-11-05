@@ -82,7 +82,7 @@ export const SearchAndSort = ({
     <Label htmlFor="search" className="flex flex-col items-start text-inv-sys">
       Search
       <Input
-        className="search-y-sort"
+        className="search-y-sort shadow-half"
         type="text"
         placeholder={`${isDev ? "e.g. JavaScript" : "Project name"}`}
         name="search"
@@ -103,7 +103,7 @@ export const SearchAndSort = ({
       <Tooltip delayDuration={500}>
         <TooltipTrigger type="button">
           <article
-            className={"search-y-sort " + shadcnToggle}
+            className={`search-y-sort shadow-half ${shadcnToggle}`}
             onClick={() => setUserInput({ ...userInput, desc: !userInput.desc })}>
             <SortOrderIcon
               className={`sort-icon transition-transform ${userInput.desc ? "rotate-90" : ""}`}

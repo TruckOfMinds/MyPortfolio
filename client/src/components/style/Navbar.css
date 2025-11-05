@@ -1,5 +1,5 @@
 .navbar {
-  transition: width 200ms ease-in-out;
+  transition: width 200ms var(--transition);
 }
 
 /* page icons */
@@ -36,13 +36,13 @@
   color: var(--on-primary);
 
   p {
-    transition: all 50ms ease-in-out;
+    transition: all 50ms var(--transition);
     text-align: center;
     max-height: 0.75rem;
     user-select: none;
 
     &.open {
-      transition: all 150ms ease-in-out 200ms;
+      transition: all 150ms var(--transition) 200ms;
     }
 
     &.closed {
@@ -57,7 +57,7 @@
 .nav-link,
 #themeChanger,
 .nav-toggle {
-  transition: scale 200ms ease-in-out, filter 150ms ease-in-out;
+  transition: scale 200ms var(--transition), filter 150ms var(--transition);
   .nav-icon,
   &.nav-icon {
     transition: inherit;
@@ -84,3 +84,19 @@
 /* .mobile-nav-link > svg {
   height: 60%;
 } */
+
+.nav-icon {
+  max-height: 2.5rem;
+  min-height: 2rem;
+  width: auto;
+}
+
+.dark {
+  .navbar,
+  .mobile-navbar {
+    border: 1px solid hsl(from white h s l / 8%);
+  }
+  .navbar {
+    border-width: 1px 1px 1px 0px;
+  }
+}

@@ -5,6 +5,7 @@ import { Link } from "react-router";
 
 import Grid from "./Grid";
 import Card from "./Card";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 
 /* In-File Components :
   - FooterCTA
@@ -17,10 +18,19 @@ export default function Footer() {
     <Grid id="footer" layout="row">
       <Card
         variant="in-grid full"
-        className="px-8 flex max-sm:flex-col items-center justify-evenly gap-x-[calc(25%/3)] gap-y-4 shadow-v [grid-area:a/a-start/a-end/c-end]">
-        <Logo className="w-1/4 cursor-pointer h-fit min-h-12" onClick={() => scroll({ top: 0 })} />
+        className="px-8 flex min-h-fit max-mob:flex-col items-center justify-evenly gap-x-12 gap-y-4 shadow-v [grid-area:a/a-start/a-end/c-end]">
+        <Tooltip delayDuration={500}>
+          <TooltipTrigger asChild>
+            <button className="w-4/5 sm:w-1/4 cursor-pointer h-fit min-h-12">
+              <Logo onClick={() => scroll({ top: 0 })} />
+            </button>
+          </TooltipTrigger>
+          <TooltipContent align="start" alignOffset={20}>
+            <p className="jb-mono">Scroll to Top</p>
+          </TooltipContent>
+        </Tooltip>
 
-        <div className="flex  sm:flex-col w-1/4 min-w-fit gap-4 justify-center">
+        <div className="flex flex-col sm:max-thou:flex-row w-4/5 sm:w-1/4 min-w-fit gap-4 justify-center">
           <FooterCTA to={`mailto:${email}`} newTab>
             <div className="flex flex-col items-center gap-1">
               <p>Contact me</p>
@@ -31,9 +41,18 @@ export default function Footer() {
           <FooterCTA to="/design-projects">View My Designs</FooterCTA>
         </div>
 
-        <p className="font-light text-sm text-ter-cont w-1/4">
-          {new Date().getFullYear()} RD Design & Development
-        </p>
+        <div
+          id="footerTexts"
+          className="flex items-start flex-col justify-center gap-2 w-4/5 sm:w-1/4">
+          <Link to="/cv.pdf" target="_blank">
+            <p tabIndex={-1} className="link underline active:brightness-110">
+              My CV
+            </p>
+          </Link>
+          <p className="max-mob:text-center max-mob:w-max">
+            {new Date().getFullYear()} RD Design & Development
+          </p>
+        </div>
       </Card>
     </Grid>
   );
@@ -49,7 +68,7 @@ const FooterCTA = ({
   newTab?: boolean;
 }): JSX.Element => (
   <Link to={to} target={newTab ? "_blank" : undefined} tabIndex={-1}>
-    <button className="min-w-fit w-full max-sm:h-full min-h-fit px-2 py-2 cursor-pointer shadow-i border-2 border-ter-cont text-ter-cont text-center rounded-lg transition-colors bg-transparent footer-button active:brightness-150">
+    <button className="min-w-fit w-full max-thou:h-full min-h-fit px-2 py-2 cursor-pointer shadow-i border-2 border-ter-cont text-ter-cont text-center rounded-lg transition-colors bg-transparent footer-button active:brightness-150">
       {children}
     </button>
   </Link>

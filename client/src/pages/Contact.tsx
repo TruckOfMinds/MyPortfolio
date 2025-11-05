@@ -37,6 +37,7 @@ const Contacts = () => (
     className="w-[93%] min-h-4/5 flex flex-wrap items-center justify-center [grid-area:contacts]">
     {contactsData.map(c => (
       <Link
+        key={c.id}
         to={c.link}
         className="rounded-2xl px-8 py-6 text-xl flex items-center gap-4 shadow-ii"
         style={{ backgroundColor: c.hex.bg, color: c.hex.txt }}>

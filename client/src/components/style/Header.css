@@ -11,7 +11,7 @@
 .search-y-sort {
   background-color: var(--bg);
   color: var(--text);
-  transition: filter 150ms ease-in-out, scale, 300ms ease-in-out;
+  transition: filter 150ms var(--transition), scale, 150ms var(--transition);
 
   &::placeholder {
     color: hsl(from var(--text) h s l / 75%);
@@ -19,7 +19,7 @@
 
   &:hover {
     scale: 1.1;
-    filter: brightness(104%);
+    /* filter: brightness(104%); */
   }
   &:active {
     scale: 0.95;

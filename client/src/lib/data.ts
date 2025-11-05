@@ -22,17 +22,17 @@ const myBackground: { [k: string]: { text: string; title: string; image: string 
   one: {
     title: "Tech Educators",
     image: "",
-    text: "***Mar 2025 - Jul 2025*** —",
+    text: "_Mar 2025 - Jul 2025 —_",
   },
   two: {
     title: "Access Norwich",
     image: "",
-    text: "***Sep 2023 - Jul 2025*** —",
+    text: "_Sep 2023 - Jul 2025 —_",
   },
   three: {
     title: "High School",
     image: "",
-    text: "***Sep 2018 - Jul 2023*** —",
+    text: "_Sep 2018 - Jul 2023 —_",
   },
 };
 

@@ -62,7 +62,7 @@ export default function TopProjects(): JSX.Element {
 
   return (
     <div
-      className={`flex flex-flex-wrap-reverse items-center justify-center gap-1 w-full h-5/6 ${
+      className={`flex max-thou:flex-col items-center justify-center gap-1 w-full h-5/6 ${
         isFetching ? "opacity-75" : ""
       }`}>
       <Carousel
@@ -158,23 +158,13 @@ const ViewProject = ({
   isCode: boolean;
   owner: string;
 }): JSX.Element => {
-  const disabled = name === "project_name" || !name;
-  // return (
-  //   <Button
-  //     className="cursor-not-allowed w-full min-w-40 h-10 opacity-50 bg-on-sec-f text-sec-cont transition-all hover:bg-on-sec-f"
-  //     aria-disabled={true}
-  //     tabIndex={-1}
-  //   >
-  //     <i>View Project</i>
-  //   </Button>
-  // );
-
+  const disabled = name === "project_name";
   return (
     <Link
-      to={`${isCode ? `code-projects/${owner}` : "design-projects"}/${name}`}
+      to={!disabled ? `${isCode ? `code-projects/${owner}` : "design-projects"}/${name}` : ""}
       inert={disabled}
       aria-disabled={disabled}
-      className="w-4/5">
+      className="w-4/5 min-w-max">
       <Button
         className={`view-button jb-mono w-full cursor-pointer text-lg py-6 transition-all hover:bg-ter hover:scale-110 hover:brightness-110 active:brightness-75 active:scale-90 ${
           disabled ? " cursor-not-allowed" : null

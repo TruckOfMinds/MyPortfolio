@@ -198,7 +198,7 @@ const Links = ({ links }: { links: (string | null)[][] }): JSX.Element => {
       className="w-1/4 min-w-fit h-16 min-h-fit flex items-center justify-evenly gap-2 mr-12">
       {links.map(l =>
         l[0] && l[1] ? (
-          <Link to={l[0]} target="_blank" className="cursor-pointer">
+          <Link key={l[1]} to={l[0]} target="_blank" className="cursor-pointer">
             {getIconFromLabel(l[1])}
             <p>{l[1]}</p>
           </Link>

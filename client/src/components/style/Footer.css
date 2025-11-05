@@ -4,25 +4,29 @@
   path {
     transition: inherit;
   }
-  &:hover {
-    path {
-      fill: var(--primary-container) !important;
-    }
+  &:hover path {
+    fill: hsl(from var(--hover) h s calc(l + 12) / 50%) !important;
   }
-  &:active {
-    path {
-      filter: brightness(60%);
-    }
+  &:active path {
+    filter: brightness(60%);
   }
 }
 
 #footer > article {
   background-color: var(--primary);
+  --hover: hsl(from var(--primary-container) h s l / 25%);
 }
 
 .footer-button:hover {
-  background-color: hsl(from var(--primary) h s calc(l + 12));
+  background-color: var(--hover);
 }
-.dark .footer-button:hover {
-  background-color: hsl(from var(--primary) h s calc(l - 12));
+
+#footerTexts p {
+  font-weight: 300;
+  font-size: 0.875rem;
+  color: var(--tertiary-container);
+
+  &.link:hover {
+    color: hsl(from var(--hover) h s calc(l + 12) / 50%);
+  }
 }
