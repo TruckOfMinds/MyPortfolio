@@ -2,7 +2,7 @@ import "./style/Tailwind.css";
 import "./style/App.css";
 
 import type { themeType } from "@/types";
-import { Suspense, useEffect, useState, type JSX } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallback, PageLoading, NotFound } from "@/components/fallbacks";
@@ -18,7 +18,7 @@ import Footer from "@/components/Footer";
 import { ThemeContext } from "@/lib/context";
 import { getTheme } from "@/lib/data";
 
-export default function App(): JSX.Element {
+export default function App() {
   const [theme, setTheme] = useState<themeType>(getTheme);
   const { pathname } = useLocation();
 
@@ -36,6 +36,7 @@ export default function App(): JSX.Element {
   return (
     <ThemeContext value={{ theme, setTheme }}>
       <Suspense fallback={<PageLoading />}>
+        <Dev />
         <Navbar />
         <ErrorBoundary children={<Content />} FallbackComponent={ErrorFallback} key={pathname} />
         <Footer />
@@ -43,6 +44,58 @@ export default function App(): JSX.Element {
     </ThemeContext>
   );
 }
+
+const Dev = () => {
+  const [hide, setHide] = useState(false);
+  const [showX, setShowX] = useState(false);
+
+  if (hide) return;
+
+  return (
+    <div
+      className="fixed top-4 right-4 shadow-iv px-4 py-2 flex items-center gap-2 text-sm text-light bg-pri  rounded-lg h-fit w-fit z-50"
+      onMouseEnter={() => setShowX(true)}
+      onMouseLeave={() => setShowX(false)}>
+      <svg viewBox="0 0 30 30" height="24" width="24" fill="none">
+        <circle r="12" cx="15" cy="15" style={{ stroke: "var(--light)", strokeWidth: "2" }} />
+        <line
+          x1="15"
+          x2="15"
+          y1="8"
+          y2="16"
+          stroke="var(--light)"
+          strokeLinecap="round"
+          strokeWidth="2"
+        />
+        <circle r=".5" cx="15" cy="21" style={{ stroke: "var(--light)", strokeWidth: "2" }} />
+      </svg>
+      <p className="h-4 mb-0.5">Under Development</p>
+      {showX && (
+        <svg
+          viewBox="0 0 12 12"
+          height={12}
+          width={12}
+          onClick={() => setHide(true)}
+          className="cursor-pointer">
+          <line
+            x2={12}
+            y2={12}
+            stroke="var(--tertiary-container)"
+            strokeLinecap="round"
+            strokeWidth="2"
+          />
+          <line
+            x1={12}
+            y2={12}
+            stroke="var(--tertiary-container)"
+            strokeLinecap="round"
+            strokeWidth="2"
+          />
+        </svg>
+      )}
+    </div>
+  );
+};
 
 const Content = () => (
   <Routes>

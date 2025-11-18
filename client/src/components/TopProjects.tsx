@@ -1,6 +1,6 @@
 import type { topCarouselProps, topProps } from "@/types";
 import { type CarouselApi } from "@/components/ui/carousel";
-import { useEffect, useState, type JSX } from "react";
+import { useEffect, useState } from "react";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import { Button } from "./ui/button";
 import { useQuery } from "@tanstack/react-query";
@@ -8,15 +8,7 @@ import { fetchTopProjects } from "@/utils/serverPortal";
 import { Link } from "react-router";
 import { Error, Loading } from "./fallbacks";
 
-/* In-File Components :
-  - Items
-  - CarouselImage
-  - ViewProject
-  - ScrollMarker
-  - DisabledScrollMarker
-*/
-
-export default function TopProjects(): JSX.Element {
+export default function TopProjects() {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [project, setProject] = useState({ name: "project_name", owner: "na", isCode: false });
@@ -68,7 +60,7 @@ export default function TopProjects(): JSX.Element {
       <Carousel
         setApi={setApi}
         opts={{ loop: true }}
-        className="flex flex-col items-center justify-between gap-4 h-full w-[60%] pt-4">
+        className="flex flex-col items-center justify-center gap-4 h-full w-[60%] pt-4">
         <CarouselContent className="w-fit h-full snap" ParentClassName="w-full rounded-2xl">
           <Items data={data} />
         </CarouselContent>
@@ -100,7 +92,7 @@ export default function TopProjects(): JSX.Element {
 
 //* —————————————————————————————————————————————————————————————————————————————————————
 
-const Items = ({ data }: { data: topProps[] }): JSX.Element => {
+const Items = ({ data }: { data: topProps[] }) => {
   if (!data) return <></>;
 
   if (data.length === 0) {
@@ -136,7 +128,7 @@ const CarouselImage = ({
   dataName = "project_name",
   isCode,
   dataOwner,
-}: topCarouselProps): JSX.Element => (
+}: topCarouselProps) => (
   <img
     src={src}
     alt={"Showcase of " + alt}
@@ -149,15 +141,7 @@ const CarouselImage = ({
 
 //* —————————————————————————————————————————————————————————————————————————————————————
 
-const ViewProject = ({
-  name,
-  isCode,
-  owner,
-}: {
-  name: string;
-  isCode: boolean;
-  owner: string;
-}): JSX.Element => {
+const ViewProject = ({ name, isCode, owner }: { name: string; isCode: boolean; owner: string }) => {
   const disabled = name === "project_name";
   return (
     <Link
@@ -187,7 +171,7 @@ export const ScrollMarker = ({
   index: number;
   api: CarouselApi;
   colour: string;
-}): JSX.Element => (
+}) => (
   <svg
     width="8"
     height="8"

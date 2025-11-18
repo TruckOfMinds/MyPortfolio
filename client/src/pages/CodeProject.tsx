@@ -1,7 +1,7 @@
 import "./style/Project.css";
 
 import type { codeProjectProps } from "@/types";
-import { useContext, type JSX } from "react";
+import { useContext } from "react";
 import { Link, useParams } from "react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { fetchCodeProject } from "@/utils/serverPortal";
@@ -25,12 +25,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { ThemeContext } from "@/lib/context";
 
-/* In-File Components =>
-  - Content
-  - Links
-*/
-
-export default function CodeProjectPage(): JSX.Element {
+export default function CodeProjectPage() {
   const { owner, project } = useParams();
 
   const { isRefetching, data } = useSuspenseQuery({
@@ -180,7 +175,7 @@ const Content = ({
 
 //* —————————————————————————————————————————————————————————————————————————————————————
 
-const Links = ({ links }: { links: (string | null)[][] }): JSX.Element => {
+const Links = ({ links }: { links: (string | null)[][] }) => {
   const getIconFromLabel = (label: string) => {
     switch (label.toLowerCase()) {
       case "project":

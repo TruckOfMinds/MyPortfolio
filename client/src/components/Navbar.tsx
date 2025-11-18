@@ -1,7 +1,7 @@
 import "./style/Navbar.css";
 
 import type { contextType } from "@/types";
-import { useContext, useState, type JSX, type KeyboardEvent, type ReactNode } from "react";
+import { useContext, useState, type KeyboardEvent, type ReactNode } from "react";
 import { Link, useMatch } from "react-router";
 import { ThemeContext } from "@/lib/context";
 import {
@@ -21,10 +21,10 @@ type NavLinkProps = {
   children: ReactNode;
 };
 const NavLink = ({ className, ...props }: NavLinkProps) => (
-  <Link {...props} className={`${useMatch(props.to) ? `active` : ``} ${className}`} />
+  <Link {...props} className={`${useMatch(props.to) && `active`} ${className}`} />
 );
 
-export default function Navbar(): JSX.Element {
+export default function Navbar() {
   const { theme, setTheme }: contextType = useContext(ThemeContext);
   const [expanded, setExpanded] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 1000px)");
@@ -45,10 +45,10 @@ export default function Navbar(): JSX.Element {
   return isDesktop ? (
     <nav
       className={`navbar
-        w-[6rem] h-dvh fixed left-0 top-0 text-light
+        w-24 h-dvh fixed left-0 top-0 text-light
         flex flex-col items-center justify-evenly z-10
         rounded-r-2xl bg-on-pri-f-var pl-3 pr-3 shadow-v
-        ${expanded ? `w-[10rem]` : ``}`}>
+        ${expanded && `w-40`}`}>
       <Chevron
         onClick={() => setExpanded(!expanded)}
         onKeyUp={(e: KeyboardEvent<SVGSVGElement>) => e.key === "Enter" && setExpanded(!expanded)}

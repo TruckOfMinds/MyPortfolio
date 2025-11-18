@@ -4,15 +4,6 @@ import { Button } from "./ui/button";
 
 import Grid from "./Grid";
 
-/* In-File Components =>
-  - ErrorFallback
-  - NotFound
-  - PageLoading
-  - ErrorPage
-  - Loading
-  - Error
-*/
-
 function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
   return (
     <div className="flex flex-col items-center gap-4 justify-between">

@@ -12,10 +12,6 @@ import {
   CommandList,
 } from "@/components/ui/command";
 
-/* In-File Components :
-  - StatusList (not exported)
-*/
-
 const statuses: Status[] = [
   {
     value: "date",

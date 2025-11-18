@@ -11,11 +11,6 @@ import Header, { SearchAndSort } from "@/components/Header";
 
 import Grid from "@/components/Grid";
 
-/* In-File Components =>
-  - Projects
-  - isInSearch
-*/
-
 export default function CodePage() {
   const [userInput, setUserInput] = useState<userInputProps>({
     search: "",
@@ -79,7 +74,12 @@ const Projects = ({ className, userInput }: { className?: string; userInput: use
     .filter(isInSearch)
     .sort((a, b) => sortMethod(a, b, userInput))
     .map(d => (
-      <CodeCard key={d.id} colour={getCardColour(d.id)} className="h-48 card-width" {...d} />
+      <CodeCard
+        key={String(d.id)}
+        colour={getCardColour(d.id)}
+        className="h-48 card-width"
+        {...d}
+      />
     ));
 
   return (

@@ -1,6 +1,6 @@
 import "./style/Header.css";
 
-import type { ChangeEvent, JSX, ReactNode } from "react";
+import type { ChangeEvent, ReactNode } from "react";
 import type { setUserInputProps, userInputProps } from "@/types";
 
 import { Label } from "./ui/label";
@@ -10,11 +10,6 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import { shadcnToggle } from "@/lib/data";
 
 import Sort from "./Sort";
-
-/* In-File Components :
-  - TitleSection
-  - SearchAndSort
-*/
 
 export default function Header({
   className,
@@ -46,10 +41,8 @@ const TitleSection = ({
   isDev?: boolean;
   isDesign?: boolean;
   text: string;
-}): JSX.Element => {
-  const Title = ({ text }: { text: string }): JSX.Element => (
-    <h1 className="orbit text-5xl mb-3">{text}</h1>
-  );
+}) => {
+  const Title = ({ text }: { text: string }) => <h1 className="orbit text-5xl mb-3">{text}</h1>;
 
   return (
     <section className="project-title flex items-center gap-4">
@@ -75,7 +68,7 @@ export const SearchAndSort = ({
   isDev?: boolean;
   userInput: userInputProps;
   setUserInput: setUserInputProps;
-}): JSX.Element => (
+}) => (
   <form
     onSubmit={e => e.preventDefault()}
     className={`max-w-full flex items-center gap-4 mr-12 ${isDev ? "dev" : "design"}`}>

@@ -3,7 +3,7 @@ import "./style/Project.css";
 import type { designProjectProps } from "@/types";
 import { fetchDesignProject } from "@/utils/serverPortal";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { useEffect, useState, type JSX } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { DisabledScrollMarker, ScrollMarker } from "@/components/TopProjects";
 
@@ -26,7 +26,7 @@ import remarkGfm from "remark-gfm";
   - Content
 */
 
-export default function DesignProjectPage(): JSX.Element {
+export default function DesignProjectPage() {
   const { project } = useParams();
 
   const { isRefetching, data } = useSuspenseQuery({

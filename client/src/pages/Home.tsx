@@ -1,8 +1,16 @@
 import "./style/Home.css";
 
 import type { cardProps, Elem } from "@/types";
-import { forwardRef, useEffect, useRef, useState, type JSX } from "react";
-import { myBackground } from "@/lib/data";
+import {
+  forwardRef,
+  useEffect,
+  useRef,
+  useState,
+  type Dispatch,
+  type RefObject,
+  type SetStateAction,
+} from "react";
+import { aboutMeText, myBackground } from "@/lib/data";
 
 import Card from "@/components/Card";
 import Grid from "@/components/Grid";
@@ -10,15 +18,7 @@ import TopProjects from "@/components/TopProjects";
 import Skills from "@/components/Skills";
 import Markdown from "react-markdown";
 
-/* In-File Components =>
-  - Hero
-  - About
-  - Background
-  - BackgroundCard
-  - TitleBlock
-*/
-
-export default function HomePage(): JSX.Element {
+export default function HomePage() {
   return (
     <main>
       <Hero />
@@ -28,14 +28,14 @@ export default function HomePage(): JSX.Element {
   );
 }
 
-const Hero = (): JSX.Element => (
+const Hero = () => (
   <Grid layout="two-two" className="bg-dark hero" id="top">
-    <section className="w-4/5 min-w-fit max-w-full h-fit min-h-1/2 flex flex-col items-center justify-between thou:justify-center gap-10 z-[3] absolute top-1/2 left-1/2 trans">
+    <section className="w-4/5 min-w-fit max-w-full h-fit min-h-1/2 flex flex-col items-center justify-center thou:justify-center gap-24 z-[3] absolute top-1/2 left-1/2 trans">
       <h1 className="orbit title-font text-light text-center [line-height:1] text-shadow-v [letter-spacing:calc((.25dvw+.1rem)*-1)]">
         reuben<span className="[letter-spacing:calc((1dvw+.5rem)*-1)]"> </span>dubois
       </h1>
 
-      <p className="text-light">some creative tagline trust me bro</p>
+      {/* <p className="text-light">some creative tagline trust me bro</p> */}
 
       <div className="flex items-center flex-wrap max-mob:flex-col w-full justify-center gap-x-12 gap-y-8">
         <Card colour="sky" className="shadow-v">
@@ -61,14 +61,16 @@ const Hero = (): JSX.Element => (
   </Grid>
 );
 
-const About = (): JSX.Element => {
+const About = () => {
   const portalRef = useRef<Elem>(null);
 
   return (
     <Grid layout="three-two" id="about" className="bg-sec z-20 home-shadow">
       <TitleBlock text="Who Am I?" alt="#" className="w-[93%] mob:in-grid [grid-area:a]" />
 
-      <p className="outline-card text-ter-cont">foo bar</p>
+      <p className="text-ter-cont [grid-area:b] thou:[grid-area:b/b-start/b-end/c-end] w-4/5 self-start thou:self-center">
+        {aboutMeText}
+      </p>
 
       <Card
         className="in-grid relative z-10 overflow-y-clip [grid-area:c] thou:[grid-area:d]"
@@ -94,29 +96,33 @@ const About = (): JSX.Element => {
   );
 };
 
-const Background = (): JSX.Element => {
-  const [bgText, setBgText] = useState("");
-  const refOne = useRef<HTMLElement | null>(null);
-  const refTwo = useRef<HTMLElement | null>(null);
-  const refThree = useRef<HTMLElement | null>(null);
+const Background = () => {
+  const [bgText, setBgText] = useState<number | null>(null);
+
+  type bgRef = HTMLElement | null;
+  const refOne = useRef<bgRef>(null);
+  const refTwo = useRef<bgRef>(null);
+  const refThree = useRef<bgRef>(null);
+
+  const backgroundCardData: { ref: RefObject<bgRef>; className: string }[] = [
+    { ref: refOne, className: "[grid-area:c] thou:[grid-area:d]" },
+    { ref: refTwo, className: "[grid-area:d] thou:[grid-area:e]" },
+    { ref: refThree, className: "[grid-area:e] thou:[grid-area:f]" },
+  ];
 
   useEffect(() => {
-    if (bgText === "") return;
-
+    if (!bgText) return;
     document.getElementById("background")?.scrollIntoView({ block: "start" });
 
     const handleClick = (e: Event) => {
       const target = e.target;
-
       const refs = [refOne.current, refTwo.current, refThree.current];
 
       if (refs.includes(target as HTMLElement)) return;
-
-      setBgText("");
+      setBgText(null);
     };
 
     window.addEventListener("click", handleClick);
-
     return () => window.removeEventListener("click", handleClick);
   }, [bgText]);
 
@@ -129,56 +135,49 @@ const Background = (): JSX.Element => {
       />
 
       <div
-        className={`outline-card ${
-          bgText === "" ? "" : "focused"
-        } text-ter-cont transition-all [grid-area:b] thou:[grid-area:b/b-start/b-end/c-end]`}
+        className={`${
+          bgText ? "focused" : "text-center"
+        } text-ter-cont transition-all [grid-area:b] thou:[grid-area:b/b-start/b-end/c-end] w-4/5 self-start thou:self-center`}
         id="backgroundInfo">
-        <Markdown>{myBackground[bgText]?.text || "Click a card to read more about me!"}</Markdown>
+        <Markdown
+          components={{
+            code: ({ className, ...rest }) => (
+              <code {...rest} className={`p-1 bg-light/16 rounded-sm text-white ${className}`} />
+            ),
+          }}>
+          {bgText
+            ? myBackground[bgText]?.text || "No text found"
+            : "Click a card to read more about me!"}
+        </Markdown>
       </div>
 
-      <BackgroundCard
-        ref={refOne}
-        index={"one"}
-        bgText={bgText}
-        onClick={() => setBgText(bgText === "one" ? "" : "one")}
-        className="[grid-area:c] thou:[grid-area:d]"
-      />
-      <BackgroundCard
-        ref={refTwo}
-        index={"two"}
-        bgText={bgText}
-        onClick={() => setBgText(bgText === "two" ? "" : "two")}
-        className="[grid-area:d] thou:[grid-area:e]"
-      />
-      <BackgroundCard
-        ref={refThree}
-        index={"three"}
-        bgText={bgText}
-        onClick={() => setBgText(bgText === "three" ? "" : "three")}
-        className="[grid-area:e] thou:[grid-area:f]"
-      />
+      {backgroundCardData.map((d, index) => (
+        <BackgroundCard {...{ index, bgText, setBgText, ...d }} />
+      ))}
     </Grid>
   );
 };
 
 type backgroundCardProps = cardProps & {
-  index: "one" | "two" | "three";
-  bgText: string;
-  onClick: (e: MouseEvent) => void;
+  index: number;
+  bgText: number | null;
+  setBgText: Dispatch<SetStateAction<number | null>>;
 };
 const BackgroundCard = forwardRef<HTMLElement, backgroundCardProps>(
-  ({ className, index, bgText, ...props }, ref) => (
+  ({ className, index, bgText, setBgText, ...props }, ref) => (
     <Card
       {...props}
-      className={`w-4/5 transition-all cursor-pointer h-2/3 min-h-fit max-h-full text-xl orbit flex flex-col items-center justify-center gap-4 max-w-full [user-select:none] ${className} ${
-        bgText === index ? "scale-105 brightness-125" : ""
-      }`}
-      colour="blue"
-      ref={ref}
       onClick={e => {
         e.stopPropagation();
-        props.onClick(e);
-      }}>
+        setBgText(!(bgText === index) ? index : null);
+      }}
+      className={`w-4/5 transition-all cursor-pointer h-2/3 min-h-fit 
+        max-h-full text-xl orbit flex flex-col items-center justify-center 
+        gap-4 max-w-full [user-select:none] ${className} ${
+        bgText === index && "scale-105 brightness-125"
+      }`}
+      colour="blue"
+      ref={ref}>
       {myBackground[index].image && (
         <img src={myBackground[index].image} alt="Image For a 'My Background' section" />
       )}
@@ -197,7 +196,7 @@ const TitleBlock = ({
   src?: string;
   alt: string;
   className?: string;
-}): JSX.Element => (
+}) => (
   <header
     className={`flex flex-col items-center gap-4 min-h-fit h-80 max-thou:mb-4 max-w-[90dvw] min-[1001px]:w-4/5 min-[1001px]:h-[88%] ${className}`}>
     <Card className="h-[calc(40%-0.5rem)] min-h-fit min-w-[7rem] w-full shadow-i rounded-2xl flex items-center justify-center card yellow px-8">

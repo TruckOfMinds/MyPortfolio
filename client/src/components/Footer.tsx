@@ -1,15 +1,11 @@
 import "./style/Footer.css";
 
-import { type JSX, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import { Link } from "react-router";
 
 import Grid from "./Grid";
 import Card from "./Card";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
-
-/* In-File Components :
-  - FooterCTA
-*/
 
 export default function Footer() {
   const email: string = import.meta.env.VITE_EMAIL;
@@ -21,7 +17,7 @@ export default function Footer() {
         className="px-8 flex min-h-fit max-mob:flex-col items-center justify-evenly gap-x-12 gap-y-4 shadow-v [grid-area:a/a-start/a-end/c-end]">
         <Tooltip delayDuration={500}>
           <TooltipTrigger asChild>
-            <button className="w-4/5 sm:w-1/4 cursor-pointer h-fit min-h-12">
+            <button className="w-4/5 sm:w-1/4 cursor-pointer object-scale-down">
               <Logo onClick={() => scroll({ top: 0 })} />
             </button>
           </TooltipTrigger>
@@ -66,7 +62,7 @@ const FooterCTA = ({
   children: ReactNode;
   to: string;
   newTab?: boolean;
-}): JSX.Element => (
+}) => (
   <Link to={to} target={newTab ? "_blank" : undefined} tabIndex={-1}>
     <button className="min-w-fit w-full max-thou:h-full min-h-fit px-2 py-2 cursor-pointer shadow-i border-2 border-ter-cont text-ter-cont text-center rounded-lg transition-colors bg-transparent footer-button active:brightness-150">
       {children}
@@ -74,20 +70,14 @@ const FooterCTA = ({
   </Link>
 );
 
-const Logo = ({
-  className,
-  onClick,
-}: {
-  className?: string;
-  onClick?: () => void;
-}): JSX.Element => (
+const Logo = ({ className, onClick }: { className?: string; onClick?: () => void }) => (
   <svg
     width="327"
     height="132"
     viewBox="0 0 436 176"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className={`logo ${className}`}
+    className={`logo ${className} w-full h-auto`}
     onClick={onClick}>
     <path
       d="M193.331 44.9181C193.331 44.1195 193.331 43.7203 193.316 43.383C192.965 35.0067 186.243 28.3026 177.866 27.9732C177.529 27.9599 177.13 27.961 176.331 27.9631L71.8502 28.2379C64.0492 28.2584 60.1487 28.2686 56.9962 29.7007C54.2174 30.9629 51.8548 32.9891 50.1838 35.543C48.2879 38.4405 47.6833 42.2938 46.474 50.0005L29.5942 157.573C28.4579 164.815 22.2189 170.151 14.8888 170.151C5.73172 170.151 -1.25405 161.962 0.189551 152.919L21.1388 21.695C22.3686 13.9918 22.9835 10.1402 24.887 7.24784C26.5648 4.69847 28.9327 2.67858 31.7147 1.42371C34.8709 0 38.7713 0 46.5721 0H196.371C206.756 0 211.949 0 215.657 2.115C218.911 3.97123 221.415 6.90425 222.739 10.4087C224.248 14.4018 223.435 19.5306 221.808 29.7881L218.409 51.2318C217.437 57.3607 212.153 61.8731 205.947 61.8731C198.979 61.8731 193.331 56.2244 193.331 49.2563V44.9181Z"

@@ -1,7 +1,6 @@
 import "./style/Contact.css";
 
 import { contactsData } from "@/lib/data";
-
 import { Link } from "react-router";
 
 import Grid from "@/components/Grid";

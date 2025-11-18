@@ -2,20 +2,9 @@ import "./style/Card.css";
 
 import type { cardProps, codeCardProps, designCardProps } from "@/types";
 import { Link } from "react-router";
-import { memo, useState, type HtmlHTMLAttributes, type JSX } from "react";
+import { memo, useState } from "react";
 
-/* In-File Components =>
-  - StatusTag
-  - CodeCard
-  - DesignCard
-*/
-
-export default function Card({
-  variant,
-  colour,
-  className,
-  ...props
-}: cardProps & HtmlHTMLAttributes<HTMLDivElement>): JSX.Element {
+export default function Card({ variant, colour, className, ...props }: cardProps) {
   return (
     <article
       className={[
@@ -50,7 +39,7 @@ const StatusTag = ({ status }: { status: string }) => {
 //* —————————————————————————————————————————————————————————————————————————————————————
 
 export const CodeCard = memo(
-  ({ name, logo, tags, date, owner, ...props }: codeCardProps & cardProps): JSX.Element => {
+  ({ name, logo, tags, date, owner, ...props }: codeCardProps & Omit<cardProps, "id">) => {
     return (
       <Link
         to={encodeURI(`/code-projects/${owner}/${name}`)}
@@ -91,7 +80,7 @@ export const CodeCard = memo(
 //* —————————————————————————————————————————————————————————————————————————————————————
 
 export const DesignCard = memo(
-  ({ name, className, logo, date, id, ...props }: designCardProps & cardProps) => {
+  ({ name, className, logo, date, id, ...props }: designCardProps & Omit<cardProps, "id">) => {
     return (
       <Link to={`/design-projects/${name}`} className="design-card">
         <Card {...props} className={`card-grid design py-4 ${className}`} id={`${id}`}>

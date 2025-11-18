@@ -30,10 +30,6 @@
   font-size: clamp(7rem, calc(8dvw + 1rem), 12rem);
 }
 
-/* .view-button {
-  background-color: var(--tertiary-container);
-  color: var(--on-tertiary-container);
-} */
 .view-button {
   background-color: var(--secondary-container);
   color: var(--on-secondary-container);
