@@ -2,23 +2,23 @@ import type { SVGProps } from "react";
 
 import "./style/NavIcons.css";
 
-/* In-File Components :
-  - Chevron
-  - HomeIcon
-  - CodeIcon
-  - DesignIcon
-  - ContactIcon
-  - LightIcon
-  - DarkIcon
-  - SortOrderIcon
-  - ProjectIcon
-  - GitHubIcon
-  - ExtraResourceIcon
-*/
+export {
+  Chevron,
+  HomeIcon,
+  CodeIcon,
+  DesignsIcon,
+  ContactIcon,
+  LightIcon,
+  DarkIcon,
+  SortOrderIcon,
+  ProjectIcon,
+  GitHubIcon,
+  ExtraResourceIcon,
+};
 
 // Navbar.tsx
 
-export const Chevron = ({
+const Chevron = ({
   onClick,
   className,
   ...props
@@ -40,7 +40,7 @@ export const Chevron = ({
   </svg>
 );
 
-export const HomeIcon = () => (
+const HomeIcon = () => (
   <svg
     width="74"
     height="74"
@@ -56,7 +56,7 @@ export const HomeIcon = () => (
   </svg>
 );
 
-export const CodeIcon = () => (
+const CodeIcon = () => (
   <svg
     width="74"
     height="74"
@@ -72,7 +72,7 @@ export const CodeIcon = () => (
   </svg>
 );
 
-export const DesignsIcon = () => (
+const DesignsIcon = () => (
   <svg
     width="74"
     height="74"
@@ -88,7 +88,7 @@ export const DesignsIcon = () => (
   </svg>
 );
 
-export const ContactIcon = () => (
+const ContactIcon = () => (
   <svg
     width="74"
     height="74"
@@ -104,7 +104,7 @@ export const ContactIcon = () => (
   </svg>
 );
 
-export const LightIcon = () => (
+const LightIcon = () => (
   <svg
     width="37"
     height="37"
@@ -120,7 +120,7 @@ export const LightIcon = () => (
   </svg>
 );
 
-export const DarkIcon = () => (
+const DarkIcon = () => (
   <svg
     width="37"
     height="37"
@@ -138,7 +138,7 @@ export const DarkIcon = () => (
 
 // Header.tsx
 
-export const SortOrderIcon = ({ className }: { className: string }) => (
+const SortOrderIcon = ({ className }: { className: string }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     height="80"
@@ -151,7 +151,7 @@ export const SortOrderIcon = ({ className }: { className: string }) => (
 
 // CodeProject.tsx
 
-export const ProjectIcon = (props: SVGProps<SVGSVGElement>) => (
+const ProjectIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     {...props}
     width="50"
@@ -166,7 +166,7 @@ export const ProjectIcon = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-export const GitHubIcon = (props: SVGProps<SVGSVGElement>) => (
+const GitHubIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     {...props}
     width="38"
@@ -185,7 +185,7 @@ export const GitHubIcon = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-export const ExtraResourceIcon = (props: SVGProps<SVGSVGElement>) => (
+const ExtraResourceIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     {...props}
     width="31"

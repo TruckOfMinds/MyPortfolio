@@ -5,7 +5,11 @@
   display: grid;
   justify-items: center;
   align-items: center;
-  column-gap: 0.5rem;
+  gap: 0.5rem;
+
+  &:not(.hero) {
+    padding: 1rem 1rem 1rem 0;
+  }
 
   &.two-two {
     grid-template-areas:
@@ -13,12 +17,6 @@
       ". c d";
     grid-template-columns: 10rem repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
-
-    &.hero {
-      grid-template-areas:
-        ". main main"
-        ". main main";
-    }
 
     &.with-header {
       grid-template-rows: 8rem 1fr;
@@ -79,5 +77,77 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
+  gap: 2rem;
+}
+
+@media only screen and (width < 1000px) {
+  .grid {
+    grid-template-columns: 100dvw !important;
+
+    &:not(.hero) {
+      padding: 2rem 0;
+      height: fit-content;
+      min-height: 100dvh;
+      max-height: 150dvh;
+    }
+
+    &.two-two {
+      grid-template-areas:
+        "a"
+        "b"
+        "c"
+        "d";
+
+      grid-template-rows: repeat(4, 1fr);
+
+      &.with-header {
+        &.design {
+          min-height: 100dvh;
+          height: fit-content;
+          grid-template-areas:
+            "images"
+            "bio"
+            "procon";
+          grid-template-rows: 4fr 1fr 1fr;
+          row-gap: 2rem;
+          margin-bottom: 1rem;
+        }
+        &.contact {
+          grid-template-areas:
+            "text"
+            "contacts";
+          grid-template-rows: repeat(2, 1fr);
+          /* margin-bottom: 1rem; */
+        }
+      }
+    }
+
+    &.three-two {
+      grid-template-areas:
+        "a"
+        "b"
+        "c"
+        "d"
+        "e";
+      grid-template-rows: repeat(6, 1fr);
+    }
+
+    &.row {
+      height: 50dvh;
+      grid-template-areas:
+        "a"
+        "b"
+        "c";
+    }
+
+    &.two-n {
+      grid-template-rows: repeat(auto-fill, 20dvh);
+    }
+
+    &.pageless.one-two {
+      height: unset;
+      width: unset;
+      grid-template-rows: repeat(2, fit-content(2rem));
+    }
+  }
 }

@@ -4,14 +4,7 @@ import { Button } from "./ui/button";
 
 import Grid from "./Grid";
 
-/* In-File Components =>
-  - ErrorFallback
-  - NotFound
-  - PageLoading
-  - ErrorPage
-  - Loading
-  - Error
-*/
+export { ErrorFallback, NotFound, PageLoading, Loading, Error };
 
 function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
   return (
@@ -36,14 +29,17 @@ function NotFound() {
 
 function PageLoading() {
   return (
-    <section className={`w-dvw h-dvh bg-surf-d flex flex-col items-center justify-center gap-4`}>
+    <section
+      className={`w-dvw h-dvh bg-surf-d flex flex-col items-center justify-center gap-4 z-100`}>
       <p>Loading...</p>
     </section>
   );
 }
 
 const Loading = () => (
-  <div className="w-full h-full flex items-center justify-center">Loading...</div>
+  <div className="w-full h-full flex items-center justify-center absolute trans top-1/2 left-1/2">
+    Loading...
+  </div>
 );
 
 const Error = ({
@@ -61,10 +57,8 @@ const Error = ({
     <h1>{error.message}</h1>
     <button
       onClick={() => refetch()}
-      className="rounded-full bg-err text-light px-6 py-1 mb-4 cursor-pointer transition-all hover:brightness-75 active:scale-110 active:brightness-105">
+      className="rounded-full bg-err text-light px-6 py-1 mb-4 cursor-pointer transition-all hover-active">
       Retry
     </button>
   </div>
 );
-
-export { ErrorFallback, NotFound, PageLoading, Loading, Error };

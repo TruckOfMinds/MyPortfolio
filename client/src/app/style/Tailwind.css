@@ -68,6 +68,7 @@
   --color-inv-surf: var(--inverse-surface);
   --color-inv-on-surf: var(--inverse-on-surface);
 
+  --shadow-half: var(--shadow-half);
   --shadow-i: var(--shadow-one);
   --shadow-ii: var(--shadow-two);
   --shadow-iii: var(--shadow-three);
@@ -78,6 +79,9 @@
   --text-shadow-iii: var(--text-shadow-three);
   --text-shadow-iv: var(--text-shadow-four);
   --text-shadow-v: var(--text-shadow-five);
+
+  --breakpoint-mob: 768px;
+  --breakpoint-thou: 1000px;
 
   /* Shadcn */
   --color-sidebar-ring: var(--sidebar-ring);
@@ -115,12 +119,6 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
 }
 
 .inner-shadow-i {

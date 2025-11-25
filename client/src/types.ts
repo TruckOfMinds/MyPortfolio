@@ -1,5 +1,12 @@
 import type { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
-import type { CSSProperties, Dispatch, ReactNode, RefObject, SetStateAction } from "react";
+import type {
+  Dispatch,
+  ForwardedRef,
+  HTMLAttributes,
+  ReactNode,
+  RefObject,
+  SetStateAction,
+} from "react";
 
 // server pulls
 
@@ -67,18 +74,11 @@ export type contextType = { theme: themeType; setTheme: Dispatch<SetStateAction<
 
 export type projectCardColours = "sky" | "pink" | "yellow";
 
-export type cardProps = {
-  // Physical alterations e.g. long — or it's purpose i.e. code or design
+export type cardProps = HTMLAttributes<HTMLElement> & {
   variant?: string;
   colour?: projectCardColours | "blue" | "purple" | "gold" | "mono";
   children?: ReactNode;
-  className?: string;
-  style?: CSSProperties;
-  onClick?: () => void;
-  // Intended for pressing the 'Enter' key but can be any keyup
-  onKeyUp?: (e: React.KeyboardEvent<HTMLElement>) => void;
-  ref?: ElemRef;
-  tabIndex?: number;
+  ref?: ElemRef | ForwardedRef<HTMLElement>;
 };
 
 export type topCarouselProps = {

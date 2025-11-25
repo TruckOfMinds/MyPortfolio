@@ -3,7 +3,7 @@ import "./style/Project.css";
 import type { designProjectProps } from "@/types";
 import { fetchDesignProject } from "@/utils/serverPortal";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { useEffect, useState, type JSX } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { DisabledScrollMarker, ScrollMarker } from "@/components/TopProjects";
 
@@ -26,7 +26,7 @@ import remarkGfm from "remark-gfm";
   - Content
 */
 
-export default function DesignProjectPage(): JSX.Element {
+export default function DesignProjectPage() {
   const { project } = useParams();
 
   const { isRefetching, data } = useSuspenseQuery({
@@ -78,7 +78,7 @@ const Content = ({ images, ...props }: designProjectProps) => {
         </CarouselContent>
 
         <div className="carousel-button-container min-w-4/5 h-12">
-          <CarouselPrevious className="w-2/5 h-full res-shadow rounded-2xl rel translate-0 card pink cursor-pointer hover:brightness-105 border-0 hover:scale-110 active:scale-90 active:brightness-90" />
+          <CarouselPrevious className="w-2/5 h-full res-shadow rounded-4xl rel translate-0 card pink cursor-pointer hover:brightness-105 border-0 hover:scale-110 active:scale-90 active:brightness-90" />
 
           <Card colour="purple" className="flex items-center justify-center gap-1">
             {api && images.length > 1 ? (
@@ -96,7 +96,7 @@ const Content = ({ images, ...props }: designProjectProps) => {
             )}
           </Card>
 
-          <CarouselNext className="w-2/5 h-full res-shadow rounded-2xl rel translate-0 card pink cursor-pointer hover:brightness-105 border-0 hover:scale-110 active:scale-90 active:brightness-90" />
+          <CarouselNext className="w-2/5 h-full res-shadow rounded-4xl rel translate-0 card pink cursor-pointer hover:brightness-105 border-0 hover:scale-110 active:scale-90 active:brightness-90" />
         </div>
       </Carousel>
 

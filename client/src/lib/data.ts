@@ -8,23 +8,53 @@ import type {
 } from "@/types";
 import type { CSSProperties, JSX } from "react";
 
-const myBackground: { [k: string]: { text: string; title: string; image: string } } = {
-  one: {
-    text: "this is the text for one",
-    title: "Tech Educators",
-    image: "",
-  },
-  two: {
-    text: "you've reached two",
-    title: "Access Norwich",
-    image: "",
-  },
-  three: {
-    text: "congrats on the hatrick",
-    title: "LSHS ..?",
-    image: "",
-  },
+export {
+  aboutMeText,
+  myBackground,
+  getCardColour,
+  shadcnToggle,
+  getTheme,
+  sortMethod,
+  contactsData,
+  useMDStyles,
 };
+
+const aboutMeText = `I'm an 18 year old junior software engineer, who's passionate about melding innovation and
+what's the most effective in everything I create. I mainly focus on developing web UIs and applications, however 
+my horizons are always expanding as I seek out new creative avenues and ways to improve myself.`;
+
+//* —————————————————————————————————————————————————————————————————————————————————————
+
+type backgroundCardContent = { text: string; title: string; image?: string };
+const myBackground: backgroundCardContent[] = [
+  {
+    title: "Tech Educators",
+    text: `***Mar 2025 - Jul 2025 —*** This 12 week web-development bootcamp gave me a clearer insight into how a workplace operates, 
+    whilst enhancing my knowledge and experience in website and UI development, allowing me to stay restabilise my understandings 
+    in order to build upon them in the future. I gained understanding in areas I was previously unconfident in, such as \`useEffects\`
+    leading me to be able to start confidently fetch data; knowing exactly how the process functions. This was done through working 
+    on numerous showcases followed by small projects week-by-week (e.g. [_EverQuill_](/code-projects/Tromi-dev/EverQuill)), 
+    some of which were worked on in small groups in an agile workflow.`,
+  },
+  {
+    title: "Access Norwich",
+    text: `***Sep 2023 - Jul 2025 —*** During my two year course, I built upon what I had 
+    previously learnt by working on several small projects to better my Python skills with libraries including \`datetime, 
+    Pandas, and Matplotlib\`. In the latter half, I also started learning web development and UI/UX best 
+    practices which would go on to shape my passion and motivations going forward. This course was addiitonally my first experience 
+    collaborating with groups of other students in web design, development, and presentations—which helped to increase my confidence 
+    and communication skills in the workplace and out. On top of this, the two practical examinations this course hosted 
+    (click [here](/code-projects/Tromi-dev/Occupational-Specialism) for the 2nd project) showed me how effectively I behave under 
+    pressure and allowed me to gain knowledge of how I can improve myself to become a better worker.`,
+  },
+  {
+    title: "High School",
+    text: `***Sep 2018 - Jul 2023 —*** I gained the foundation of my computing career, 
+    furthering my problem solving skills _(with GCSE maths and computer science)_.
+    I established my Python skills and learned key programming concepts such as iteration, 
+    recursion, and file handling.`,
+  },
+];
 
 //* —————————————————————————————————————————————————————————————————————————————————————
 
@@ -148,13 +178,3 @@ const useMDStyles = (col: string[], theme: themeType): { [k: string]: CSSPropert
           color: `hsl(from ${col[1]} h s calc(l - 80))`,
         },
       };
-
-export {
-  myBackground,
-  getCardColour,
-  shadcnToggle,
-  getTheme,
-  sortMethod,
-  contactsData,
-  useMDStyles,
-};

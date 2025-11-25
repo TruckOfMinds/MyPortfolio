@@ -11,11 +11,6 @@ import Header, { SearchAndSort } from "@/components/Header";
 
 import Grid from "@/components/Grid";
 
-/* In-File Components =>
-  - Projects
-  - isInSearch
-*/
-
 export default function CodePage() {
   const [userInput, setUserInput] = useState<userInputProps>({
     search: "",
@@ -32,6 +27,7 @@ export default function CodePage() {
             text="My Projects"
             isDev
             children={<SearchAndSort isDev userInput={userInput} setUserInput={setUserInput} />}
+            className="max-[1050px]:flex-col max-[1050px]:justify-center max-[1050px]:justify-self-center"
           />
           <Projects userInput={userInput} />
         </Grid>
@@ -79,11 +75,19 @@ const Projects = ({ className, userInput }: { className?: string; userInput: use
     .filter(isInSearch)
     .sort((a, b) => sortMethod(a, b, userInput))
     .map(d => (
-      <CodeCard key={d.id} colour={getCardColour(d.id)} className="h-48 card-width" {...d} />
+      <CodeCard
+        key={String(d.id)}
+        colour={getCardColour(d.id)}
+        className={`h-48 card-width transition-all hover:brightness-105 hover:scale-105 active:brightness-90`}
+        {...d}
+      />
     ));
 
   return (
-    <section className={`project-card-container ${isFetching ? "opacity-75" : ""} ${className}`}>
+    <section
+      className={`${
+        isFetching && "opacity-75"
+      } project-card-container [grid-area:b/b-start/b-end/d-end] thou:[grid-area:c/c-start/c-end/d-end] max-xl:flex-col max-[1050px]:!mt-12 ${className}`}>
       {userInput.desc ? newData.reverse() : newData}
     </section>
   );

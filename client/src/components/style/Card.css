@@ -83,7 +83,7 @@
 
 .in-grid {
   width: 80%;
-  height: 80%;
+  height: 88%;
   max-width: 80%;
 
   &.long {
@@ -107,7 +107,7 @@
     grid-template-areas:
       "image name"
       "image tags";
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: 1fr 2fr;
     grid-template-columns: 10rem calc(100% - 10rem);
     gap: 0.5rem 1rem;
     align-items: center;

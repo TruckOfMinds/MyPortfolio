@@ -1,7 +1,7 @@
 import "./style/Skills.css";
 
 import type { Elem, ElemRef, skillProps } from "@/types";
-import { useEffect, useLayoutEffect, useRef, useState, type JSX } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { fetchSkills } from "@/utils/serverPortal";
 import { useQuery } from "@tanstack/react-query";
 import { createPortal } from "react-dom";
@@ -9,11 +9,7 @@ import { Error, Loading } from "./fallbacks";
 
 import Card from "./Card";
 
-/* In-File Components :
-  - SkillCard
-*/
-
-export default function Skills({ portalRef }: { portalRef: ElemRef }): JSX.Element {
+export default function Skills({ portalRef }: { portalRef: ElemRef }) {
   const { isPending, isError, isFetching, error, data, refetch } = useQuery({
     queryKey: ["skills"],
     queryFn: fetchSkills,
@@ -27,7 +23,7 @@ export default function Skills({ portalRef }: { portalRef: ElemRef }): JSX.Eleme
     <>
       <section
         id="skillContainer"
-        className={`w-full h-[86%] pb-2 pt-3 flex flex-wrap items-center content-evenly justify-center gap-x-4 gap-y-3 scroller ${
+        className={`w-full h-[86%] px-[.25rem] py-3 flex flex-wrap items-center content-evenly justify-center gap-x-4 gap-y-3 scroller ${
           isFetching ? "opacity-75" : ""
         }`}>
         {data.map(d => (
@@ -38,7 +34,7 @@ export default function Skills({ portalRef }: { portalRef: ElemRef }): JSX.Eleme
   );
 }
 
-const SkillCard = ({ d, portalRef }: { d: skillProps; portalRef: ElemRef }): JSX.Element => {
+const SkillCard = ({ d, portalRef }: { d: skillProps; portalRef: ElemRef }) => {
   const [show, setShow] = useState(false);
   const [coords, setCoords] = useState<{ top: number; left: number | string }>({
     top: 0,
@@ -105,7 +101,7 @@ const SkillCard = ({ d, portalRef }: { d: skillProps; portalRef: ElemRef }): JSX
     <>
       <Card
         onClick={() => setShow(!show)}
-        className="skill cursor-pointer rounded-lg h-16 w-16 flex items-center justify-center transition-all hover:brightness-115 hover:scale-110 active:brightness-90 active:scale-95"
+        className="skill cursor-pointer rounded-lg h-16 w-16 flex items-center justify-center transition-all hover-active"
         colour="purple"
         ref={ref}
         tabIndex={0}
@@ -123,7 +119,7 @@ const SkillCard = ({ d, portalRef }: { d: skillProps; portalRef: ElemRef }): JSX
           <Card
             ref={skillNameRef}
             style={coords}
-            className="skill-name absolute rounded-md z-10 shadow-v">
+            className="skill-name absolute rounded-md z-10 shadow-iv text-sm">
             {d.name || "n/a"}
           </Card>,
           portalRef.current

@@ -1,7 +1,7 @@
 import "./style/Project.css";
 
 import type { codeProjectProps } from "@/types";
-import { useContext, type JSX } from "react";
+import { useContext } from "react";
 import { Link, useParams } from "react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { fetchCodeProject } from "@/utils/serverPortal";
@@ -25,12 +25,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { ThemeContext } from "@/lib/context";
 
-/* In-File Components =>
-  - Content
-  - Links
-*/
-
-export default function CodeProjectPage(): JSX.Element {
+export default function CodeProjectPage() {
   const { owner, project } = useParams();
 
   const { isRefetching, data } = useSuspenseQuery({
@@ -64,31 +59,43 @@ const Content = ({
 
   return (
     <>
-      <Carousel
-        opts={{ loop: true }}
-        className={`max-w-8/10 min-h-fit h-1/2 [grid-area:c] flex flex-col items-center justify-center gap-4 rounded-2xl ${
-          isRefetching ? "opacity-75" : null
-        }`}>
-        <CarouselContent ParentClassName="rounded-2xl">
-          {images.map(i => (
-            <CarouselItem key={i}>
-              <img
-                src={import.meta.env.VITE_BUCKET_URL + "/" + i}
-                alt={`Code Project Image #${images.indexOf(i)}`}
-                className="code-project-image rounded-2xl"
-              />
-            </CarouselItem>
-          ))}
-        </CarouselContent>
+      <section className="max-w-8/10 min-h-fit h-1/2 [grid-area:c]">
+        <Carousel
+          opts={{ loop: true }}
+          className={`w-full min-h-fit h-full flex flex-col items-center justify-center gap-4 rounded-2xl ${
+            isRefetching ? "opacity-75" : null
+          }`}>
+          <CarouselContent ParentClassName="rounded-2xl">
+            {images.map(i => (
+              <CarouselItem key={i}>
+                <img
+                  src={import.meta.env.VITE_BUCKET_URL + "/" + i}
+                  alt={`Code Project Image #${images.indexOf(i)}`}
+                  className="code-project-image rounded-2xl"
+                />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
 
-        <div className="code-carousel w-4/5">
-          <CarouselPrevious
-            className="w-2/5"
-            style={{ backgroundColor: style[0], color: style[1] }}
-          />
-          <CarouselNext className="w-2/5" style={{ backgroundColor: style[0], color: style[1] }} />
-        </div>
-      </Carousel>
+          <div className="code-carousel w-4/5">
+            <CarouselPrevious
+              className="w-2/5"
+              style={{ backgroundColor: style[0], color: style[1] }}
+            />
+            <CarouselNext
+              className="w-2/5"
+              style={{ backgroundColor: style[0], color: style[1] }}
+            />
+          </div>
+        </Carousel>
+
+        <Card
+          className="flex items-center justify-evenly gap-2 w-full"
+          style={{ backgroundColor: style[0], color: style[1] }}>
+          <p>{`Updated at: ${props.date}`}</p>
+          {/* ADD created date & status tag */}
+        </Card>
+      </section>
 
       {/* ————————————————————————————————————————————————————————————————————————————————————— */}
 
@@ -168,7 +175,7 @@ const Content = ({
 
 //* —————————————————————————————————————————————————————————————————————————————————————
 
-const Links = ({ links }: { links: (string | null)[][] }): JSX.Element => {
+const Links = ({ links }: { links: (string | null)[][] }) => {
   const getIconFromLabel = (label: string) => {
     switch (label.toLowerCase()) {
       case "project":
@@ -186,7 +193,7 @@ const Links = ({ links }: { links: (string | null)[][] }): JSX.Element => {
       className="w-1/4 min-w-fit h-16 min-h-fit flex items-center justify-evenly gap-2 mr-12">
       {links.map(l =>
         l[0] && l[1] ? (
-          <Link to={l[0]} target="_blank" className="cursor-pointer">
+          <Link key={l[1]} to={l[0]} target="_blank" className="cursor-pointer">
             {getIconFromLabel(l[1])}
             <p>{l[1]}</p>
           </Link>

@@ -1,5 +1,7 @@
 .design-card {
-  width: clamp(16rem, 31.5%, 40dvw);
+  width: clamp(16rem, 31.5%, 93dvw);
   min-height: fit-content;
   height: 20rem;
+  flex-grow: 1;
+  flex-basis: 31.5%;
 }

@@ -2,19 +2,14 @@ import "./style/Card.css";
 
 import type { cardProps, codeCardProps, designCardProps } from "@/types";
 import { Link } from "react-router";
-import { memo, useState, type JSX } from "react";
+import { memo, useEffect, useState } from "react";
+import { useMediaQuery } from "@/hooks/use-media-query";
 
-/* In-File Components =>
-  - StatusTag
-  - CodeCard
-  - DesignCard
-*/
-
-export default function Card({ variant, colour, className, ...props }: cardProps): JSX.Element {
+export default function Card({ variant, colour, className, ...props }: cardProps) {
   return (
     <article
       className={[
-        "card rounded-2xl shadow-iii max-h-[50dvh] px-4 py-3",
+        "card rounded-2xl shadow-ii max-h-[50dvh] px-4 py-3",
         variant,
         colour,
         className,
@@ -27,17 +22,21 @@ export default function Card({ variant, colour, className, ...props }: cardProps
 //* —————————————————————————————————————————————————————————————————————————————————————
 
 const StatusTag = ({ status }: { status: string }) => {
-  const [show, setShow] = useState(false);
+  const isColumn = useMediaQuery("(max-width: 1280px)");
+  const [show, setShow] = useState(isColumn);
+
+  useEffect(() => setShow(isColumn), [isColumn]);
+
   return (
     <div
-      className={`status ${status.toLowerCase()} absolute top-2 right-2 text-xs text-right rounded-full h-5 w-fit min-w-5 py-2 ${
+      className={`status ${status.toLowerCase()} absolute bottom-2 right-2 text-xs text-right rounded-[4px] rounded-br-[8px] h-5 w-fit min-w-5 p-3 ${
         show ? "px-2" : null
       }`}
       tabIndex={0}
-      onMouseOver={() => setShow(true)}
-      onMouseOut={() => setShow(false)}
-      onKeyUp={e => (e.key === "Enter" ? setShow(!show) : null)}>
-      {show ? status : null}
+      onMouseOver={() => !isColumn && setShow(true)}
+      onMouseOut={() => !isColumn && setShow(false)}
+      onKeyUp={e => e.key === "Enter" && setShow(!show)}>
+      {show && status}
     </div>
   );
 };
@@ -45,11 +44,11 @@ const StatusTag = ({ status }: { status: string }) => {
 //* —————————————————————————————————————————————————————————————————————————————————————
 
 export const CodeCard = memo(
-  ({ name, logo, tags, date, owner, ...props }: codeCardProps & cardProps): JSX.Element => {
+  ({ name, logo, tags, date, owner, ...props }: codeCardProps & Omit<cardProps, "id">) => {
     return (
       <Link
         to={encodeURI(`/code-projects/${owner}/${name}`)}
-        className={`relative ${props.className}`}>
+        className={`relative grow-1 ${props.className}`}>
         <Card variant={props.variant} className="card-grid code pr-8" colour={props.colour}>
           <div className="[grid-area:image] code-card-image-container image-cont rounded-lg flex items-center justify-center">
             <img
@@ -86,11 +85,11 @@ export const CodeCard = memo(
 //* —————————————————————————————————————————————————————————————————————————————————————
 
 export const DesignCard = memo(
-  ({ name, className, logo, date, ...props }: designCardProps & cardProps) => {
+  ({ name, className, logo, date, id, ...props }: designCardProps & Omit<cardProps, "id">) => {
     return (
       <Link to={`/design-projects/${name}`} className="design-card">
-        <Card {...props} className={`card-grid design py-4 ${className}`}>
-          <div className="image-cont w-full [grid-area:image] justify-self-center rounded-md flex items-center justify-center">
+        <Card {...props} className={`card-grid design py-4 ${className}`} id={`${id}`}>
+          <div className="image-cont w-full [grid-area:image] justify-self-center rounded-md flex items-center justify-center flex-grow-1">
             <img
               src={`${import.meta.env.VITE_BUCKET_URL}/${logo}`}
               alt={`${name} Logo Image`}

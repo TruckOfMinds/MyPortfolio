@@ -1,6 +1,6 @@
 import type { topCarouselProps, topProps } from "@/types";
 import { type CarouselApi } from "@/components/ui/carousel";
-import { useEffect, useState, type JSX } from "react";
+import { useEffect, useState } from "react";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import { Button } from "./ui/button";
 import { useQuery } from "@tanstack/react-query";
@@ -8,15 +8,7 @@ import { fetchTopProjects } from "@/utils/serverPortal";
 import { Link } from "react-router";
 import { Error, Loading } from "./fallbacks";
 
-/* In-File Components :
-  - Items
-  - CarouselImage
-  - ViewProject
-  - ScrollMarker
-  - DisabledScrollMarker
-*/
-
-export default function TopProjects(): JSX.Element {
+export default function TopProjects() {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [project, setProject] = useState({ name: "project_name", owner: "na", isCode: false });
@@ -62,13 +54,13 @@ export default function TopProjects(): JSX.Element {
 
   return (
     <div
-      className={`flex items-center justify-center gap-1 w-full h-5/6 ${
+      className={`flex max-thou:flex-col items-center justify-center gap-1 w-full h-5/6 ${
         isFetching ? "opacity-75" : ""
       }`}>
       <Carousel
         setApi={setApi}
         opts={{ loop: true }}
-        className="flex flex-col items-center justify-between gap-4 h-full w-[60%] pt-4">
+        className="flex flex-col items-center justify-center gap-4 h-full w-[60%] pt-4">
         <CarouselContent className="w-fit h-full snap" ParentClassName="w-full rounded-2xl">
           <Items data={data} />
         </CarouselContent>
@@ -90,7 +82,7 @@ export default function TopProjects(): JSX.Element {
         </div>
       </Carousel>
 
-      <section className="flex flex-col items-center justify-evenly gap-1 h-full w-1/2">
+      <section className="flex flex-col items-center justify-center gap-8 orbit h-full w-1/3">
         <h1 className="w-fit text-2xl text-center">{project.name}</h1>
         <ViewProject name={project.name} isCode={project.isCode} owner={project.owner} />
       </section>
@@ -100,7 +92,7 @@ export default function TopProjects(): JSX.Element {
 
 //* —————————————————————————————————————————————————————————————————————————————————————
 
-const Items = ({ data }: { data: topProps[] }): JSX.Element => {
+const Items = ({ data }: { data: topProps[] }) => {
   if (!data) return <></>;
 
   if (data.length === 0) {
@@ -136,7 +128,7 @@ const CarouselImage = ({
   dataName = "project_name",
   isCode,
   dataOwner,
-}: topCarouselProps): JSX.Element => (
+}: topCarouselProps) => (
   <img
     src={src}
     alt={"Showcase of " + alt}
@@ -149,34 +141,16 @@ const CarouselImage = ({
 
 //* —————————————————————————————————————————————————————————————————————————————————————
 
-const ViewProject = ({
-  name,
-  isCode,
-  owner,
-}: {
-  name: string;
-  isCode: boolean;
-  owner: string;
-}): JSX.Element => {
-  const disabled = name === "project_name" || !name;
-  // return (
-  //   <Button
-  //     className="cursor-not-allowed w-full min-w-40 h-10 opacity-50 bg-on-sec-f text-sec-cont transition-all hover:bg-on-sec-f"
-  //     aria-disabled={true}
-  //     tabIndex={-1}
-  //   >
-  //     <i>View Project</i>
-  //   </Button>
-  // );
-
+const ViewProject = ({ name, isCode, owner }: { name: string; isCode: boolean; owner: string }) => {
+  const disabled = name === "project_name";
   return (
     <Link
-      to={`${isCode ? `code-projects/${owner}` : "design-projects"}/${name}`}
+      to={!disabled ? `${isCode ? `code-projects/${owner}` : "design-projects"}/${name}` : ""}
       inert={disabled}
       aria-disabled={disabled}
-      className="w-4/5">
+      className="w-4/5 min-w-max">
       <Button
-        className={`view-button w-full cursor-pointer text-lg py-6 transition-all hover:bg-ter hover:scale-110 hover:brightness-110 active:brightness-75 active:scale-90 ${
+        className={`view-button jb-mono w-full cursor-pointer text-lg py-6 transition-all hover:bg-ter hover:scale-110 hover:brightness-110 active:brightness-75 active:scale-90 ${
           disabled ? " cursor-not-allowed" : null
         }`}>
         View Project
@@ -197,7 +171,7 @@ export const ScrollMarker = ({
   index: number;
   api: CarouselApi;
   colour: string;
-}): JSX.Element => (
+}) => (
   <svg
     width="8"
     height="8"

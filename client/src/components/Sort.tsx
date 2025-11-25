@@ -4,19 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useState } from "react";
-import { Chevron } from "./icons";
 import {
   Command,
   CommandEmpty,
   CommandGroup,
-  // CommandInput,
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-
-/* In-File Components :
-  - StatusList (not exported)
-*/
 
 const statuses: Status[] = [
   {
@@ -29,6 +23,11 @@ const statuses: Status[] = [
   },
 ];
 
+const initialStatus: Status = {
+  label: "Date",
+  value: "date",
+};
+
 export default function ComboBoxResponsive({
   userInput,
   setUserInput,
@@ -38,30 +37,25 @@ export default function ComboBoxResponsive({
 }) {
   const [open, setOpen] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
-  const [selectedStatus, setSelectedStatus] = useState<Status | null>({
-    label: "Date",
-    value: "date",
-  });
+  const [selectedStatus, setSelectedStatus] = useState<Status | null>(initialStatus);
+
   if (isDesktop) {
     return (
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
-          <Button variant="outline" className="w-[150px] justify-start search-y-sort">
+          <Button
+            /* variant="outline" */ className="w-[150px] justify-start search-y-sort !shadow-half">
             {selectedStatus ? (
               <div className="flex w-full items-center justify-between">
                 {selectedStatus.label}
-                <Chevron
-                  className={`sort-icon-parent transition-transform ${
-                    !open ? "rotate-90" : "rotate-[270deg]"
-                  }`}
-                />
+                <p className={`sort-icon-parent transition-transform ${open && "rotate-180"}`}>🞃</p>
               </div>
             ) : (
-              <>Sort by</>
+              <>Select sort method</>
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[200px] p-0" align="start">
+        <PopoverContent className="w-[200px] p-0 border-[1px] border-inv-sys/8" align="center">
           <StatusList
             userInput={userInput}
             setUserInput={setUserInput}

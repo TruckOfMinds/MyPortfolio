@@ -30,8 +30,9 @@ export default function DesignsPage() {
         <Grid id="top" className="with-header w-full pt-4 grows">
           <Header
             children={<SearchAndSort userInput={userInput} setUserInput={setUserInput} />}
-            text="Projects"
+            text="My Projects"
             isDesign
+            className="max-xl:flex-col max-xl:justify-center max-xl:justify-self-center max-xl:w-[93%]"
           />
 
           <Projects userInput={userInput} />
@@ -71,10 +72,20 @@ const Projects = ({ userInput }: { userInput: userInputProps }) => {
         d.name.toLocaleLowerCase().includes(userInput.search.toLocaleLowerCase())
     )
     .sort((a, b) => sortMethod(a, b, userInput))
-    .map(d => <DesignCard key={d.id} colour={getCardColour(d.id)} {...d} />);
+    .map(d => (
+      <DesignCard
+        key={d.id}
+        colour={getCardColour(d.id)}
+        className="transition-all hover:brightness-105 hover:scale-105 active:brightness-90"
+        {...d}
+      />
+    ));
 
   return (
-    <section className={`project-card-container ${isFetching ? "" : null}`}>
+    <section
+      className={`project-card-container [grid-area:b/b-start/b-end/d-end] thou:[grid-area:c/c-start/c-end/d-end] flex-wrap max-xl:!mt-12 ${
+        isFetching && "opacity-75"
+      }`}>
       {userInput.desc ? newData.reverse() : newData}
     </section>
   );
