@@ -25,6 +25,10 @@
     scale: 0.95;
     filter: brightness(90%);
   }
+
+  &:focus-visible:hover {
+    outline: none;
+  }
 }
 
 .sort-icon {
@@ -46,5 +50,16 @@
   }
   &.des {
     --project-type-colour: var(--secondary-set);
+  }
+}
+
+@media screen and (width <= 1050px) {
+  .search-y-sort {
+    &:hover {
+      scale: 1.05;
+    }
+    &:active {
+      scale: 0.99;
+    }
   }
 }

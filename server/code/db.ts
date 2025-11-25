@@ -100,6 +100,7 @@ export const getRepoData = async (repo: string): repoProps => {
     );
 
     const repoData = rows[0];
+
     if (repoData.bio) {
       const bufferBio = Buffer.from(repoData.bio, "base64");
       const decodedBio = bufferBio.toString("utf-8").replace(/\\n/g, "\n");

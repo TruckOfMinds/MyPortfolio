@@ -12,6 +12,10 @@
   }
 }
 
+#footer {
+  grid-template-areas: ". a";
+}
+
 #footer > article {
   background-color: var(--primary);
   --hover: hsl(from var(--primary-container) h s l / 25%);
@@ -28,5 +32,14 @@
 
   &.link:hover {
     color: hsl(from var(--hover) h s calc(l + 12) / 50%);
+  }
+}
+
+@media screen and (width <= 1000px) {
+  #footer {
+    grid-template-areas: "a";
+    min-height: max-content;
+    padding-bottom: 0;
+    margin-bottom: clamp(5rem, calc(10dvh + 1rem), 25%);
   }
 }

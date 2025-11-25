@@ -14,10 +14,10 @@ export default function Footer() {
     <Grid id="footer" layout="row">
       <Card
         variant="in-grid full"
-        className="px-8 flex min-h-fit max-mob:flex-col items-center justify-evenly gap-x-12 gap-y-4 shadow-v [grid-area:a/a-start/a-end/c-end]">
+        className="px-8 flex min-h-fit max-mob:flex-col items-center justify-evenly gap-x-12 gap-y-4 shadow-v [grid-area:a]">
         <Tooltip delayDuration={500}>
           <TooltipTrigger asChild>
-            <button className="w-4/5 sm:w-1/4 cursor-pointer object-scale-down">
+            <button className="w-2/5 sm:w-1/4 cursor-pointer object-scale-down">
               <Logo onClick={() => scroll({ top: 0 })} />
             </button>
           </TooltipTrigger>
@@ -39,7 +39,7 @@ export default function Footer() {
 
         <div
           id="footerTexts"
-          className="flex items-start flex-col justify-center gap-2 w-4/5 sm:w-1/4">
+          className="flex items-center mob:items-start flex-col justify-center gap-2 w-4/5 sm:w-1/4">
           <Link to="/cv.pdf" target="_blank">
             <p tabIndex={-1} className="link underline active:brightness-110">
               My CV

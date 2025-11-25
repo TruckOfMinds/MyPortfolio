@@ -91,7 +91,7 @@ export default function Navbar() {
   ) : (
     <nav
       className={`
-      w-[93dvw] mobile-navbar shadow-v
+      w-[94dvw] mobile-navbar shadow-v
       fixed bottom-3.5 left-[50dvw] translate-x-[-50%] 
       flex items-center justify-evenly
       bg-on-pri-f-var text-light

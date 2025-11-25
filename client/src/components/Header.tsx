@@ -26,7 +26,7 @@ export default function Header({
 }) {
   return (
     <header
-      className={`flex items-center justify-between w-[96%] justify-self-end row-start-1 row-end-1 col-start-2 col-end-4 ${className}`}>
+      className={`flex items-center justify-between w-[96%] gap-y-6 gap-x-10 justify-self-end [grid-area:a] thou:[grid-area:a/a-start/a-end/b-end] ${className}`}>
       <TitleSection isDev={isDev} isDesign={isDesign} text={text} />
       {children}
     </header>
@@ -42,15 +42,15 @@ const TitleSection = ({
   isDesign?: boolean;
   text: string;
 }) => {
-  const Title = ({ text }: { text: string }) => <h1 className="orbit text-5xl mb-3">{text}</h1>;
-
   return (
-    <section className="project-title flex items-center gap-4">
-      <Title text={text} />
+    <section className="project-title flex items-center gap-4 max-w-full">
+      <h1 className="orbit text-5xl w-max">{text}</h1>
 
       {isDev || isDesign ? (
         <div
-          className={`header-label ${isDev ? "dev" : "des"} text-2xl rounded-full border-3 px-7`}>
+          className={`header-label ${
+            isDev ? "dev" : "des"
+          } text-2xl rounded-full border-3 px-7 mt-3`}>
           {isDev ? "Dev" : "Design"}
         </div>
       ) : (
@@ -71,11 +71,15 @@ export const SearchAndSort = ({
 }) => (
   <form
     onSubmit={e => e.preventDefault()}
-    className={`max-w-full flex items-center gap-4 mr-12 ${isDev ? "dev" : "design"}`}>
-    <Label htmlFor="search" className="flex flex-col items-start text-inv-sys">
+    className={`w-full flex items-center gap-4 ${
+      isDev
+        ? "dev max-[1050px]:w-[93dvw] max-[1050px]:justify-between min-[1051px]:mr-12"
+        : "design max-thou:w-[93dvw] max-thou:justify-between min-xl:mr-12"
+    }`}>
+    <Label htmlFor="search" className="flex flex-col items-start text-inv-sys w-full">
       Search
       <Input
-        className="search-y-sort shadow-half"
+        className="search-y-sort shadow-half border-none min-w-30"
         type="text"
         placeholder={`${isDev ? "e.g. JavaScript" : "Project name"}`}
         name="search"

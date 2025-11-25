@@ -4,9 +4,13 @@
   min-width: 5rem;
   text-align: center;
 
-  background-color: var(--sys-theme);
-  color: var(--inverse-sys-theme);
+  background-color: var(--tertiary);
+  color: var(--tertiary-container);
   font-weight: 300;
+
+  &:is(.dark .skill-name) {
+    background-color: hsl(from var(--tertiary) h s calc(l + 4));
+  }
 }
 
 .skill {

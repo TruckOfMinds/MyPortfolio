@@ -38,6 +38,17 @@ main {
   scrollbar-width: thin;
 }
 
+.hover-active {
+  &:hover {
+    filter: brightness(115%);
+    scale: 1.1;
+  }
+  &:active {
+    filter: brightness(90%);
+    scale: 0.95;
+  }
+}
+
 @media screen and (width < 1000px) {
   :root {
     font-size: 14px;

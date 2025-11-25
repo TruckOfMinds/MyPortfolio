@@ -83,7 +83,7 @@ const About = () => {
       </Card>
 
       <Card
-        className="in-grid flex flex-col items-center justify-start [grid-area:d/d-start/d-end/e-end] thou:[grid-area:e/e-start/e-end/f-end]"
+        className="in-grid relative flex flex-col items-center justify-start [grid-area:d/d-start/d-end/e-end] thou:[grid-area:e/e-start/e-end/f-end]"
         variant="long"
         colour="purple">
         <h2 className="text-start w-full orbit [letter-spacing:.1rem] text-xl mt-1 pb-3">
@@ -104,10 +104,10 @@ const Background = () => {
   const refTwo = useRef<bgRef>(null);
   const refThree = useRef<bgRef>(null);
 
-  const backgroundCardData: { ref: RefObject<bgRef>; className: string }[] = [
-    { ref: refOne, className: "[grid-area:c] thou:[grid-area:d]" },
-    { ref: refTwo, className: "[grid-area:d] thou:[grid-area:e]" },
-    { ref: refThree, className: "[grid-area:e] thou:[grid-area:f]" },
+  const backgroundCardData: { ref: RefObject<bgRef>; className: string; id: number }[] = [
+    { ref: refOne, className: "[grid-area:c] thou:[grid-area:d]", id: 1 },
+    { ref: refTwo, className: "[grid-area:d] thou:[grid-area:e]", id: 2 },
+    { ref: refThree, className: "[grid-area:e] thou:[grid-area:f]", id: 3 },
   ];
 
   useEffect(() => {
@@ -151,8 +151,8 @@ const Background = () => {
         </Markdown>
       </div>
 
-      {backgroundCardData.map((d, index) => (
-        <BackgroundCard {...{ index, bgText, setBgText, ...d }} />
+      {backgroundCardData.map(({ id, ...d }, index) => (
+        <BackgroundCard key={id} {...{ index, bgText, setBgText, ...d }} />
       ))}
     </Grid>
   );

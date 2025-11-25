@@ -101,8 +101,6 @@
       grid-template-rows: repeat(4, 1fr);
 
       &.with-header {
-        grid-template-rows: 8rem repeat(3, 1fr);
-
         &.design {
           min-height: 100dvh;
           height: fit-content;

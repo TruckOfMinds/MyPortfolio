@@ -1,9 +1,24 @@
 .card-width {
-  width: clamp(25dvw, 48%, 50rem);
+  width: 32%;
+  max-width: 50rem;
+}
+
+@media screen and (width <= 1630px) {
+  .card-width {
+    width: 48%;
+    max-width: unset;
+  }
+}
+
+@media screen and (width <= 1280px) {
+  .card-width {
+    width: 100%;
+    max-width: unset;
+  }
 }
 
 .project-card-container {
-  width: calc(93% + 2rem);
+  width: 93%;
   min-height: calc(100dvh - 8rem);
   margin-top: 1rem;
   /* padding-left: 1.5rem; */
@@ -12,12 +27,11 @@
   flex-wrap: wrap;
   align-items: center;
   align-content: flex-start;
-  justify-content: center;
+  justify-content: stretch;
   gap: 1.5rem;
 
   justify-self: center;
   align-self: self-start;
-  grid-column: 2 / 4;
 }
 
 .code-card-image-container {
@@ -52,10 +66,12 @@
   transition: all 150ms var(--transition);
 }
 .deployed {
-  background-color: lightgreen;
+  background-color: #90ee90cf;
   color: darkgreen;
+  box-shadow: 0 0 2px #90ee90;
 }
 .pending {
   background-color: orange;
   color: darkgoldenrod;
+  box-shadow: 0 0 2px orange;
 }

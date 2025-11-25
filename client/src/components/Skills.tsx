@@ -101,7 +101,7 @@ const SkillCard = ({ d, portalRef }: { d: skillProps; portalRef: ElemRef }) => {
     <>
       <Card
         onClick={() => setShow(!show)}
-        className="skill cursor-pointer rounded-lg h-16 w-16 flex items-center justify-center transition-all hover:brightness-115 hover:scale-110 active:brightness-90 active:scale-95"
+        className="skill cursor-pointer rounded-lg h-16 w-16 flex items-center justify-center transition-all hover-active"
         colour="purple"
         ref={ref}
         tabIndex={0}
@@ -119,7 +119,7 @@ const SkillCard = ({ d, portalRef }: { d: skillProps; portalRef: ElemRef }) => {
           <Card
             ref={skillNameRef}
             style={coords}
-            className="skill-name absolute rounded-md z-10 shadow-iv">
+            className="skill-name absolute rounded-md z-10 shadow-iv text-sm">
             {d.name || "n/a"}
           </Card>,
           portalRef.current
