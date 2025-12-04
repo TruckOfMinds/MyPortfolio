@@ -25,7 +25,8 @@ export default function Skills({ portalRef }: { portalRef: ElemRef }) {
         id="skillContainer"
         className={`w-full h-[86%] px-[.25rem] py-3 flex flex-wrap items-center content-evenly justify-center gap-x-4 gap-y-3 scroller ${
           isFetching ? "opacity-75" : ""
-        }`}>
+        }`}
+      >
         {data.map(d => (
           <SkillCard key={d.name} d={d} portalRef={portalRef} />
         ))}
@@ -101,15 +102,16 @@ const SkillCard = ({ d, portalRef }: { d: skillProps; portalRef: ElemRef }) => {
     <>
       <Card
         onClick={() => setShow(!show)}
-        className="skill cursor-pointer rounded-lg h-16 w-16 flex items-center justify-center transition-all hover-active"
+        className="skill border-transparent border cursor-pointer rounded-lg h-8 w-8 flex items-center justify-center transition-all hover-active dark-border box-content"
         colour="purple"
         ref={ref}
         tabIndex={0}
-        onKeyUp={e => (e.key === "Enter" ? setShow(!show) : null)}>
+        onKeyUp={e => (e.key === "Enter" ? setShow(!show) : null)}
+      >
         <img
           src={[import.meta.env.VITE_BUCKET_URL, d.logo_name].join("/skills/") || "/noSkill.svg"}
           alt="logo"
-          className="h-9/10 [user-select:none]"
+          className="h-full w-auto [user-select:none]"
         />
       </Card>
 
@@ -119,7 +121,8 @@ const SkillCard = ({ d, portalRef }: { d: skillProps; portalRef: ElemRef }) => {
           <Card
             ref={skillNameRef}
             style={coords}
-            className="skill-name absolute rounded-md z-10 shadow-iv text-sm">
+            className="skill-name absolute rounded-md z-10 shadow-iv text-sm dark-border box-content"
+          >
             {d.name || "n/a"}
           </Card>,
           portalRef.current

@@ -8,12 +8,9 @@ import { useMediaQuery } from "@/hooks/use-media-query";
 export default function Card({ variant, colour, className, ...props }: cardProps) {
   return (
     <article
-      className={[
-        "card rounded-2xl shadow-ii max-h-[50dvh] px-4 py-3",
-        variant,
-        colour,
-        className,
-      ].join(" ")}
+      className={["card rounded-2xl shadow-ii thou:max-h-[50dvh]", variant, colour, className].join(
+        " "
+      )}
       {...props}
     />
   );
@@ -35,7 +32,8 @@ const StatusTag = ({ status }: { status: string }) => {
       tabIndex={0}
       onMouseOver={() => !isColumn && setShow(true)}
       onMouseOut={() => !isColumn && setShow(false)}
-      onKeyUp={e => e.key === "Enter" && setShow(!show)}>
+      onKeyUp={e => e.key === "Enter" && setShow(!show)}
+    >
       {show && status}
     </div>
   );
@@ -48,7 +46,8 @@ export const CodeCard = memo(
     return (
       <Link
         to={encodeURI(`/code-projects/${owner}/${name}`)}
-        className={`relative grow-1 ${props.className}`}>
+        className={`relative grow-1 ${props.className}`}
+      >
         <Card variant={props.variant} className="card-grid code pr-8" colour={props.colour}>
           <div className="[grid-area:image] code-card-image-container image-cont rounded-lg flex items-center justify-center">
             <img

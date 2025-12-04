@@ -7,6 +7,7 @@ import {
   useRef,
   useState,
   type Dispatch,
+  type MouseEvent,
   type RefObject,
   type SetStateAction,
 } from "react";
@@ -30,23 +31,19 @@ export default function HomePage() {
 
 const Hero = () => (
   <Grid layout="two-two" className="bg-dark hero" id="top">
-    <section className="w-4/5 min-w-fit max-w-full h-fit min-h-1/2 flex flex-col items-center justify-center thou:justify-center gap-24 z-[3] absolute top-1/2 left-1/2 trans">
+    <section className="w-full thou:w-4/5 min-w-fit max-w-full h-fit min-h-1/2 flex flex-col items-center justify-center thou:justify-center gap-24 z-[3] absolute top-1/2 left-1/2 trans">
       <h1 className="orbit title-font text-light text-center [line-height:1] text-shadow-v [letter-spacing:calc((.25dvw+.1rem)*-1)]">
-        reuben<span className="[letter-spacing:calc((1dvw+.5rem)*-1)]"> </span>dubois
+        reuben
+        <span className="[letter-spacing:calc((1dvw+.5rem)*-1)]"> </span>
+        dubois
       </h1>
 
       {/* <p className="text-light">some creative tagline trust me bro</p> */}
 
-      <div className="flex items-center flex-wrap max-mob:flex-col w-full justify-center gap-x-12 gap-y-8">
-        <Card colour="sky" className="shadow-v">
-          UI/UX Designer
-        </Card>
-        <Card colour="yellow" className="shadow-v">
-          Software Engineer
-        </Card>
-        <Card colour="pink" className="shadow-v">
-          Web Developer
-        </Card>
+      <div className="flex items-center flex-wrap max-sm:flex-col w-full justify-center gap-x-12 gap-y-8">
+        <Card children="UI/UX Designer" colour="sky" className="shadow-v" />
+        <Card children="Software Engineer" colour="yellow" className="shadow-v" />
+        <Card children="Web Developer" colour="pink" className="shadow-v" />
       </div>
     </section>
 
@@ -68,25 +65,28 @@ const About = () => {
     <Grid layout="three-two" id="about" className="bg-sec z-20 home-shadow">
       <TitleBlock text="Who Am I?" alt="#" className="w-[93%] mob:in-grid [grid-area:a]" />
 
-      <p className="text-ter-cont [grid-area:b] thou:[grid-area:b/b-start/b-end/c-end] w-4/5 self-start thou:self-center">
+      <p className="text-ter-cont [grid-area:b] thou:[grid-area:b/b-start/b-end/c-end] w-4/5 self-center max-thou:my-2">
         {aboutMeText}
       </p>
 
       <Card
-        className="in-grid relative z-10 overflow-y-clip [grid-area:c] thou:[grid-area:d]"
+        className="in-grid pb-8 relative z-10 overflow-y-clip [grid-area:c] thou:[grid-area:d] max-thou:min-h-[24dvh] max-thou:max-h-[50dvh]"
         colour="purple"
-        ref={portalRef}>
-        <h2 className={`w-fit orbit [letter-spacing:.1rem] text-xl text-center mt-1 pb-1 `}>
+        ref={portalRef}
+      >
+        <h2 className="w-fit orbit [letter-spacing:.1rem] text-xl text-center pb-1 ml-2">
           Technical Stack
         </h2>
+
         <Skills portalRef={portalRef} />
       </Card>
 
       <Card
-        className="in-grid relative flex flex-col items-center justify-start [grid-area:d/d-start/d-end/e-end] thou:[grid-area:e/e-start/e-end/f-end]"
+        className="in-grid max-thou:!h-fit relative flex flex-col items-center justify-start !pb-8 [grid-area:d] thou:[grid-area:e/e-start/e-end/f-end]"
         variant="long"
-        colour="purple">
-        <h2 className="text-start w-full orbit [letter-spacing:.1rem] text-xl mt-1 pb-3">
+        colour="purple"
+      >
+        <h2 className="text-start w-full orbit [letter-spacing:.1rem] text-xl pb-3 ml-2">
           Top Projects
         </h2>
 
@@ -111,7 +111,7 @@ const Background = () => {
   ];
 
   useEffect(() => {
-    if (!bgText) return;
+    if (bgText === null) return;
     document.getElementById("background")?.scrollIntoView({ block: "start" });
 
     const handleClick = (e: Event) => {
@@ -127,7 +127,7 @@ const Background = () => {
   }, [bgText]);
 
   return (
-    <Grid layout="three-two" id="background" className="bg-pri">
+    <Grid layout="three-two" id="background" className="bg-pri max-thou:!min-h-fit">
       <TitleBlock
         text="My Background"
         alt="#"
@@ -136,17 +136,22 @@ const Background = () => {
 
       <div
         className={`${
-          bgText ? "focused" : "text-center"
-        } text-ter-cont transition-all [grid-area:b] thou:[grid-area:b/b-start/b-end/c-end] w-4/5 self-start thou:self-center`}
-        id="backgroundInfo">
+          bgText !== null ? "focused" : "text-center"
+        } text-ter-cont transition-all [grid-area:b] thou:[grid-area:b/b-start/b-end/c-end] w-[86%] self-start thou:self-center h-fit mt-8 mb-6`}
+        id="backgroundInfo"
+      >
         <Markdown
           components={{
             code: ({ className, ...rest }) => (
-              <code {...rest} className={`p-1 bg-light/16 rounded-sm text-white ${className}`} />
+              <code
+                {...rest}
+                className={`px-1 py-0.5 bg-light/12 brightness-105 rounded-sm ${className}`}
+              />
             ),
-          }}>
-          {bgText
-            ? myBackground[bgText]?.text || "No text found"
+          }}
+        >
+          {bgText !== null
+            ? myBackground[bgText]?.text ?? "No text found"
             : "Click a card to read more about me!"}
         </Markdown>
       </div>
@@ -164,26 +169,30 @@ type backgroundCardProps = cardProps & {
   setBgText: Dispatch<SetStateAction<number | null>>;
 };
 const BackgroundCard = forwardRef<HTMLElement, backgroundCardProps>(
-  ({ className, index, bgText, setBgText, ...props }, ref) => (
-    <Card
-      {...props}
-      onClick={e => {
-        e.stopPropagation();
-        setBgText(!(bgText === index) ? index : null);
-      }}
-      className={`w-4/5 transition-all cursor-pointer h-2/3 min-h-fit 
-        max-h-full text-xl orbit flex flex-col items-center justify-center 
-        gap-4 max-w-full [user-select:none] ${className} ${
-        bgText === index && "scale-105 brightness-125"
-      }`}
-      colour="blue"
-      ref={ref}>
-      {myBackground[index].image && (
-        <img src={myBackground[index].image} alt="Image For a 'My Background' section" />
-      )}
-      <p>{myBackground[index].title}</p>
-    </Card>
-  )
+  ({ index, bgText, ...props }, ref) => {
+    const handleClick = (e: MouseEvent<HTMLElement>) => {
+      e.stopPropagation();
+      props.setBgText(!(bgText === index) ? index : null);
+    };
+
+    return (
+      <Card
+        {...props}
+        onClick={handleClick}
+        className={`w-4/5 transition-all cursor-pointer h-2/3 min-h-fit max-h-full text-xl orbit flex flex-col items-center justify-center gap-4 max-w-full [user-select:none] !py-6 ${
+          props.className
+        }${bgText === index ? " scale-105 brightness-125" : ""}${index >= 1 ? " mt-4" : ""}
+        `}
+        colour="blue"
+        ref={ref}
+      >
+        {myBackground[index].image && (
+          <img src={myBackground[index].image} alt="Image For a 'My Background' section" />
+        )}
+        <p>{myBackground[index].title}</p>
+      </Card>
+    );
+  }
 );
 
 const TitleBlock = ({
@@ -198,16 +207,21 @@ const TitleBlock = ({
   className?: string;
 }) => (
   <header
-    className={`flex flex-col items-center gap-4 min-h-fit h-80 max-thou:mb-4 max-w-[90dvw] min-[1001px]:w-4/5 min-[1001px]:h-[88%] ${className}`}>
-    <Card className="h-[calc(40%-0.5rem)] min-h-fit min-w-[7rem] w-full shadow-i rounded-2xl flex items-center justify-center card yellow px-8">
-      <h1 className="orbit text-center [line-height:1] text-[calc(2dvw+1rem)]">{text}</h1>
-    </Card>
+    className={`flex flex-col items-center justify-evenly thou:gap-5 min-h-fit h-80 max-w-[90dvw] min-[1001px]:w-4/5 min-[1001px]:h-[88%] ${className}`}
+  >
+    <span className="section-header h-[calc(30%-0.5rem)] min-h-fit min-w-[7rem] w-full thou:shadow-i rounded-2xl  flex items-center justify-evenly gap-4 bg-none text-ter-cont thou:bg-ter-cont thou:text-on-ter-cont py-2">
+      <h1 className="orbit text-center max-thou:mb-2 [line-height:1] text-[calc(2dvw+.75rem)] !w-max thou:w-fit">
+        {text}
+      </h1>
+    </span>
 
     <img
       src={src}
       alt={alt}
       loading="lazy"
-      className="bg-ter h-[calc(60%-0.5rem)] min-w-[7rem] w-full rounded-2xl text-ter-cont shadow-i  flex items-center justify-center object-contain"
+      className={`bg-ter h-[calc(60%-0.5rem)] min-w-[7rem] max-w-[98dvw] w-fit thou:w-full rounded-2xl text-ter-cont shadow-i flex items-center justify-center ${
+        src !== "placeholder.svg" ? "object-cover" : "object-contain"
+      }`}
     />
   </header>
 );

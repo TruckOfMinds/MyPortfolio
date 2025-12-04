@@ -24,10 +24,7 @@
   --dark: #171d1e;
 
   --primary: #2c638b;
-
-  /* 'main' in light mode, 'container' in dark mode */
-  --primary-set: var(--primary);
-
+  --primary-set: var(--primary); /* 'main' in light mode, 'container' in dark mode */
   --primary-container: #cce5ff;
   --on-primary-container: #074b72;
   --inverse-primary: #99ccfa;

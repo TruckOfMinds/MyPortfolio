@@ -19,27 +19,37 @@
 #footer > article {
   background-color: var(--primary);
   --hover: hsl(from var(--primary-container) h s l / 25%);
+
+  z-index: 100;
 }
 
 .footer-button:hover {
   background-color: var(--hover);
 }
 
-#footerTexts p {
+#footerTexts {
   font-weight: 300;
   font-size: 0.875rem;
   color: var(--tertiary-container);
+}
 
-  &.link:hover {
+.link {
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+
+  &:hover {
     color: hsl(from var(--hover) h s calc(l + 12) / 50%);
+  }
+  &:active {
+    filter: brightness(110%);
   }
 }
 
-@media screen and (width <= 1000px) {
+@media screen and (width < 1000px) {
   #footer {
     grid-template-areas: "a";
     min-height: max-content;
-    padding-bottom: 0;
+    padding: 0;
     margin-bottom: clamp(5rem, calc(10dvh + 1rem), 25%);
   }
 }

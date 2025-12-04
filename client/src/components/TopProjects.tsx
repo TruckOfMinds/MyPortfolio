@@ -54,13 +54,15 @@ export default function TopProjects() {
 
   return (
     <div
-      className={`flex max-thou:flex-col items-center justify-center gap-1 w-full h-5/6 ${
+      className={`flex max-thou:flex-col items-center justify-center gap-6 w-full h-fit thou:h-5/6 ${
         isFetching ? "opacity-75" : ""
-      }`}>
+      }`}
+    >
       <Carousel
         setApi={setApi}
         opts={{ loop: true }}
-        className="flex flex-col items-center justify-center gap-4 h-full w-[60%] pt-4">
+        className="flex flex-col items-center justify-center gap-4 h-full w-[95%] thou:w-[60%] pt-4"
+      >
         <CarouselContent className="w-fit h-full snap" ParentClassName="w-full rounded-2xl">
           <Items data={data} />
         </CarouselContent>
@@ -82,7 +84,7 @@ export default function TopProjects() {
         </div>
       </Carousel>
 
-      <section className="flex flex-col items-center justify-center gap-8 orbit h-full w-1/3">
+      <section className="flex flex-col items-center justify-center gap-4 thou:gap-8 orbit h-full w-full thou:w-1/3">
         <h1 className="w-fit text-2xl text-center">{project.name}</h1>
         <ViewProject name={project.name} isCode={project.isCode} owner={project.owner} />
       </section>
@@ -148,13 +150,14 @@ const ViewProject = ({ name, isCode, owner }: { name: string; isCode: boolean; o
       to={!disabled ? `${isCode ? `code-projects/${owner}` : "design-projects"}/${name}` : ""}
       inert={disabled}
       aria-disabled={disabled}
-      className="w-4/5 min-w-max">
+      className="w-4/5 min-w-max"
+    >
       <Button
-        className={`view-button jb-mono w-full cursor-pointer text-lg py-6 transition-all hover:bg-ter hover:scale-110 hover:brightness-110 active:brightness-75 active:scale-90 ${
+        className={`view-button italic jb-mono w-full cursor-pointer text-lg py-6 transition-all hover:bg-ter hover:scale-110 hover:brightness-110 active:brightness-75 active:scale-90 ${
           disabled ? " cursor-not-allowed" : null
-        }`}>
-        View Project
-      </Button>
+        }`}
+        children="View Project"
+      />
     </Link>
   );
 };
@@ -179,7 +182,8 @@ export const ScrollMarker = ({
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     onClick={() => api?.scrollTo(index)}
-    className="transition-all hover:scale-125">
+    className="transition-all hover:scale-125"
+  >
     <circle
       cx="4.19946"
       cy="4.04224"
@@ -199,7 +203,8 @@ export const DisabledScrollMarker = () => (
     viewBox="0 0 8 8"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className="transition-all">
+    className="transition-all"
+  >
     <circle
       cx="4.19946"
       cy="4.04224"

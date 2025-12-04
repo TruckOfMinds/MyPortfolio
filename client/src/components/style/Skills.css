@@ -1,16 +1,16 @@
 .skill-name {
   translate: 0% -75%;
   padding: 0.25rem 0.75rem;
-  min-width: 5rem;
+  min-width: 4rem;
   text-align: center;
 
   background-color: var(--tertiary);
   color: var(--tertiary-container);
   font-weight: 300;
 
-  &:is(.dark .skill-name) {
+  /* &:is(.dark .skill-name) {
     background-color: hsl(from var(--tertiary) h s calc(l + 4));
-  }
+  } */
 }
 
 .skill {
@@ -18,5 +18,5 @@
   background-color: hsl(from var(--parent-colour) h s calc(l + 1));
 }
 .dark .skill {
-  --parent-colour: var(--tertiary);
+  background-color: var(--tertiary);
 }

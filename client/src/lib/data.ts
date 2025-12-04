@@ -15,6 +15,7 @@ export {
   shadcnToggle,
   getTheme,
   sortMethod,
+  urlPrefixes,
   contactsData,
   useMDStyles,
 };
@@ -111,6 +112,8 @@ const sortMethod = (
 
 //* —————————————————————————————————————————————————————————————————————————————————————
 
+const urlPrefixes = ["mailto:", "www.", "https://"];
+
 type contactProps = {
   id: number;
   name: string;
@@ -122,14 +125,17 @@ const contactsData: contactProps[] = [
   {
     id: 1,
     name: "Gmail",
-    image: "",
-    hex: { bg: "#303030", txt: "#ffffff" },
+    image: "/gmail.svg",
+    hex: { bg: "#2a2a2a", txt: "#ffffff" },
     link: "mailto:reudbub07@gmail.com",
   },
   {
     id: 2,
     name: "Linkedin",
-    image: ExtraResourceIcon({ fill: "white" }),
+    image: ExtraResourceIcon({
+      fill: "white",
+      className: "contact-image fallback",
+    }),
     hex: { bg: "#0a66c2", txt: "#ffffff" },
     link: "www.linkedin.com/in/reuben-dubois-dev",
   },
@@ -138,7 +144,7 @@ const contactsData: contactProps[] = [
     name: "GitHub",
     image: "/github-mark-white.svg",
     hex: { bg: "#171d1e", txt: "#ffffff" },
-    link: "mailto:reudbub07@gmail.com ",
+    link: "https://github.com/Tromi-dev",
   },
 ];
 

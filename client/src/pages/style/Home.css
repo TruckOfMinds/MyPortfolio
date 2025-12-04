@@ -27,7 +27,7 @@
 }
 
 .title-font {
-  font-size: clamp(7rem, calc(8dvw + 1rem), 12rem);
+  font-size: clamp(7.75rem, calc(8dvw + 1rem), 12rem);
 }
 
 .view-button {
@@ -76,5 +76,16 @@
     width: 93%;
     height: 88%;
     grid-area: b/b-start/b-end/c-end;
+  }
+}
+
+@media screen and (width < 1000px) {
+  .section-header::before,
+  .section-header::after {
+    content: "";
+    /* height: 0; */
+    width: calc(16dvw + 1rem);
+    padding: 0.1rem 0;
+    background-color: var(--tertiary-container);
   }
 }

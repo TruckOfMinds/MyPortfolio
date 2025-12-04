@@ -6,6 +6,8 @@ import { Suspense, useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallback, PageLoading, NotFound } from "@/components/fallbacks";
+import { ThemeContext } from "@/lib/context";
+import { getTheme } from "@/lib/data";
 
 import HomePage from "@/pages/Home";
 import CodePage from "@/pages/Code";
@@ -15,16 +17,12 @@ import DesignProjectPage from "@/pages/DesignProject";
 import ContactPage from "@/pages/Contact";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { ThemeContext } from "@/lib/context";
-import { getTheme } from "@/lib/data";
 
 export default function App() {
   const [theme, setTheme] = useState<themeType>(getTheme);
   const { pathname } = useLocation();
 
-  useEffect(() => {
-    window.scrollTo({ top: scrollY * -1, behavior: "smooth" });
-  }, [pathname]);
+  useEffect(() => scroll({ top: 0, behavior: "instant" }), [pathname]);
 
   useEffect(() => {
     const rootClasses = document.querySelector(":root")?.classList;
@@ -71,9 +69,10 @@ const Dev = () => {
 
   return (
     <div
-      className="fixed top-4 right-4 shadow-iv px-4 py-2 flex items-center gap-2 text-sm text-inv-sys bg-sys/75 backdrop-blur-[.75px] rounded-lg h-fit w-fit z-50"
+      className="fixed top-4 right-4 shadow-iv px-4 py-2 flex items-center gap-2 text-sm text-inv-sys bg-sys/75 backdrop-blur-[.75px] rounded-lg h-fit w-fit z-999"
       onMouseEnter={() => setShowX(true)}
-      onMouseLeave={() => setShowX(false)}>
+      onMouseLeave={() => setShowX(false)}
+    >
       <svg viewBox="0 0 30 30" height="24" width="24" fill="none">
         <circle r="12" cx="15" cy="15" className="stroke-inv-sys stroke-2" />
         <line
@@ -95,7 +94,8 @@ const Dev = () => {
           height={12}
           width={12}
           onClick={() => setHide(true)}
-          className="cursor-pointer invert">
+          className="cursor-pointer invert"
+        >
           <line x2={12} y2={12} className="stroke-surf-d stroke-1.75" strokeLinecap="round" />
           <line x1={12} y2={12} className="stroke-surf-d stroke-1.75" strokeLinecap="round" />
         </svg>

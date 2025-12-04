@@ -47,8 +47,9 @@ export default function Navbar() {
       className={`navbar
         w-24 h-dvh fixed left-0 top-0 text-light
         flex flex-col items-center justify-evenly z-10
-        rounded-r-2xl bg-on-pri-f-var pl-3 pr-3 shadow-v
-        ${expanded && `w-40`}`}>
+        rounded-r-2xl bg-on-pri-f-var pl-3 pr-3 shadow-v dark-border
+        ${expanded && `w-40`}`}
+    >
       <Chevron
         onClick={() => setExpanded(!expanded)}
         onKeyUp={(e: KeyboardEvent<SVGSVGElement>) => e.key === "Enter" && setExpanded(!expanded)}
@@ -82,7 +83,8 @@ export default function Navbar() {
         id="themeChanger"
         onClick={toggleTheme}
         onKeyUp={(e: KeyboardEvent<HTMLDivElement>) => e.key === "Enter" && toggleTheme()}
-        tabIndex={0}>
+        tabIndex={0}
+      >
         {theme !== "dark" ? <DarkIcon /> : <LightIcon />}
 
         <p className={`text-xs mt-1 ${expanded ? `open` : `closed`}`}>Change Theme</p>
@@ -91,22 +93,25 @@ export default function Navbar() {
   ) : (
     <nav
       className={`
-      w-[94dvw] mobile-navbar shadow-v
+      w-[94dvw] mobile-navbar shadow-v dark-border
       fixed bottom-3.5 left-[50dvw] translate-x-[-50%] 
       flex items-center justify-evenly
       bg-on-pri-f-var text-light
-      px-1 py-4 rounded-2xl z-50
-      `}>
+      px-1 py-4 rounded-2xl z-1000
+      `}
+    >
       <NavLink
         to="/"
-        className="mobile-nav-link flex flex-col gap-1 items-center justify-center text-sm h-9/10">
+        className="mobile-nav-link flex flex-col gap-1 items-center justify-center text-sm h-9/10"
+      >
         <HomeIcon />
         <p className="min-w-8 max-w-10 text-center">Home</p>
       </NavLink>
 
       <NavLink
         to="/code-projects"
-        className="mobile-nav-link flex flex-col gap-1 items-center justify-center text-sm h-9/10">
+        className="mobile-nav-link flex flex-col gap-1 items-center justify-center text-sm h-9/10"
+      >
         <CodeIcon />
         <p className="w-12 text-center flex justify-center">Dev</p>
       </NavLink>
@@ -115,20 +120,23 @@ export default function Navbar() {
         id="themeChanger"
         onClick={toggleTheme}
         onKeyUp={(e: KeyboardEvent<HTMLDivElement>) => e.key === "Enter" && toggleTheme()}
-        tabIndex={0}>
+        tabIndex={0}
+      >
         {theme !== "dark" ? <DarkIcon /> : <LightIcon />}
       </div>
 
       <NavLink
         to="/design-projects"
-        className="mobile-nav-link flex flex-col gap-1 items-center justify-center text-sm h-9/10">
+        className="mobile-nav-link flex flex-col gap-1 items-center justify-center text-sm h-9/10"
+      >
         <DesignsIcon />
         <p className="w-12 text-center flex justify-center">Design</p>
       </NavLink>
 
       <NavLink
         to="/contact-me"
-        className="mobile-nav-link flex flex-col gap-1 items-center justify-center text-sm h-9/10">
+        className="mobile-nav-link flex flex-col gap-1 items-center justify-center text-sm h-9/10"
+      >
         <ContactIcon />
         <p className="w-12 text-center flex justify-center">Contact</p>
       </NavLink>
