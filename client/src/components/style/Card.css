@@ -18,6 +18,11 @@
     color: var(--background-color);
   }
 
+  padding: 1rem;
+  &.text {
+    padding: 0.75rem 1rem;
+  }
+
   /* Colours */
   &.sky {
     --background-color: var(--primary-container);
@@ -68,7 +73,7 @@
     --image-text: var(--on-tertiary-container);
   }
   &.mono {
-    --background-color: var(--surface);
+    --background-color: var(--surface-);
     --text-color: var(--on-background);
   }
 }
@@ -132,4 +137,11 @@
   object-position: center;
   height: 100%;
   width: auto;
+}
+
+@media screen and (width < 1000px) {
+  .in-grid {
+    width: 90% !important;
+    max-width: unset !important;
+  }
 }
